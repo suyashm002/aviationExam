@@ -1,0 +1,38 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Signing
+*.jks
+*.keystore
+gradle.properties
+
+# Firebase config (contains project-specific keys)
+app/google-services.json
+
+# Build outputs
+*.apk
+*.aab
+
+# MCQ data (bundled locally, not for repo)
+app/src/main/assets/all_questions.tsv
+app/src/main/assets/questions/
+
+# Firebase config files
+app/google-services.json
+firebase.json
+firestore.rules
+.firebaserc
+.idea/

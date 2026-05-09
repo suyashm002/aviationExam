@@ -1,0 +1,14 @@
+# PDF Parsing Requirements
+# Install with: pip install -r requirements.txt
+
+# For text-based PDFs
+pdfplumber>=0.10.0
+
+# For scanned PDFs (OCR)
+pytesseract>=0.3.10
+pdf2image>=1.16.3
+Pillow>=10.0.0
+
+# Alternative PDF parser (if pdfplumber doesn't work)
+PyPDF2>=3.0.0
+

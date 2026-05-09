@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Aviation Exam Pro</string>
+    <string name="app_description">Professional aviation exam preparation platform</string>
+    
+    <!-- Play Store Metadata -->
+    <string name="short_description">Professional aviation exam preparation with offline support and progress tracking</string>
+    <string name="version_name">1.0</string>
+    
+    <!-- App Info -->
+    <string name="developer_name">Aviation Training Solutions</string>
+    <string name="support_email">suyash.mishra@frozo.com</string>
+    <string name="privacy_policy_url">https://suyashm002.github.io/StandardAVvationCRM/privacy-policy.html</string>
+    <string name="terms_of_service_url">https://suyashm002.github.io/StandardAVvationCRM/terms-of-service.html</string>
+</resources>

@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Aircraft with airflow lines representing Principles of Flight -->
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M20.36,9 L17,12 L20.36,15 C20.76,14.22 21,13.14 21,12 C21,10.86 20.76,9.78 20.36,9 Z" />
+    
+    <!-- Aircraft Body -->
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M12,2 L13,2 L20,9 L13,12 L20,15 L13,22 L12,22 L11,12 L2,8 L2,10 L10,12 L2,14 L2,16 L11,12 Z" />
+    
+    <!-- Airflow Lines -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="1"
+        android:pathData="M3,6 L7,6 M3,7 L8,7 M3,17 L7,17 M3,18 L8,18" />
+        
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="1"
+        android:pathData="M16,6 L22,6 M16,7 L22,7 M16,17 L22,17 M16,18 L22,18" />
+</vector>

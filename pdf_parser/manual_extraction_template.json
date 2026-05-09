@@ -1,0 +1,38 @@
+[
+  {
+    "id": "air_law_001",
+    "section": "Air Law",
+    "questionText": "What is the minimum visibility required for VFR flight in controlled airspace?",
+    "options": [
+      "1 km",
+      "5 km",
+      "8 km",
+      "10 km"
+    ],
+    "correctAnswer": 2,
+    "explanation": "According to ICAO Annex 2, the minimum visibility for VFR flight in controlled airspace is 8 km.",
+    "difficulty": "medium",
+    "references": [
+      "ICAO Annex 2",
+      "EASA Part-FCL"
+    ]
+  },
+  {
+    "id": "air_law_002",
+    "section": "Air Law",
+    "questionText": "What is the minimum altitude for VFR flight over congested areas?",
+    "options": [
+      "500 ft AGL",
+      "1000 ft AGL",
+      "1500 ft AGL",
+      "2000 ft AGL"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The minimum altitude for VFR flight over congested areas is 1000 ft above the highest obstacle within a radius of 600 meters.",
+    "difficulty": "medium",
+    "references": [
+      "ICAO Annex 2"
+    ]
+  }
+]
+

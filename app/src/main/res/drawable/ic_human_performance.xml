@@ -1,0 +1,21 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Human head with brain representing Human Performance -->
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,20 C7.59,20 4,16.41 4,12 C4,7.59 7.59,4 12,4 C16.41,4 20,7.59 20,12 C20,16.41 16.41,20 12,20 Z" />
+    
+    <!-- Brain pattern inside head -->
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M9,8 C9,8 10,6 12,6 C14,6 15,8 15,8 C15,8 16,9 16,11 C16,13 15,14 15,14 C15,14 14,16 12,16 C10,16 9,14 9,14 C9,14 8,13 8,11 C8,9 9,8 9,8 Z" />
+        
+    <!-- Brain convolutions -->
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M10,10 C10,10 11,9 12,9 C13,9 14,10 14,10 M10,13 C10,13 11,14 12,14 C13,14 14,13 14,13" />
+</vector>
