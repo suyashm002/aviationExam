@@ -26,12 +26,24 @@ class AuthViewModel(
     
     private val _authState = MutableStateFlow(authService.currentUser)
     val authState: StateFlow<FirebaseUser?> = _authState.asStateFlow()
-    
+
+    /**
+     * False until Firebase has reported the restored session.
+     *
+     * On a cold start `currentUser` can still be null while the persisted
+     * session is read from disk. Deciding the start destination from that
+     * early null sent signed-in users to the login screen on every launch.
+     */
+    private val _authResolved = MutableStateFlow(false)
+    val authResolved: StateFlow<Boolean> = _authResolved.asStateFlow()
+
     init {
-        // Observe authentication state changes
+        // Observe authentication state changes. AuthStateListener fires
+        // immediately with the restored user, so this settles in milliseconds.
         viewModelScope.launch {
             authService.authStateFlow.collect { user ->
                 _authState.value = user
+                _authResolved.value = true
             }
         }
     }

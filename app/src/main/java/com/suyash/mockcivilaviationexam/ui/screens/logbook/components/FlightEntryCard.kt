@@ -1,5 +1,6 @@
 package com.suyash.mockcivilaviationexam.ui.screens.logbook.components
 
+import com.suyash.mockcivilaviationexam.domain.logbook.FlightTimeCalculator
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -93,11 +94,27 @@ fun FlightEntryCard(
                     }
                     
                     Text(
-                        text = "${flight.totalFlightTime}h",
+                        text = FlightTimeCalculator.formatHoursMinutes(flight.totalFlightTime),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
+
+                    if (flight.airTime > 0.0) {
+                        Text(
+                            text = "air ${FlightTimeCalculator.formatHoursMinutes(flight.airTime)}",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+
+                    if (flight.totalLandings > 0) {
+                        Text(
+                            text = "${flight.totalLandings} ldg",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             }
             

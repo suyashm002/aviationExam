@@ -12,6 +12,19 @@ data class FlightEntry(
     val aircraftModel: String,
     val aircraftRegistration: String,
     val totalFlightTime: Double,
+    // Clock times, as written on the flight strip. Optional: older entries and
+    // quick entries may only carry the decimal totals below.
+    val offBlockTime: LocalTime? = null,
+    val takeoffTime: LocalTime? = null,
+    val landingTime: LocalTime? = null,
+    val onBlockTime: LocalTime? = null,
+    /** Off-blocks to on-blocks, in decimal hours. Includes taxi. */
+    val blockTime: Double = 0.0,
+    /** Takeoff to landing, in decimal hours. Excludes taxi. */
+    val airTime: Double = 0.0,
+    val dayLandings: Int = 0,
+    val nightLandings: Int = 0,
+    val instrumentApproaches: Int = 0,
     val dayTime: Double = 0.0,
     val nightTime: Double = 0.0,
     val picTime: Double = 0.0,
@@ -34,7 +47,14 @@ data class FlightEntry(
     val userId: String,
     val createdAt: Long = System.currentTimeMillis(),
     val lastModified: Long = System.currentTimeMillis()
-)
+) {
+    /** Time on the ground under own power: block time not spent airborne. */
+    val groundTime: Double
+        get() = (blockTime - airTime).coerceAtLeast(0.0)
+
+    val totalLandings: Int
+        get() = dayLandings + nightLandings
+}
 
 data class Aircraft(
     val id: Long = 0,
@@ -147,6 +167,8 @@ enum class EndorsementType {
 
 data class LogbookSummary(
     val totalTime: Double = 0.0,
+    val blockTime: Double = 0.0,
+    val airTime: Double = 0.0,
     val picTime: Double = 0.0,
     val dualTime: Double = 0.0,
     val coPilotTime: Double = 0.0,

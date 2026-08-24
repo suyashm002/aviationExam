@@ -2,6 +2,7 @@ package com.suyash.mockcivilaviationexam.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,15 +28,17 @@ import com.suyash.mockcivilaviationexam.CivilAviationApp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.suyash.mockcivilaviationexam.data.billing.BillingManager
 import com.suyash.mockcivilaviationexam.ui.viewmodel.ExamHomeViewModel
+import com.suyash.mockcivilaviationexam.domain.growth.AppShare
 import com.suyash.mockcivilaviationexam.ui.viewmodel.SubscriptionViewModel
 import com.suyash.mockcivilaviationexam.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    onNavigateToExam: (String) -> Unit,
+    onNavigateToExam: (String, Int) -> Unit,
     onNavigateToProfile: () -> Unit,
     onNavigateToHistory: () -> Unit,
+    onNavigateToLogbook: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ExamHomeViewModel = run {
         val context = LocalContext.current
@@ -42,11 +46,28 @@ fun HomeScreen(
         viewModel { ExamHomeViewModel(app.examRepository) }
     }
 ) {
+    val shareContext = LocalContext.current
+    val logbookVisible = (shareContext.applicationContext as CivilAviationApp)
+        .featureFlags.logbookEnabled
     val examSectionsData = getExamSectionsData()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    var showQuestionCountDialog by remember { mutableStateOf(false) }
+    var selectedSectionId by remember { mutableStateOf("") }
+
     LaunchedEffect(Unit) {
         viewModel.loadUserStats()
+    }
+
+    if (showQuestionCountDialog) {
+        QuestionCountDialog(
+            sectionName = examSectionsData.find { it.id == selectedSectionId }?.name ?: "",
+            onDismiss = { showQuestionCountDialog = false },
+            onConfirm = { count ->
+                showQuestionCountDialog = false
+                onNavigateToExam(selectedSectionId, count)
+            }
+        )
     }
 
     Scaffold(
@@ -63,6 +84,22 @@ fun HomeScreen(
                     titleContentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 actions = {
+                    if (logbookVisible) {
+                        IconButton(onClick = onNavigateToLogbook) {
+                            Icon(
+                                imageVector = Icons.Default.MenuBook,
+                                contentDescription = "Pilot Logbook",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                    IconButton(onClick = { AppShare.shareApp(shareContext) }) {
+                        Icon(
+                            imageVector = Icons.Default.Share,
+                            contentDescription = "Share app",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                     IconButton(onClick = onNavigateToHistory) {
                         Icon(
                             imageVector = Icons.Default.History,
@@ -125,7 +162,7 @@ fun HomeScreen(
 
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "KCAA Mock Exams",
+                            text = "Aviation Mock Exams",
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold
                             ),
@@ -169,7 +206,8 @@ fun HomeScreen(
                         sectionData = sectionData,
                         onClick = {
                             if (sectionData.isAvailable) {
-                                onNavigateToExam(sectionData.id)
+                                selectedSectionId = sectionData.id
+                                showQuestionCountDialog = true
                             }
                         }
                     )
@@ -458,5 +496,79 @@ private fun getExamSectionsData(): List<ExamSectionData> {
             isAvailable = app.examRepository.isDataAvailable("principles_of_flight"),
             hasFreeExam = hasFree("principles_of_flight")
         )
+    )
+}
+
+@Composable
+private fun QuestionCountDialog(
+    sectionName: String,
+    onDismiss: () -> Unit,
+    onConfirm: (Int) -> Unit
+) {
+    val options = listOf(16, 20, 25, 30, 40)
+    var selected by remember { mutableIntStateOf(16) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Column {
+                Text(sectionName, fontWeight = FontWeight.Bold)
+                Text(
+                    "How many questions?",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        },
+        text = {
+            Column {
+                options.forEach { count ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(
+                                if (selected == count) AvionicsBlueSubtle
+                                else Color.Transparent
+                            )
+                            .selectable(
+                                selected = selected == count,
+                                onClick = { selected = count }
+                            )
+                            .padding(horizontal = 12.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            "$count Questions",
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = if (selected == count) FontWeight.SemiBold else FontWeight.Normal,
+                            color = if (selected == count) AvionicsBlue else MaterialTheme.colorScheme.onSurface
+                        )
+                        if (selected == count) {
+                            Icon(
+                                Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp),
+                                tint = AvionicsBlue
+                            )
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = { onConfirm(selected) },
+                colors = ButtonDefaults.buttonColors(containerColor = AvionicsBlue)
+            ) {
+                Text("Start Exam")
+            }
+        },
+        dismissButton = {
+            OutlinedButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
+        }
     )
 }

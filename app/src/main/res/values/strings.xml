@@ -9,6 +9,6 @@
     <!-- App Info -->
     <string name="developer_name">Aviation Training Solutions</string>
     <string name="support_email">suyash.mishra@frozo.com</string>
-    <string name="privacy_policy_url">https://suyashm002.github.io/StandardAVvationCRM/privacy-policy.html</string>
-    <string name="terms_of_service_url">https://suyashm002.github.io/StandardAVvationCRM/terms-of-service.html</string>
+    <string name="privacy_policy_url">https://suyashm002.github.io/aviationExam/privacy-policy.html</string>
+    <string name="terms_of_service_url">https://suyashm002.github.io/aviationExam/terms-of-service.html</string>
 </resources>

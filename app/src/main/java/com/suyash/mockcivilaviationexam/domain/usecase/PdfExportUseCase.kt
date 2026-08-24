@@ -6,6 +6,7 @@ import android.graphics.pdf.PdfDocument
 import android.os.Environment
 import com.suyash.mockcivilaviationexam.data.local.repository.FlightEntryRepository
 import com.suyash.mockcivilaviationexam.data.local.repository.UserProfileRepository
+import com.suyash.mockcivilaviationexam.domain.logbook.FlightTimeCalculator
 import com.suyash.mockcivilaviationexam.domain.model.FlightEntry
 import com.suyash.mockcivilaviationexam.domain.model.UserProfile
 import kotlinx.coroutines.Dispatchers
@@ -26,8 +27,11 @@ class PdfExportUseCase(
         endDate: String? = null
     ): Result<String> = withContext(Dispatchers.IO) {
         try {
+            // A pilot who has not filled in their profile should still be able
+            // to export; fall back to whatever the signed-in account gives us
+            // rather than failing the export outright.
             val userProfile = userProfileRepository.getUserProfileSync(userId)
-                ?: throw IllegalStateException("User profile not found")
+                ?: defaultProfile(userId)
 
             val flights = if (startDate != null && endDate != null) {
                 flightEntryRepository.getFlightsByDateRange(userId, startDate, endDate)
@@ -47,10 +51,19 @@ class PdfExportUseCase(
         }
     }
 
+    private fun defaultProfile(userId: String): UserProfile {
+        val account = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
+        return UserProfile(
+            id = userId,
+            name = account?.displayName?.takeIf { it.isNotBlank() } ?: "Pilot",
+            email = account?.email ?: ""
+        )
+    }
+
     private fun generateFileName(userProfile: UserProfile): String {
         val name = userProfile.name.replace(" ", "_")
         val timestamp = System.currentTimeMillis()
-        return "KCAA_Pilot_Logbook_${name}_$timestamp.pdf"
+        return "Pilot_Logbook_${name}_$timestamp.pdf"
     }
 
     private fun createPdfFile(context: Context, fileName: String): File {
@@ -167,20 +180,25 @@ class PdfExportUseCase(
         
         // Column positions
         val columns = listOf(
-            Pair(40f, "Date"),
-            Pair(90f, "Departure"),
-            Pair(150f, "Arrival"),
-            Pair(200f, "Aircraft Reg"),
-            Pair(270f, "Type"),
-            Pair(320f, "Total"),
-            Pair(360f, "PIC"),
-            Pair(390f, "Dual"),
-            Pair(420f, "Night"),
-            Pair(460f, "IFR"),
-            Pair(490f, "XC"),
-            Pair(520f, "Simulator"),
-            Pair(580f, "Instructor"),
-            Pair(680f, "Remarks")
+            Pair(COL_DATE, "Date"),
+            Pair(COL_DEP, "Dep"),
+            Pair(COL_ARR, "Arr"),
+            Pair(COL_REG, "Reg"),
+            Pair(COL_TYPE, "Type"),
+            Pair(COL_OFF, "Off"),
+            Pair(COL_ON, "On"),
+            Pair(COL_BLOCK, "Block"),
+            Pair(COL_AIR, "Air"),
+            Pair(COL_LDG, "Ldg"),
+            Pair(COL_TOTAL, "Total"),
+            Pair(COL_PIC, "PIC"),
+            Pair(COL_DUAL, "Dual"),
+            Pair(COL_NIGHT, "Night"),
+            Pair(COL_IFR, "IFR"),
+            Pair(COL_XC, "XC"),
+            Pair(COL_SIM, "Sim"),
+            Pair(COL_INSTRUCTOR, "Instructor"),
+            Pair(COL_REMARKS, "Remarks")
         )
         
         columns.forEach { (x, text) ->
@@ -209,33 +227,73 @@ class PdfExportUseCase(
         
         // Format flight data
         val date = flight.date.format(DateTimeFormatter.ofPattern("dd/MM/yy"))
-        val totalTime = if (flight.totalFlightTime > 0) flight.totalFlightTime.toString() else "-"
-        val picTime = if (flight.picTime > 0) flight.picTime.toString() else "-"
-        val dualTime = if (flight.dualTime > 0) flight.dualTime.toString() else "-"
-        val nightTime = if (flight.nightTime > 0) flight.nightTime.toString() else "-"
-        val ifrTime = if (flight.ifrTime > 0) flight.ifrTime.toString() else "-"
-        val xcTime = if (flight.crossCountryTime > 0) flight.crossCountryTime.toString() else "-"
-        val simTime = if (flight.simulatorTime > 0) "${flight.simulatorTime}*" else "-"
+        val offBlocks = FlightTimeCalculator.format(flight.offBlockTime).ifEmpty { "-" }
+        val onBlocks = FlightTimeCalculator.format(flight.onBlockTime).ifEmpty { "-" }
+        val blockTime =
+            if (flight.blockTime > 0) FlightTimeCalculator.formatHoursMinutes(flight.blockTime) else "-"
+        val airTime =
+            if (flight.airTime > 0) FlightTimeCalculator.formatHoursMinutes(flight.airTime) else "-"
+        val landings =
+            if (flight.totalLandings > 0) "${flight.dayLandings}/${flight.nightLandings}" else "-"
+        val totalTime = FlightTimeCalculator.formatDecimal(flight.totalFlightTime)
+        val picTime = FlightTimeCalculator.formatDecimal(flight.picTime)
+        val dualTime = FlightTimeCalculator.formatDecimal(flight.dualTime)
+        val nightTime = FlightTimeCalculator.formatDecimal(flight.nightTime)
+        val ifrTime = FlightTimeCalculator.formatDecimal(flight.ifrTime)
+        val xcTime = FlightTimeCalculator.formatDecimal(flight.crossCountryTime)
+        val simTime =
+            if (flight.simulatorTime > 0) "${FlightTimeCalculator.formatDecimal(flight.simulatorTime)}*" else "-"
         val instructor = flight.instructorName?.let { "$it (${flight.instructorLicenseNumber})" } ?: "-"
         val remarks = flight.remarks.take(20) + if (flight.remarks.length > 20) "..." else ""
-        
+
         // Draw flight data
-        canvas.drawText(date, 40f, y, paint)
-        canvas.drawText(flight.departureAerodrome, 90f, y, paint)
-        canvas.drawText(flight.arrivalAerodrome, 150f, y, paint)
-        canvas.drawText(flight.aircraftRegistration, 200f, y, paint)
-        canvas.drawText(flight.aircraftType, 270f, y, paint)
-        canvas.drawText(totalTime, 320f, y, paint)
-        canvas.drawText(picTime, 360f, y, paint)
-        canvas.drawText(dualTime, 390f, y, paint)
-        canvas.drawText(nightTime, 420f, y, paint)
-        canvas.drawText(ifrTime, 460f, y, paint)
-        canvas.drawText(xcTime, 490f, y, paint)
-        canvas.drawText(simTime, 520f, y, paint)
-        canvas.drawText(instructor.take(15), 580f, y, paint)
-        canvas.drawText(remarks, 680f, y, paint)
-        
+        canvas.drawText(date, COL_DATE, y, paint)
+        canvas.drawText(flight.departureAerodrome.take(5), COL_DEP, y, paint)
+        canvas.drawText(flight.arrivalAerodrome.take(5), COL_ARR, y, paint)
+        canvas.drawText(flight.aircraftRegistration.take(8), COL_REG, y, paint)
+        canvas.drawText(flight.aircraftType.take(6), COL_TYPE, y, paint)
+        canvas.drawText(offBlocks, COL_OFF, y, paint)
+        canvas.drawText(onBlocks, COL_ON, y, paint)
+        canvas.drawText(blockTime, COL_BLOCK, y, paint)
+        canvas.drawText(airTime, COL_AIR, y, paint)
+        canvas.drawText(landings, COL_LDG, y, paint)
+        canvas.drawText(totalTime, COL_TOTAL, y, paint)
+        canvas.drawText(picTime, COL_PIC, y, paint)
+        canvas.drawText(dualTime, COL_DUAL, y, paint)
+        canvas.drawText(nightTime, COL_NIGHT, y, paint)
+        canvas.drawText(ifrTime, COL_IFR, y, paint)
+        canvas.drawText(xcTime, COL_XC, y, paint)
+        canvas.drawText(simTime, COL_SIM, y, paint)
+        canvas.drawText(instructor.take(14), COL_INSTRUCTOR, y, paint)
+        canvas.drawText(remarks, COL_REMARKS, y, paint)
+
         return y
+    }
+
+    /**
+     * Column x-positions for the A4-landscape logbook table (842pt wide, 30pt
+     * margins). Shared by the header and the rows so the two cannot drift apart.
+     */
+    private companion object {
+        const val COL_DATE = 36f
+        const val COL_DEP = 82f
+        const val COL_ARR = 116f
+        const val COL_REG = 150f
+        const val COL_TYPE = 200f
+        const val COL_OFF = 240f
+        const val COL_ON = 270f
+        const val COL_BLOCK = 300f
+        const val COL_AIR = 334f
+        const val COL_LDG = 366f
+        const val COL_TOTAL = 396f
+        const val COL_PIC = 430f
+        const val COL_DUAL = 460f
+        const val COL_NIGHT = 492f
+        const val COL_IFR = 526f
+        const val COL_XC = 552f
+        const val COL_SIM = 580f
+        const val COL_INSTRUCTOR = 614f
+        const val COL_REMARKS = 700f
     }
 
     private fun drawPageFooter(
@@ -250,21 +308,31 @@ class PdfExportUseCase(
         }
 
         val y = (pageHeight - 20).toFloat()
-        
+
         canvas.drawText(
             "* Simulator/Synthetic Flight Training Device",
             50f,
-            y - 15f,
+            y - 27f,
             paint
         )
-        
+
         canvas.drawText(
-            "This logbook is generated in compliance with KCAA regulations",
+            "This logbook is generated in compliance with aviation regulations",
+            50f,
+            y - 14f,
+            paint
+        )
+
+        // Exported logbooks get shared with instructors and examiners, so the
+        // footer carries an attribution line back to the app. Kept short so it
+        // cannot run into the page number on the right.
+        canvas.drawText(
+            "Generated with Aviation Exam Pro - free on Google Play",
             50f,
             y,
             paint
         )
-        
+
         canvas.drawText(
             "Page $pageNumber",
             (pageWidth - 80).toFloat(),
@@ -286,7 +354,7 @@ class PdfExportUseCase(
             val userProfile = userProfileRepository.getUserProfileSync(userId)
                 ?: throw IllegalStateException("User profile not found")
 
-            val fileName = "KCAA_Flight_Summary_${userProfile.name.replace(" ", "_")}_${System.currentTimeMillis()}.pdf"
+            val fileName = "Flight_Summary_${userProfile.name.replace(" ", "_")}_${System.currentTimeMillis()}.pdf"
             val file = createPdfFile(context, fileName)
             
             generateSummaryPdf(summary, userProfile, file)
@@ -366,7 +434,7 @@ class PdfExportUseCase(
         y += 30f
         canvas.drawText("Generated: ${java.time.LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))}", 50f, y, bodyPaint)
         y += 15f
-        canvas.drawText("Compliant with KCAA regulations", 50f, y, bodyPaint)
+        canvas.drawText("Compliant with aviation regulations", 50f, y, bodyPaint)
 
         document.finishPage(page)
         

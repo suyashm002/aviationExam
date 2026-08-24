@@ -1,5 +1,6 @@
 package com.suyash.mockcivilaviationexam.ui.viewmodel
 
+import com.suyash.mockcivilaviationexam.domain.logbook.LogbookUser
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.suyash.mockcivilaviationexam.domain.model.FlightEntry
@@ -16,7 +17,7 @@ class LogbookViewModel(
     val uiState: StateFlow<LogbookUiState> = _uiState.asStateFlow()
 
     private val _searchQuery = MutableStateFlow("")
-    private val userId = "current_user" // TODO: Get from authentication service
+    private val userId: String get() = LogbookUser.id()
 
     init {
         observeFlights()

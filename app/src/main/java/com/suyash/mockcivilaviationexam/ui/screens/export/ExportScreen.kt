@@ -1,5 +1,6 @@
 package com.suyash.mockcivilaviationexam.ui.screens.export
 
+import com.suyash.mockcivilaviationexam.domain.logbook.LogbookUser
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
@@ -39,7 +40,7 @@ fun ExportScreen(
     var exportError by remember { mutableStateOf<String?>(null) }
     
     val currentUser = FirebaseAuth.getInstance().currentUser
-    val userId = currentUser?.uid ?: "anonymous"
+    val userId = LogbookUser.id()
 
     Scaffold(
         topBar = {
@@ -85,7 +86,7 @@ fun ExportScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                     
                     Text(
-                        text = "Export KCAA Pilot Logbook",
+                        text = "Export Pilot Logbook",
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )
@@ -93,7 +94,7 @@ fun ExportScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     
                     Text(
-                        text = "Generate a PDF of your complete flight logbook in KCAA-compliant format.",
+                        text = "Generate a PDF of your complete flight logbook in standard aviation format.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -217,7 +218,7 @@ fun ExportScreen(
                     Spacer(modifier = Modifier.height(12.dp))
                     
                     Text(
-                        text = "• Exported logbook complies with KCAA regulations",
+                        text = "• Exported logbook follows standard aviation format",
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Text(

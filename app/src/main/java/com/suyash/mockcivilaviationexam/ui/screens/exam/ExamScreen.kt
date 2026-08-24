@@ -26,14 +26,19 @@ import com.suyash.mockcivilaviationexam.ui.theme.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.suyash.mockcivilaviationexam.CivilAviationApp
+import com.suyash.mockcivilaviationexam.data.local.entities.QuestionFeedbackEntity
 import com.suyash.mockcivilaviationexam.ui.viewmodel.ExamViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExamScreen(
     sectionId: String,
+    questionCount: Int = 16,
     onNavigateBack: () -> Unit,
     onExamComplete: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -45,8 +50,8 @@ fun ExamScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(sectionId) {
-        viewModel.startExam(sectionId)
+    LaunchedEffect(sectionId, questionCount) {
+        viewModel.startExam(sectionId, questionCount)
     }
 
     LaunchedEffect(uiState.isCompleted) {
@@ -303,6 +308,60 @@ private fun ExamContent(
                         .fillMaxWidth()
                         .padding(16.dp)
                 )
+
+                // Feedback button
+                val context = LocalContext.current
+                var showFeedbackDialog by remember { mutableStateOf(false) }
+                var feedbackSubmitted by remember(currentQuestion.id) { mutableStateOf(false) }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    TextButton(
+                        onClick = { showFeedbackDialog = true },
+                        enabled = !feedbackSubmitted
+                    ) {
+                        Icon(
+                            imageVector = if (feedbackSubmitted) Icons.Default.CheckCircle else Icons.Default.Flag,
+                            contentDescription = "Report issue",
+                            modifier = Modifier.size(16.dp),
+                            tint = if (feedbackSubmitted) HUDGreen else MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = if (feedbackSubmitted) "Reported" else "Report Issue",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = if (feedbackSubmitted) HUDGreen else MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+
+                if (showFeedbackDialog) {
+                    QuestionFeedbackDialog(
+                        onDismiss = { showFeedbackDialog = false },
+                        onSubmit = { feedbackType, comment ->
+                            val app = context.applicationContext as CivilAviationApp
+                            val email = FirebaseAuth.getInstance().currentUser?.email ?: ""
+                            CoroutineScope(Dispatchers.IO).launch {
+                                app.database.questionFeedbackDao().insert(
+                                    QuestionFeedbackEntity(
+                                        questionId = currentQuestion.id,
+                                        sectionId = currentQuestion.sectionId,
+                                        questionText = currentQuestion.questionText,
+                                        feedbackType = feedbackType,
+                                        comment = comment,
+                                        userEmail = email
+                                    )
+                                )
+                            }
+                            feedbackSubmitted = true
+                            showFeedbackDialog = false
+                        }
+                    )
+                }
 
                 NavigationButtons(
                     canGoBack = uiState.currentQuestionIndex > 0,
@@ -649,4 +708,101 @@ private fun NavigationButtons(
             )
         }
     }
+}
+
+@Composable
+private fun QuestionFeedbackDialog(
+    onDismiss: () -> Unit,
+    onSubmit: (feedbackType: String, comment: String) -> Unit
+) {
+    val feedbackOptions = listOf(
+        "wrong_answer" to "Wrong/Incorrect Answer",
+        "unclear" to "Unclear Question",
+        "typo" to "Typo or Grammar Error",
+        "outdated" to "Outdated Information",
+        "other" to "Other Issue"
+    )
+
+    var selectedType by remember { mutableStateOf("") }
+    var comment by remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    Icons.Default.Flag,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp),
+                    tint = AviationGold
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Report Issue", fontWeight = FontWeight.Bold)
+            }
+        },
+        text = {
+            Column {
+                Text(
+                    "What's wrong with this question?",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                feedbackOptions.forEach { (type, label) ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .selectable(
+                                selected = selectedType == type,
+                                onClick = { selectedType = type },
+                                role = Role.RadioButton
+                            )
+                            .padding(vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = selectedType == type,
+                            onClick = { selectedType = type },
+                            colors = RadioButtonDefaults.colors(
+                                selectedColor = AviationGold
+                            )
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(label, style = MaterialTheme.typography.bodyMedium)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = comment,
+                    onValueChange = { comment = it },
+                    label = { Text("Additional details (optional)") },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp),
+                    maxLines = 3,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = AviationGold,
+                        focusedLabelColor = AviationGold
+                    )
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = { onSubmit(selectedType, comment) },
+                enabled = selectedType.isNotEmpty(),
+                colors = ButtonDefaults.buttonColors(containerColor = AviationGold)
+            ) {
+                Text("Submit")
+            }
+        },
+        dismissButton = {
+            OutlinedButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
+        }
+    )
 }

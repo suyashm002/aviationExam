@@ -1,5 +1,6 @@
 package com.suyash.mockcivilaviationexam.data.local.repository
 
+import com.suyash.mockcivilaviationexam.domain.logbook.LogbookUser
 import com.suyash.mockcivilaviationexam.data.local.dao.FlightEntryDao
 import com.suyash.mockcivilaviationexam.data.local.entities.toDomainModel
 import com.suyash.mockcivilaviationexam.data.local.entities.toEntity
@@ -17,6 +18,9 @@ class FlightEntryRepository(
 
     suspend fun getFlightsPaginated(userId: String, limit: Int, offset: Int): List<FlightEntry> =
         flightEntryDao.getFlightsPaginated(userId, limit, offset).map { it.toDomainModel() }
+
+    suspend fun claimLegacyEntries(newUserId: String): Int =
+        flightEntryDao.reassignUserId(LogbookUser.LEGACY_USER_ID, newUserId)
 
     suspend fun getFlightById(id: Long): FlightEntry? =
         flightEntryDao.getFlightById(id)?.toDomainModel()
@@ -84,8 +88,25 @@ class FlightEntryRepository(
             nightTime = summary.nightTime,
             ifrTime = summary.ifrTime,
             vfrTime = summary.vfrTime,
-            simulatorTime = summary.simulatorTime
+            simulatorTime = summary.simulatorTime,
+            blockTime = summary.blockTime,
+            airTime = summary.airTime,
+            dayLandings = summary.dayLandings,
+            nightLandings = summary.nightLandings,
+            totalLandings = summary.dayLandings + summary.nightLandings
         )
+    }
+
+    /**
+     * Landings in the last 90 days, in real aircraft. This is the recency rule
+     * a pilot must satisfy before carrying passengers, so it is worth surfacing
+     * rather than making the pilot count rows by hand.
+     */
+    suspend fun getRecentLandings(userId: String): Pair<Int, Int> {
+        val since = java.time.LocalDate.now().minusDays(90)
+            .format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE)
+        return flightEntryDao.getLandingsSince(userId, since) to
+            flightEntryDao.getNightLandingsSince(userId, since)
     }
 
     suspend fun getDistinctAircraftRegistrations(userId: String): List<String> =

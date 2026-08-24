@@ -12,11 +12,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.suyash.mockcivilaviationexam.domain.logbook.FlightTimeCalculator
 import com.suyash.mockcivilaviationexam.ui.viewmodel.FlightEntryViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -113,6 +116,32 @@ fun FlightEntryScreen(
         
         Spacer(modifier = Modifier.height(16.dp))
         
+        BlockAndAirTimeSection(
+            offBlockText = uiState.offBlockText,
+            onOffBlockChange = viewModel::updateOffBlockTime,
+            takeoffText = uiState.takeoffText,
+            onTakeoffChange = viewModel::updateTakeoffTime,
+            landingText = uiState.landingText,
+            onLandingChange = viewModel::updateLandingTime,
+            onBlockText = uiState.onBlockText,
+            onOnBlockChange = viewModel::updateOnBlockTime,
+            blockTime = uiState.blockTime,
+            airTime = uiState.airTime
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LandingsSection(
+            dayLandings = uiState.dayLandings,
+            onDayLandingsChange = viewModel::updateDayLandings,
+            nightLandings = uiState.nightLandings,
+            onNightLandingsChange = viewModel::updateNightLandings,
+            instrumentApproaches = uiState.instrumentApproaches,
+            onInstrumentApproachesChange = viewModel::updateInstrumentApproaches
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         FlightTimeSection(
             totalTime = uiState.totalFlightTime,
             onTotalTimeChange = viewModel::updateTotalFlightTime,
@@ -310,6 +339,195 @@ private fun AircraftSection(
                     placeholder = { Text("e.g., Skyhawk") },
                     modifier = Modifier.weight(1f)
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun BlockAndAirTimeSection(
+    offBlockText: String,
+    onOffBlockChange: (String) -> Unit,
+    takeoffText: String,
+    onTakeoffChange: (String) -> Unit,
+    landingText: String,
+    onLandingChange: (String) -> Unit,
+    onBlockText: String,
+    onOnBlockChange: (String) -> Unit,
+    blockTime: Double,
+    airTime: Double
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Block & Air Times",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "24-hour clock, e.g. 0930",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                OutlinedTextField(
+                    value = offBlockText,
+                    onValueChange = onOffBlockChange,
+                    label = { Text("Off blocks") },
+                    placeholder = { Text("0930") },
+                    modifier = Modifier.weight(1f),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+                OutlinedTextField(
+                    value = takeoffText,
+                    onValueChange = onTakeoffChange,
+                    label = { Text("Takeoff") },
+                    placeholder = { Text("0945") },
+                    modifier = Modifier.weight(1f),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                OutlinedTextField(
+                    value = landingText,
+                    onValueChange = onLandingChange,
+                    label = { Text("Landing") },
+                    placeholder = { Text("1105") },
+                    modifier = Modifier.weight(1f),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+                OutlinedTextField(
+                    value = onBlockText,
+                    onValueChange = onOnBlockChange,
+                    label = { Text("On blocks") },
+                    placeholder = { Text("1115") },
+                    modifier = Modifier.weight(1f),
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceVariant,
+                shape = RoundedCornerShape(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    ComputedTime("Block", blockTime)
+                    ComputedTime("Air", airTime)
+                    ComputedTime(
+                        "Ground",
+                        FlightTimeCalculator.groundTime(blockTime, airTime)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ComputedTime(label: String, hours: Double) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = FlightTimeCalculator.formatHoursMinutes(hours),
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+    }
+}
+
+@Composable
+private fun LandingsSection(
+    dayLandings: Int,
+    onDayLandingsChange: (Int) -> Unit,
+    nightLandings: Int,
+    onNightLandingsChange: (Int) -> Unit,
+    instrumentApproaches: Int,
+    onInstrumentApproachesChange: (Int) -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Landings & Approaches",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            CounterRow("Day landings", dayLandings, onDayLandingsChange)
+            Spacer(modifier = Modifier.height(8.dp))
+            CounterRow("Night landings", nightLandings, onNightLandingsChange)
+            Spacer(modifier = Modifier.height(8.dp))
+            CounterRow("Instrument approaches", instrumentApproaches, onInstrumentApproachesChange)
+        }
+    }
+}
+
+@Composable
+private fun CounterRow(label: String, value: Int, onChange: (Int) -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            IconButton(
+                onClick = { onChange(value - 1) },
+                enabled = value > 0
+            ) {
+                Icon(Icons.Default.Remove, contentDescription = "Decrease $label")
+            }
+            Text(
+                text = value.toString(),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.widthIn(min = 28.dp),
+                textAlign = TextAlign.Center
+            )
+            IconButton(onClick = { onChange(value + 1) }) {
+                Icon(Icons.Default.Add, contentDescription = "Increase $label")
             }
         }
     }
@@ -674,7 +892,7 @@ private fun InstructorSection(
                 value = instructorLicense ?: "",
                 onValueChange = onInstructorLicenseChange,
                 label = { Text("Instructor License Number") },
-                placeholder = { Text("KCAA license number") },
+                placeholder = { Text("License number") },
                 modifier = Modifier.fillMaxWidth()
             )
         }

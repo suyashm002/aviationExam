@@ -1,5 +1,6 @@
 package com.suyash.mockcivilaviationexam.ui.screens.logbook.components
 
+import com.suyash.mockcivilaviationexam.domain.logbook.FlightTimeCalculator
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -41,30 +42,32 @@ fun LogbookSummaryCard(
                 SummaryColumn(
                     title = "Flight Time",
                     items = listOf(
-                        "Total" to "${summary.totalTime}h",
-                        "PIC" to "${summary.picTime}h",
-                        "Dual" to "${summary.dualTime}h",
-                        "Instructor" to "${summary.instructorTime}h"
+                        "Total" to hours(summary.totalTime),
+                        "Block" to hours(summary.blockTime),
+                        "Air" to hours(summary.airTime),
+                        "Ground" to hours(
+                            FlightTimeCalculator.groundTime(summary.blockTime, summary.airTime)
+                        )
                     ),
                     modifier = Modifier.weight(1f)
                 )
-                
+
                 SummaryColumn(
                     title = "Conditions",
                     items = listOf(
-                        "Cross Country" to "${summary.crossCountryTime}h",
-                        "Night" to "${summary.nightTime}h",
-                        "IFR" to "${summary.ifrTime}h",
-                        "VFR" to "${summary.vfrTime}h"
+                        "Cross Country" to hours(summary.crossCountryTime),
+                        "Night" to hours(summary.nightTime),
+                        "IFR" to hours(summary.ifrTime),
+                        "VFR" to hours(summary.vfrTime)
                     ),
                     modifier = Modifier.weight(1f)
                 )
-                
+
                 SummaryColumn(
-                    title = "Training",
+                    title = "Roles & Landings",
                     items = listOf(
-                        "Simulator" to "${summary.simulatorTime}h",
-                        "Co-Pilot" to "${summary.coPilotTime}h",
+                        "PIC" to hours(summary.picTime),
+                        "Dual" to hours(summary.dualTime),
                         "Landings" to "${summary.totalLandings}",
                         "Night Ldg" to "${summary.nightLandings}"
                     ),
@@ -114,3 +117,6 @@ private fun SummaryColumn(
         }
     }
 }
+
+/** Logbook-style duration, e.g. "12:25" rather than a raw 12.4166666. */
+private fun hours(value: Double): String = FlightTimeCalculator.formatHoursMinutes(value)

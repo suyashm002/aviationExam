@@ -1,5 +1,6 @@
 package com.suyash.mockcivilaviationexam.ui.viewmodel
 
+import com.suyash.mockcivilaviationexam.domain.logbook.LogbookUser
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.suyash.mockcivilaviationexam.domain.model.FlightEntry
@@ -7,6 +8,7 @@ import com.suyash.mockcivilaviationexam.domain.usecase.FlightOperationsUseCase
 import com.suyash.mockcivilaviationexam.domain.usecase.ValidationError
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import com.suyash.mockcivilaviationexam.domain.logbook.FlightTimeCalculator
 import java.time.LocalDate
 
 class FlightEntryViewModel(
@@ -16,12 +18,51 @@ class FlightEntryViewModel(
     private val _uiState = MutableStateFlow(FlightEntryUiState())
     val uiState: StateFlow<FlightEntryUiState> = _uiState.asStateFlow()
 
-    private val userId = "current_user" // TODO: Get from authentication service
+    private val userId: String get() = LogbookUser.id()
     private var currentFlightId: Long? = null
 
     fun loadFlight(flightId: Long) {
         currentFlightId = flightId
-        // TODO: Load existing flight for editing
+        viewModelScope.launch {
+            val flight = flightOperationsUseCase.getFlightById(flightId) ?: return@launch
+            _uiState.update {
+                it.copy(
+                    date = flight.date,
+                    departureAerodrome = flight.departureAerodrome,
+                    arrivalAerodrome = flight.arrivalAerodrome,
+                    aircraftType = flight.aircraftType,
+                    aircraftModel = flight.aircraftModel,
+                    aircraftRegistration = flight.aircraftRegistration,
+                    totalFlightTime = flight.totalFlightTime,
+                    offBlockText = FlightTimeCalculator.format(flight.offBlockTime),
+                    takeoffText = FlightTimeCalculator.format(flight.takeoffTime),
+                    landingText = FlightTimeCalculator.format(flight.landingTime),
+                    onBlockText = FlightTimeCalculator.format(flight.onBlockTime),
+                    blockTime = flight.blockTime,
+                    airTime = flight.airTime,
+                    dayLandings = flight.dayLandings,
+                    nightLandings = flight.nightLandings,
+                    instrumentApproaches = flight.instrumentApproaches,
+                    dayTime = flight.dayTime,
+                    nightTime = flight.nightTime,
+                    picTime = flight.picTime,
+                    dualTime = flight.dualTime,
+                    coPilotTime = flight.coPilotTime,
+                    instructorTime = flight.instructorTime,
+                    ifrTime = flight.ifrTime,
+                    vfrTime = flight.vfrTime,
+                    crossCountryTime = flight.crossCountryTime,
+                    simulatorTime = flight.simulatorTime,
+                    isSimulator = flight.isSimulator,
+                    exerciseNumber = flight.exerciseNumber,
+                    lessonNumber = flight.lessonNumber,
+                    remarks = flight.remarks,
+                    instructorName = flight.instructorName,
+                    instructorLicenseNumber = flight.instructorLicenseNumber
+                )
+            }
+            validateForm()
+        }
     }
 
     fun updateDate(date: LocalDate) {
@@ -57,6 +98,66 @@ class FlightEntryViewModel(
     fun updateTotalFlightTime(time: Double) {
         _uiState.update { it.copy(totalFlightTime = time) }
         autoCalculateTimes()
+        validateForm()
+    }
+
+    fun updateOffBlockTime(text: String) {
+        _uiState.update { it.copy(offBlockText = text) }
+        recalculateClockTimes()
+    }
+
+    fun updateTakeoffTime(text: String) {
+        _uiState.update { it.copy(takeoffText = text) }
+        recalculateClockTimes()
+    }
+
+    fun updateLandingTime(text: String) {
+        _uiState.update { it.copy(landingText = text) }
+        recalculateClockTimes()
+    }
+
+    fun updateOnBlockTime(text: String) {
+        _uiState.update { it.copy(onBlockText = text) }
+        recalculateClockTimes()
+    }
+
+    fun updateDayLandings(count: Int) {
+        _uiState.update { it.copy(dayLandings = count.coerceAtLeast(0)) }
+    }
+
+    fun updateNightLandings(count: Int) {
+        _uiState.update { it.copy(nightLandings = count.coerceAtLeast(0)) }
+    }
+
+    fun updateInstrumentApproaches(count: Int) {
+        _uiState.update { it.copy(instrumentApproaches = count.coerceAtLeast(0)) }
+    }
+
+    /**
+     * Derives block and air time from the clock times, and keeps total flight
+     * time in step with block time — under ICAO rules the loggable flight time
+     * IS the block time. The pilot can still override the total afterwards for
+     * entries where no clock times were recorded.
+     */
+    private fun recalculateClockTimes() {
+        val state = _uiState.value
+        val block = FlightTimeCalculator.durationHours(
+            FlightTimeCalculator.parse(state.offBlockText),
+            FlightTimeCalculator.parse(state.onBlockText)
+        )
+        val air = FlightTimeCalculator.durationHours(
+            FlightTimeCalculator.parse(state.takeoffText),
+            FlightTimeCalculator.parse(state.landingText)
+        )
+
+        _uiState.update {
+            it.copy(
+                blockTime = block,
+                airTime = air,
+                totalFlightTime = if (block > 0.0) block else it.totalFlightTime
+            )
+        }
+        if (block > 0.0) autoCalculateTimes()
         validateForm()
     }
 
@@ -245,6 +346,15 @@ class FlightEntryViewModel(
             aircraftModel = state.aircraftModel,
             aircraftRegistration = state.aircraftRegistration,
             totalFlightTime = state.totalFlightTime,
+            offBlockTime = FlightTimeCalculator.parse(state.offBlockText),
+            takeoffTime = FlightTimeCalculator.parse(state.takeoffText),
+            landingTime = FlightTimeCalculator.parse(state.landingText),
+            onBlockTime = FlightTimeCalculator.parse(state.onBlockText),
+            blockTime = state.blockTime,
+            airTime = state.airTime,
+            dayLandings = state.dayLandings,
+            nightLandings = state.nightLandings,
+            instrumentApproaches = state.instrumentApproaches,
             dayTime = state.dayTime,
             nightTime = state.nightTime,
             picTime = state.picTime,
@@ -278,6 +388,17 @@ data class FlightEntryUiState(
     val aircraftModel: String = "",
     val aircraftRegistration: String = "",
     val totalFlightTime: Double = 0.0,
+    // Raw text as typed, so a half-entered time like "09" is not thrown away
+    // on every keystroke.
+    val offBlockText: String = "",
+    val takeoffText: String = "",
+    val landingText: String = "",
+    val onBlockText: String = "",
+    val blockTime: Double = 0.0,
+    val airTime: Double = 0.0,
+    val dayLandings: Int = 0,
+    val nightLandings: Int = 0,
+    val instrumentApproaches: Int = 0,
     val dayTime: Double = 0.0,
     val nightTime: Double = 0.0,
     val picTime: Double = 0.0,

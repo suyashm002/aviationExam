@@ -103,7 +103,7 @@ class QuestionCacheManager(
 
     /**
      * Parse the bundled TSV asset file into Question objects.
-     * TSV format: id, questionText, optionA, optionB, optionC, optionD, correctAnswer, sectionId, updatedAt
+     * TSV format: id, questionText, optionA, optionB, optionC, optionD, correctAnswer, sectionId, updatedAt, explanation
      */
     private fun parseTsvAsset(): List<Question> {
         val questions = mutableListOf<Question>()
@@ -128,7 +128,10 @@ class QuestionCacheManager(
                                     optionD = if (parts.size > 5 && parts[5].isNotBlank()) parts[5] else null,
                                     correctAnswer = parts[6],
                                     sectionId = parts[7],
-                                    explanation = null,
+                                    // Column 9 (index 9) holds the answer
+                                    // explanation. Absent in older assets, so
+                                    // treat a missing or blank value as none.
+                                    explanation = parts.getOrNull(9)?.takeIf { it.isNotBlank() },
                                     difficulty = "medium",
                                     source = "bundled"
                                 )

@@ -13,6 +13,9 @@ class FlightOperationsUseCase(
     fun getAllFlights(userId: String): Flow<List<FlightEntry>> =
         flightEntryRepository.getAllFlights(userId)
 
+    suspend fun getFlightById(id: Long): FlightEntry? =
+        flightEntryRepository.getFlightById(id)
+
     suspend fun addFlight(flight: FlightEntry): Long {
         val flightId = flightEntryRepository.insertFlight(flight)
         updateUserProfileTotals(flight.userId)

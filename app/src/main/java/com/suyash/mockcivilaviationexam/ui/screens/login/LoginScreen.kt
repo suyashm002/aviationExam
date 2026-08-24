@@ -147,7 +147,7 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(6.dp))
 
                 Text(
-                    text = "KCAA MOCK EXAM PREPARATION",
+                    text = "AVIATION MOCK EXAM PREPARATION",
                     style = MaterialTheme.typography.labelMedium.copy(
                         letterSpacing = 2.5.sp,
                         fontWeight = FontWeight.Medium

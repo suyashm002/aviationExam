@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import com.suyash.mockcivilaviationexam.domain.logbook.FlightTimeCalculator
 import com.suyash.mockcivilaviationexam.domain.model.FlightEntry
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -20,6 +21,15 @@ data class FlightEntryEntity(
     val aircraftModel: String,
     val aircraftRegistration: String,
     val totalFlightTime: Double,
+    val offBlockTime: String? = null,
+    val takeoffTime: String? = null,
+    val landingTime: String? = null,
+    val onBlockTime: String? = null,
+    val blockTime: Double = 0.0,
+    val airTime: Double = 0.0,
+    val dayLandings: Int = 0,
+    val nightLandings: Int = 0,
+    val instrumentApproaches: Int = 0,
     val dayTime: Double = 0.0,
     val nightTime: Double = 0.0,
     val picTime: Double = 0.0,
@@ -54,6 +64,15 @@ fun FlightEntryEntity.toDomainModel(): FlightEntry {
         aircraftModel = aircraftModel,
         aircraftRegistration = aircraftRegistration,
         totalFlightTime = totalFlightTime,
+        offBlockTime = FlightTimeCalculator.parse(offBlockTime),
+        takeoffTime = FlightTimeCalculator.parse(takeoffTime),
+        landingTime = FlightTimeCalculator.parse(landingTime),
+        onBlockTime = FlightTimeCalculator.parse(onBlockTime),
+        blockTime = blockTime,
+        airTime = airTime,
+        dayLandings = dayLandings,
+        nightLandings = nightLandings,
+        instrumentApproaches = instrumentApproaches,
         dayTime = dayTime,
         nightTime = nightTime,
         picTime = picTime,
@@ -89,6 +108,15 @@ fun FlightEntry.toEntity(): FlightEntryEntity {
         aircraftModel = aircraftModel,
         aircraftRegistration = aircraftRegistration,
         totalFlightTime = totalFlightTime,
+        offBlockTime = FlightTimeCalculator.format(offBlockTime).ifEmpty { null },
+        takeoffTime = FlightTimeCalculator.format(takeoffTime).ifEmpty { null },
+        landingTime = FlightTimeCalculator.format(landingTime).ifEmpty { null },
+        onBlockTime = FlightTimeCalculator.format(onBlockTime).ifEmpty { null },
+        blockTime = blockTime,
+        airTime = airTime,
+        dayLandings = dayLandings,
+        nightLandings = nightLandings,
+        instrumentApproaches = instrumentApproaches,
         dayTime = dayTime,
         nightTime = nightTime,
         picTime = picTime,
