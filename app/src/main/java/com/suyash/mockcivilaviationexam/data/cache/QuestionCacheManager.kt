@@ -42,7 +42,7 @@ class QuestionCacheManager(
          * re-parse the TSV on next launch when the stored version
          * doesn't match.
          */
-        const val TSV_ASSET_VERSION = 5
+        const val TSV_ASSET_VERSION = 6
 
         // Available sections matching the bundled TSV data
         private val AVAILABLE_SECTIONS = setOf(

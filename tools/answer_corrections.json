@@ -199,6 +199,11 @@
     "reason": "Marked answer was 15 deg/h x sin Lm, which is EARTH rate - a function of elapsed time, not of distance flown. Transport (travel) wander is the change of longitude times the sine of the mean latitude, g x sin Lm. Confirmed by sibling hZMwnzrC2AWNpLoVdAzG, which keys g.sin Lm.",
     "to": "B"
   },
+  "4h1mU1gVs8iIR0mleRqJ": {
+    "from": "C",
+    "reason": "Marked answer omitted SALIENCE, which is one of the textbook determinants of attention: a bright, loud, moving or otherwise conspicuous cue captures attention involuntarily. Automation level and expectation are the other two listed factors. Response time is a RESULT of where attention is directed, not something that guides it, so the correct set is 1, 3 and 4.",
+    "to": "A"
+  },
   "4kHxtaVeqRFwoO8RNQRf": {
     "from": "A",
     "reason": "Marked answer was simultaneous weather and mapping beams, which is a function of beam shaping and mode selection, not of the antenna type. The advantage of a slotted planar array is that slot phasing cancels the side lobes, concentrating energy in the main beam and giving a narrower beam with fewer false returns.",
@@ -219,10 +224,25 @@
     "reason": "Marked answer was 257/35 kt. Resolving the 307T/230 kt air vector against the 313T/210 kt ground vector gives a wind from 261 degrees at 30 kt, so 260/30. The near-duplicate sibling 0C9hr7it37neN83Oa1RZ, with identical data, keys 260/30.",
     "to": "A"
   },
+  "5DdxoK0s943o5udduUU0": {
+    "from": "D",
+    "reason": "Marked answer paired stress with MEDIUM WORKLOAD, but medium workload is the optimum condition on the inverted-U, not a risk factor. Reversion appears when conscious monitoring is relaxed (1) and under stress (3). The near-duplicate mWQijT2pfgT5sarEolip offers the same three statements and is keyed to '1 and 3', confirming the set.",
+    "to": "B"
+  },
   "5EhsEvK4QAgS6cceV1Ak": {
     "from": "B",
     "reason": "Marked answer put the 30 minute holding reserve at 450 m above MEAN SEA LEVEL. JAR-OPS 1.255 / EU-OPS defines final reserve fuel for turbine aeroplanes as 30 minutes at holding speed at 1500 ft (450 m) above AERODROME ELEVATION in standard conditions. The two options are identical except for that datum, which is the point being tested.",
     "to": "C"
+  },
+  "5Kha7IItwJCanTqi83Ee": {
+    "from": "D",
+    "reason": "Marked answer has the captain watch an inexperienced, insecure copilot fly without a word, which withholds exactly the support the situation calls for and is the least appropriate of the four. Because the copilot is highly motivated, his motivation should be used: let him fly but make support explicitly available on request (B). Detailed step-by-step instruction (A) is directive enough to undermine both his motivation and his confidence, and flying the leg himself (C) denies him the practice.",
+    "to": "B"
+  },
+  "5kBSQDaQs0ED7migyaWi": {
+    "from": "B",
+    "reason": "Marked answer is not an answer to what the question asks and is aeromedically wrong: hypnotics and tranquillisers impair everyone, and showing no visible reaction is no evidence of fitness. The recognised hazard is the residual lengthening of reaction time and blunting of perceptual awareness, which outlasts the sedative effect - option D.",
+    "to": "D"
   },
   "5smbih5XOWwZaEa1XdtW": {
     "from": "B",
@@ -233,6 +253,11 @@
     "from": "D",
     "reason": "Marked answer was short gang-mown grass, which is one of the strongest bird attractants on an aerodrome - it exposes insects and worms and gives flocking birds clear sightlines. ICAO Doc 9137 Part 3 recommends the long-grass policy (about 15-20 cm) precisely because flocks avoid grass they cannot see over. Long grass is therefore the least attractive of the four.",
     "to": "B"
+  },
+  "6AhVhaliyz79MSPTsU0w": {
+    "from": "B",
+    "reason": "Marked answer 45,000 ft is above the limit for 100% oxygen without pressure. With nitrogen removed, alveolar oxygen partial pressure is ambient minus water vapour and CO2, which matches the 10,000 ft value at about 38-40,000 ft. The near-duplicate ZXGUAR4mlaM3erTtxgBd asks the identical question and is keyed to 40,000 ft, and rD7XyRohZnEWbPc3We6Q / SEeiF4vgXZKWHH5eyUOf both key hypoxia symptoms on 100% oxygen at 'approximately 38-40,000 ft'. Of the options offered, 38,000 ft is the intended value.",
+    "to": "D"
   },
   "6h8yiecTQeHbBEmpSTlb": {
     "from": "A",
@@ -284,6 +309,11 @@
     "reason": "Marked answer was 14 000 ft, at which flight without oxygen produces measurable hypoxia - above the 10 000 ft threshold at which crew oxygen becomes mandatory and above the 13 000 ft level at which 100% of passengers must be supplied. 8000 ft is the maximum normal cabin altitude of a transport aeroplane precisely because efficiency is unimpaired there. Confirmed by sibling GYjcQRsTWFg9K7503XOi, which keys 8000 ft. Safety-relevant.",
     "to": "D"
   },
+  "8cxdDE2GEPhSKLpPDWUF": {
+    "from": "A",
+    "reason": "Marked answer 1 in 50 does not fit the standard human-reliability scale used throughout this syllabus, which runs 1 in 100 for a simple repetitive task, 1 in 1,000 after methodical training and 1 in 10,000 for a very well designed, highly practised task. The companion question 9bCwnyrn19gLqkRuQRjF asks for the post-training figure and is keyed to 1 in 1,000, which fixes the untrained figure one order of magnitude below it at 1 in 100.",
+    "to": "B"
+  },
   "8i5klJCVjPE2xJRYN9f6": {
     "from": "B",
     "reason": "Marked answer 'brake release to V2' is not a defined distance. CS-25.113(b) defines the take-off RUN as the horizontal distance from the start of the take-off to a point equidistant between the point where VLOF is reached and the point where the aeroplane is 35 ft above the surface - option D, quoted essentially verbatim. Option C describes the take-off DISTANCE and option A the accelerate-stop distance.",
@@ -319,6 +349,11 @@
     "reason": "Marked answer allowed matches in hand luggage. The ICAO Technical Instructions permit one small packet of safety matches only when carried ON THE PERSON - not in checked baggage and not loose in cabin baggage. Confirmed by sibling ADpP8wjJMGE5XRBVkZPe, whose correct combination is 'on himself / for his own use' and excludes the hand-baggage statement.",
     "to": "A"
   },
+  "AtHHpaLDpNGiL4UA1eXx": {
+    "from": "A",
+    "reason": "Marked answer declares statement 2 false, but reduced cabin pressure, low humidity and dehydration genuinely do alter the body's response to a drug - it is a standard aeromedical caution. All four statements are true. The near-duplicate eqtTQK9IksEri3rLP9wP carries the identical four statements and is keyed to '1, 2, 3 and 4 are correct'.",
+    "to": "C"
+  },
   "AwJPpvDjaWdvd19wEMoz": {
     "from": "A",
     "reason": "Marked answer was 10 microtesla. A polar track is defined by the area in which the horizontal component of the Earth's magnetic field falls below 6 microtesla - the threshold below which the compass and flux valve become unreliable and grid navigation is required.",
@@ -334,6 +369,11 @@
     "reason": "Marked answer claimed increased Mach number stability above optimum altitude, which is the reverse of what happens - above optimum the aeroplane sits on the back of the drag curve with narrowing buffet margins and poorer speed stability. Optimum altitude is by definition the altitude of best specific air range, so flying above it REDUCES range.",
     "to": "D"
   },
+  "BQROPcJgkX00dWHGzt7X": {
+    "from": "B",
+    "reason": "Marked answer includes statement 3, which inverts the physiology: regular exercise improves cardiovascular efficiency and therefore raises tolerance to hypoxia and to G, it does not reduce it. Only statements 1 and 2 are true, which is option D.",
+    "to": "D"
+  },
   "BRGsOPcT6qW7UCq5ek2W": {
     "from": "A",
     "reason": "Marked answer was 'Airspace E'. The description (IFR gets advisory service, not ATC separation; FIS if requested) matches Class F airspace. Class E provides ATC separation to IFR flights. Option C (Airspace F) is correct.",
@@ -343,6 +383,11 @@
     "from": "B",
     "reason": "Marked answer was 3000 ft, which is the height at which procedure A ACCELERATES and retracts flap, not where thrust is reduced. In procedure A the reduction to climb thrust happens at 1500 ft, after which V2 + 10 to 20 kt is held to 3000 ft. Confirmed by the identical sibling ZyGjuJzLznBBhX8EcoSX, which keys 1500 ft.",
     "to": "D"
+  },
+  "BqZ1e7OjxiDVR241BZap": {
+    "from": "C",
+    "reason": "Marked answer describes the exhaustion phase, not the acute response. Acute stress triggers the alarm reaction of Selye's General Adaptation Syndrome, in which adrenaline release mobilises the resources needed to face the stressor. The near-duplicate kNRC4XqIXh2Ieex5jEwx offers the same four options and is keyed to 'the mobilization of resources required to cope with the stressor'.",
+    "to": "A"
   },
   "C9dDbvWPeh2VO4s7LpAj": {
     "from": "B",
@@ -438,6 +483,11 @@
     "from": "B",
     "reason": "Marked answer 'critical angle of attack' is not a speed and is not what this construction yields. Power required = drag x speed, so a tangent from the ORIGIN to the power curve touches where P/V - i.e. the DRAG - is minimum: that is VMD. For a jet, whose fuel flow follows thrust, minimum drag gives maximum ENDURANCE (option A). Jet maximum specific range comes from the tangent to the DRAG curve, at a higher speed.",
     "to": "A"
+  },
+  "F427w1mfM5wCA2URhWrC": {
+    "from": "A",
+    "reason": "Marked answer omits AGGRESSIVENESS, which is one of the standard behavioural manifestations of stress, and instead includes 'a willingness to improve communication', which is the opposite of what stress does - communication degrades under stress and the crew fragments. The behavioural set is aggression (1), withdrawal (4) and inappropriate gestural agitation (5), which is option D.",
+    "to": "D"
   },
   "Fem8la2rabKSlA4dxggq": {
     "from": "B",
@@ -539,6 +589,11 @@
     "reason": "Marked answer claims the critical angle of attack changes with CG position. It does not: the critical (stalling) angle is a fixed aerodynamic property of the aerofoil and configuration, unaffected by weight, CG, load factor or altitude - option A. Those variables change only the SPEED at which the critical angle is reached, which is why stall protection systems sense alpha rather than airspeed.",
     "to": "A"
   },
+  "IqP0TYhpzIhoQlZwfYoI": {
+    "from": "D",
+    "reason": "Marked answer is self-contradictory as an explanation for unconsciousness - more blood and more oxygen would not cause anyone to pass out. Hyperventilation lowers blood CO2, and CO2 is a cerebral vasodilator, so the vessels supplying the brain constrict and cerebral blood flow falls by up to a third despite fully saturated blood. The brain is starved by reduced flow, which is option A.",
+    "to": "A"
+  },
   "IsNuqfKgpnN8g4wRPk2c": {
     "from": "C",
     "reason": "Marked answer of 9 degrees is only the TRACK ERROR (6 NM in 40 NM run), which if flown would merely parallel the intended track. To reach B the closing angle of 6 NM in the remaining 60 NM, another 6 degrees, must be added, giving 15 degrees right. The near-duplicate sibling FNimki0DXIAMB522t0LL, with identical data, keys 15 degrees right.",
@@ -554,6 +609,11 @@
     "reason": "Marked answer included special fires - metals, gas, chemicals - which ordinary dry chemical powder must not be used on; burning metals need a dedicated class D agent. Powder covers class A, class B and electrical fires. Confirmed by sibling 1QZMo8vN5uwm4PmkNQxv, which keys 1-2-3.",
     "to": "D"
   },
+  "JeT4jVcyMbqgbCkXaxZU": {
+    "from": "D",
+    "reason": "Marked answer assigns handling errors to the rule-based mode, but handling errors are execution slips and belong to the automatic, skill-based mode, alongside routine errors; creative errors belong to the knowledge-based mode. The rule-based mode applies stored technical know-how, so its errors are errors of technical knowledge. The near-duplicate 8HqpsotTzFitY2pyGPLj carries the identical four options and is keyed to 'errors of technical knowledge'.",
+    "to": "A"
+  },
   "K5i9nV7oXxgJrYPLUC2K": {
     "from": "D",
     "reason": "Marked answer used an ALL-ENGINES cruising speed. The take-off alternate must be accessible within 60 minutes at the one-engine-inoperative cruising speed, because the case it covers is an engine failure at or after V1. Confirmed by siblings JU2oUSE5wxqYKisgeXmi and BCpStHqhdis2z1XNjTFf.",
@@ -563,6 +623,11 @@
     "from": "B",
     "reason": "Marked 'approach according to VFR'. Key condition for visual approach clearance is ATC provides separation to other controlled traffic. Option C is correct.",
     "to": "C"
+  },
+  "K7W4JF50H4pcw5Y52mju": {
+    "from": "C",
+    "reason": "Marked answer of 48 hours applies only after dives requiring decompression stops, and the option as worded ('after a continuous ascent') describes a no-stop dive, for which 48 hours is not the figure. The standard delay is 24 hours. The near-duplicate IuaHp9EWIGjGyZD1uOKE carries the identical four options and is keyed to '24 hours', and DsGmYwJCNTchUFhFMAet and EGWlR8VzDmbj8bRD0ZkN both key the post-dive delay at 24 hours as well.",
+    "to": "A"
   },
   "KRZQSmBqQvvCTGFlXQpa": {
     "from": "C",
@@ -654,20 +719,40 @@
     "reason": "Marked answer asserted that RVR is taken into account only for precision approaches, which is false - RVR governs non-precision approaches as well. The controlling value is the touchdown zone (threshold) RVR, which must be at or above the minimum before the final approach is commenced; mid-point and stop-end readings become controlling only where relevant, in the lower categories.",
     "to": "A"
   },
+  "MkzrKBlleC5NUM2eKCIk": {
+    "from": "C",
+    "reason": "Marked answer of 38,000 ft is untenable - a pilot climbing without supplemental oxygen would be unconscious long before that, and 38,000 ft is instead the ceiling for breathing 100% oxygen without pressure. The critical stage of hypoxia begins around 20,000 ft, above the disturbance stage of 15,000-20,000 ft. The identical-stem question iClF3YKh5YsP1MvxaiAp is keyed to 20,000 ft; of the options offered here, 22,000 ft is the one lying within the critical zone. (The bank is not self-consistent on this figure: 2zEnhsolg65gLhziZmQc keys the same threshold at 18,000 ft.)",
+    "to": "D"
+  },
   "MoLSO3cJWsOhoc1Y4UEG": {
     "from": "D",
     "reason": "Marked answer claims the power setting remains unchanged, which cannot be so. Holding angle of attack (and hence CL) fixed at a greater mass requires a HIGHER airspeed to generate the extra lift; drag rises with the extra weight and speed, and power required is drag multiplied by speed - so it rises on both counts. Both an increase in airspeed AND an increase in power are needed (option A).",
     "to": "A"
+  },
+  "N7geUfp9D2guQLbnaUKu": {
+    "from": "D",
+    "reason": "Marked answer is doubly wrong: barodontalgia is not confined to high altitude and does not require a decompression - it occurs at modest cabin altitudes and on descent as well as on climb, as KTrH0PZWrgmlkREG1GWs confirms. The pain arises where gas is trapped by disease or dental work, and in particular where the pulp and periapical tissues near the root are inflamed, which is option B. A sound, healthy tooth does not produce it, so option A is false too.",
+    "to": "B"
   },
   "NHErZraVNmdncEMC5S8p": {
     "from": "D",
     "reason": "Marked answer was a vague claim about complexity being offset by reliability, which is not a recognised comparison. The concrete difference is that a pulse set cannot receive while transmitting, which creates a minimum measurable range, whereas a continuous wave set transmits and receives simultaneously on separate aerials and therefore has no minimum range at all. That is precisely why CW is used for radio altimeters and Doppler.",
     "to": "A"
   },
+  "NIdNer0qCidMb83Ng3NT": {
+    "from": "D",
+    "reason": "Marked answer includes statement 2, which as printed says the speaker uses MORE COMPLICATED words for a non-native listener - the opposite of what speakers actually do and of what aids understanding. The two true statements are 1 (redundancy is reduced for a listener judged competent) and 3 (content is simplified for one judged less competent), which is option C.",
+    "to": "C"
+  },
   "NMGWq0DhAeCMS3ugaiyI": {
     "from": "B",
     "reason": "Marked answer was 'about the lock-on altitude'. Optimum altitude is by definition the altitude of best specific air range for the current mass, so the most economical plan follows the rising optimum with step climbs. Confirmed by the identical sibling VrmTQ70lDnrp3Ats80vP, which keys 'about the optimum altitude'.",
     "to": "D"
+  },
+  "NbumkVCiL6a30lvglpFJ": {
+    "from": "D",
+    "reason": "Marked answer is false: acceleration along the long axis of the body is exactly what the saccule is oriented to detect, so it certainly does stimulate a vestibular organ. Its dominant effect is hydrostatic - blood displaced towards the feet under +Gz and towards the head under -Gz, altering blood pressure at head level and the distribution of blood volume, which is option C. Option B is wrong for this stem because it describes transverse (Gx) acceleration, not acceleration along the long axis.",
+    "to": "C"
   },
   "NkvXNXbA1BKwIGlW43mu": {
     "from": "C",
@@ -677,6 +762,11 @@
   "OChbmWJZHuu2G7IqEr6l": {
     "from": "A",
     "reason": "Marked answer counted three take-offs and three landings. The single-pilot IFR/night recency requirement in JAR-OPS 1.970 is five IFR flights including three INSTRUMENT APPROACHES during the preceding 90 days, in the single-pilot role on the type or class - it is instrument currency that is being required, not landing currency, which is covered separately by the three take-offs and landings rule.",
+    "to": "D"
+  },
+  "OQvlHfQCdG0OmOCUM3m0": {
+    "from": "A",
+    "reason": "Marked answer prescribes fast off-centre scanning, which is a night-vision technique and does nothing about vestibular vertigo - if anything the associated head movement provokes it. The standard prevention is to avoid steep turns and abrupt manoeuvres and to maintain an effective instrument cross-check, option D. The companion questions qKvqDwMDBrN2PJxYv9hZ and TqsdJGsSykHcUt2DH2dK both key the prevention of spatial disorientation to establishing and maintaining a good instrument cross-check.",
     "to": "D"
   },
   "OVYbnWDmf4Y0Slz3DL7L": {
@@ -754,6 +844,11 @@
     "reason": "Marked answer reduced holding fuel by 30 percent, which no fuel procedure does. The decision point procedure reduces the CONTINGENCY element, by computing it only on the burn-off from the nominated en-route decision point to the destination. Note the remaining option is the same sentence with 'decision airport' substituted for 'decision point', which is not the defined term.",
     "to": "A"
   },
+  "Qz1EeTT2FH5ecL9aTFA6": {
+    "from": "B",
+    "reason": "Marked answer omits statement 4, but improving error recovery and limiting the consequences of errors is a core element of error management - error cannot be eliminated, so trapping and mitigating it is half the doctrine. The near-duplicate g7qlsOE9nIswc2oJwpYc carries the identical four statements and is keyed to '1, 2 and 4'.",
+    "to": "D"
+  },
   "R5KG9zCd3CvnTrajV5Wr": {
     "from": "A",
     "reason": "Marked AD. Holding/approach/departure procedures are in ENR section. Option C is correct.",
@@ -809,6 +904,11 @@
     "reason": "Marked answer was left drift, which gives the opposite heading trend. When homing, the aircraft is blown downwind and must keep turning INTO the wind to hold the needle on the nose, so being blown to the right (right drift) makes the heading decrease steadily. Left drift would make it increase.",
     "to": "D"
   },
+  "SKRFm8v3jaAe2dtdySKf": {
+    "from": "A",
+    "reason": "Marked answer includes statement 1, which attributes central vision to the rods. Central vision is cone vision - the fovea contains no rods at all, which is precisely why central vision fails in the dark and why a faint object at night must be viewed off-centre. The correct statements are 2 and 3's counterparts: 2 (detail, colour and movement) and 4 (about 150,000 cones per mm), which is option B.",
+    "to": "B"
+  },
   "SKtLbqT3Ei4QP4h3tqjn": {
     "from": "A",
     "reason": "Marked answer was that the aircraft is circling the station, which causes only a brief unlock directly overhead, not a loss at 220 NM. DME is line of sight, and at FL210 the theoretical range is 1.23 x root(21 000) = about 178 NM, so a station 220 NM away is over the horizon and the aircraft is below the line-of-sight altitude for it.",
@@ -849,6 +949,11 @@
     "reason": "Marked answer was 30 NM, which is the contingency OFFSET distance, not a separation minimum. The minimum lateral separation in MNPS airspace is 60 NM - the spacing of the organised track structure. Confirmed by siblings dB2NpfBOmsmFSv3N3X0a and LDdK7Azb8OIJygndpVLu.",
     "to": "D"
   },
+  "TSjtVTNummcFbADcluDP": {
+    "from": "A",
+    "reason": "Marked answer claims high automation GUARANTEES situational awareness, which is the opposite of the documented effect: monitoring a highly reliable system degrades attention and leaves the crew out of the loop. The near-duplicate 22Cm17TxdTgi1hypMpIE offers the identical four options and is keyed to 'the attention of the cockpit crew will become reduced as a consequence of being out of the loop'.",
+    "to": "D"
+  },
   "TYCtCx7SoIrJ3jgbPfwZ": {
     "from": "B",
     "reason": "Marked 20° or less. Non-precision straight-in approach acceptable at 30° or less. Option D is correct.",
@@ -862,6 +967,11 @@
   "UhkDqqrWTzm0W2rwexvo": {
     "from": "B",
     "reason": "Marked answer 'lift is equal to weight' holds only in LEVEL flight. In any descent the weight resolves into a component perpendicular to the flight path (balanced by lift) and a component along it, so lift = W cos(gamma), which is always less than the weight - equivalently, weight is greater than lift (option A). Cross-check: question sYTdsagu5TcuY8yF9pNy in this section asks the same thing and is correctly keyed to 'less than weight'.",
+    "to": "A"
+  },
+  "UkNnYpVTu8wME1BFehdq": {
+    "from": "B",
+    "reason": "Marked answer is a technicality at best (trace endogenous CO) and is not the statement the item is testing. The true and syllabus-relevant statement is that cigarette smoke contains carbon monoxide, which raises the smoker's physiological altitude. The near-duplicate wVncDl5MAGHeorRKHFVm carries the identical four options and is keyed to exactly that statement.",
     "to": "A"
   },
   "UoAg5XoX6Xy851O7klGh": {
@@ -888,6 +998,16 @@
     "from": "C",
     "reason": "Marked answer was 128.8 MHz, which is not an air-to-air frequency. The worldwide inter-pilot frequency is 123.45 MHz - absent from this option list - and 131.8 MHz is the North Atlantic air-to-air frequency, the only plausible option offered. Confirmed against sibling nmq0pE2At6AzjT3Q7gLu, which keys 123.45 MHz where that option exists.",
     "to": "B"
+  },
+  "VFjFq4mhfNnYcB4YSPPa": {
+    "from": "A",
+    "reason": "Marked answer selects statements 3 and 4, both of which are wrong: the relational content of a message matters as well as the informational, and adding communication channels increases redundancy and robustness rather than harming it. Only statement 2 is correct. The near-duplicate QqhzU1bkt76RuQ3fJKgy carries the identical four statements and is keyed to 'only 2 is correct'.",
+    "to": "C"
+  },
+  "VHXUvsc8SA8VXyDeiAnM": {
+    "from": "C",
+    "reason": "Marked answer puts the inertia along the transverse axis, which is lateral (Gy) acceleration, not radial. Radial acceleration acts along the vertical body axis: positive radial gives inertia head-to-feet (+Gz), so negative radial gives inertia along the vertical body axis upwards (-Gz), driving blood towards the head and producing red-out.",
+    "to": "A"
   },
   "VO6FPuLph1bcKjM3dU9l": {
     "from": "D",
@@ -924,6 +1044,11 @@
     "reason": "Marked answer told fireguards to approach hot wheels from the LEFT OR RIGHT - the one direction that must be avoided, because a fuse plug releasing or a tyre bursting vents along the axle line. The approach is from the front or the rear. Confirmed by siblings rfxkLuSz2SpHr62ldyA8, fOqJYSz7LnbpAniNP427 and sXM6ySwpVVeLWkYWNFek. Safety-relevant.",
     "to": "A"
   },
+  "ViAFofdElu3OI38S260B": {
+    "from": "D",
+    "reason": "Marked answer includes statement 3 (IMC into VMC), which restores the visual reference rather than removing it, and excludes statement 2, which is a recognised cause - repeatedly transferring between outside and instrument references sets up exactly the sensory conflict that disorients. The near-duplicate GN4rLDMpVG5VLAXya9MC uses the same statements 1, 2 and 3 and is keyed to a set that includes 2 and excludes 3. With a cold (4) able to produce alternobaric vertigo, the correct set is 1, 2 and 4.",
+    "to": "B"
+  },
   "Vkbx0mb2I5TCPLwYFldw": {
     "from": "D",
     "reason": "Marked answer was brake release. Anti-icing fluid is designed to remain on the wing during the early take-off roll and shear off progressively; the requirement is that the surfaces are clean of fluid by ROTATION. Confirmed by siblings f0RfDO6zSkvP7QYrbljl and 1QgmQEhELwZqCKiWzvpg, both keyed to rotation.",
@@ -937,6 +1062,11 @@
   "VpPPKxxambXV7ukSTC0R": {
     "from": "D",
     "reason": "Marked answer included 'a diminution of the take-off run', which contamination cannot produce - it raises the stalling speed and adds drag, so the run lengthens. The correct effects are increased take-off distance, increased stalling speed and reduced climb gradient. Confirmed by sibling 5ZJFEJWrXQ12rLyQIEcV.",
+    "to": "A"
+  },
+  "VrNcvzYSPSSsf5hiXeSq": {
+    "from": "B",
+    "reason": "Marked answer says the acid-base balance does not change, but over-breathing washes out CO2 and so raises blood pH - a respiratory alkalosis, which is the whole mechanism behind hyperventilation symptoms. The near-duplicate kccirsBzlRJWNtRAlH4a offers the same options and is keyed to 'the blood turns more alkaline'; option A here is that same statement with a corrupted extra word ('less more alkaline'), and it is the only option naming alkalinity.",
     "to": "A"
   },
   "W8NmBCLyfjwxmSxyHgNZ": {
@@ -989,6 +1119,11 @@
     "reason": "Marked answer included passenger meals, which are not dangerous goods, and omitted fire extinguishers, which are. The items carried for operating reasons and classified as dangerous goods are extinguishers, portable oxygen and first-aid kits. Confirmed by sibling 6XzpFxF7a4BesubbfLb9.",
     "to": "C"
   },
+  "X4tEAlxPbd7jr116tEdB": {
+    "from": "A",
+    "reason": "Marked answer includes statement 2, damage to the auditory nerve, which produces SENSORINEURAL loss, not conductive, and excludes statement 4, a ruptured eardrum, which is conductive by definition. The near-duplicate vVeQSKQYrjBPs1F1p0N7 carries the same four statements and is keyed to '1, 3 and 4 are correct, 2 is false'.",
+    "to": "B"
+  },
   "X6XRhq8d13K4wKVrHdCq": {
     "from": "B",
     "reason": "Marked answer was 150 m, which requires runway edge lighting AND centreline lighting AND multiple RVR information. This question offers only edge and centreline lighting, which puts the take-off minimum at 200 m. Compare sibling 6xXEFTv6kEbKYkOD4MGg, which adds multiple RVR information to the same lighting and is correctly keyed 150 m - the presence or absence of multiple RVR is precisely what separates the two.",
@@ -1004,10 +1139,25 @@
     "reason": "Marked 'continue assigned level/route'. In VMC, comm failure procedure is continue VMC and land as soon as practicable. Option A is correct.",
     "to": "A"
   },
+  "XcR0d5IDRHtj7hO3Tf5E": {
+    "from": "D",
+    "reason": "Marked answer includes omission, which is a skill-based lapse rather than a rule-based error. Rule-based errors are failures in selecting or using a stored procedure: applying a rule that is wrong for the situation (2) and misapplying a rule that would have been right (4). Attentional capture is likewise skill-based, so the correct pair is 2 and 4.",
+    "to": "C"
+  },
+  "Xgyhdo3zZlMmg8da00q5": {
+    "from": "C",
+    "reason": "Marked answer describes manual handling driven by physical sensations, which is stick-and-rudder skill, not judgement. Judgement is the process of assessing a situation, evaluating the risk and deciding, drawing on knowledge, skill, experience and attitude to risk - option D. The near-duplicate GRviu78mJnlaFTHHyXXd offers the identical four options and is keyed to that statement.",
+    "to": "D"
+  },
   "XzDLpTL3LoZHQPlgER4G": {
     "from": "C",
     "reason": "Marked answer allowed matches in hand luggage. The ICAO Technical Instructions permit one small packet of safety matches only when carried ON THE PERSON - not in checked baggage and not loose in cabin baggage. Confirmed by siblings fKNCHs2nFSZrWFkOVPhX and ADpP8wjJMGE5XRBVkZPe.",
     "to": "A"
+  },
+  "YX3DnVkE2O13hbHqASh6": {
+    "from": "A",
+    "reason": "Marked answer assigns statements 2 and 3 - waiting for an infrequent event and monitoring against a limit - to people, but those are precisely the tasks at which human vigilance fails and machines excel. People are better at qualitative decision-making (1) and at noticing unusual conditions they were not told to look for (4). The near-duplicate z0PIbw20ASddX8uhLnVT carries the same four statements and is keyed to '1, 4'.",
+    "to": "B"
   },
   "YXeQiohLCcisPx1S8DiS": {
     "from": "A",
@@ -1048,6 +1198,11 @@
     "from": "A",
     "reason": "Marked altitude. At/above transition level = Flight Level. Option C is correct.",
     "to": "C"
+  },
+  "Z4bkJyQsgMK5JpkoY2CX": {
+    "from": "C",
+    "reason": "Marked answer declares statement 1 false, but blood pressure is the product of cardiac output and peripheral resistance - the work of the heart is one of the two primary determinants, not an irrelevance. All four factors apply. The near-duplicate kKwuoRsjWWxGAnoyqGSR carries the identical four statements and is keyed to '1, 2, 3 and 4 are correct'.",
+    "to": "A"
   },
   "Z5M0HOgj2hQaFG7nKQu2": {
     "from": "C",
@@ -1124,6 +1279,16 @@
     "reason": "Marked answer was 6 NM and 3 minutes, which is the LIGHT-behind-HEAVY case. A MEDIUM following a HEAVY on approach to the same runway takes 5 NM (9.3 km) and 2 minutes. Confirmed by siblings 3MyiCges31htfg9RdORs and Wbx918uZDqC5z6desIIp.",
     "to": "C"
   },
+  "ZwdYrv4NDwrsYG1MOp7J": {
+    "from": "C",
+    "reason": "Marked answer lumps three substances together, but the question asks for THE chemical substance responsible for addiction, and that is nicotine - it acts on the brain's reward pathways and produces dependence and withdrawal. Tar carries the carcinogens and carbon monoxide occupies haemoglobin; neither creates the addiction. The companion item WFIw2k6Xd5naVGn9Cs5R keys tar separately as the carcinogen, confirming the bank treats these as distinct single substances.",
+    "to": "A"
+  },
+  "ZwlebcUC7eODMqmFDPSm": {
+    "from": "C",
+    "reason": "Marked answer invokes an 'internationally recognized list of stressors' with top-ten items to be avoided, which does not exist and contradicts the whole appraisal model of stress. Stress reactions arise from the individual's own appraisal and coping, so they differ from pilot to pilot - option A - which is why the other three options, all asserting uniformity, are wrong.",
+    "to": "A"
+  },
   "aCZYlTRqYDppa8EBIptm": {
     "from": "A",
     "reason": "Marked answer only 'reduced' air conditioning. Cargo hold ventilation must be turned OFF to starve the fire of oxygen and to stop the airflow spreading it, then the fire is extinguished. Confirmed by siblings kObQ3tn88jc0oU7mlfvk and TOwKma89YeaVOt098YMJ, both keyed to turning the ventilation off.",
@@ -1149,6 +1314,11 @@
     "reason": "Marked answer was 2.5 NM. By the 1-in-60 rule 1 degree subtends 200/60 = 3.3 NM at 200 NM, and exactly 200 x tan1 = 3.5 NM. The sibling S8gSuvaPHf4vh8vCsNJn poses the same 1 degree error at 200 NM and keys 3.5 NM.",
     "to": "D"
   },
+  "aqmu063lXSzBiq0NubNJ": {
+    "from": "B",
+    "reason": "Marked answer gives active listening, which is a technique used within a conversation, not metacommunication. Metacommunication is literally communication about the communication - stepping outside the content to comment on how the exchange itself is going - which is option D.",
+    "to": "D"
+  },
   "at8G2965weW9o1Ck6bPD": {
     "from": "B",
     "reason": "Marked answer was 400 ft/min, which matches no calculation. Rate of descent on a glide path is set by GROUNDSPEED: 150 kt TAS less a 15 kt headwind is 135 kt, and on a 3 degree path that gives 135 x 5 = 675 ft/min. Using TAS instead would give 750 ft/min; 400 ft/min would leave the aircraft far above the path.",
@@ -1168,6 +1338,11 @@
     "from": "A",
     "reason": "Marked answer was 130 NM. The VHF line-of-sight formula gives range = 1.23 x (root h1 + root h2) = 1.23 x (root 10 000 + root 100) = 1.23 x 110 = 135 NM, and 135 NM is offered.",
     "to": "D"
+  },
+  "b4ZNRAZPAuktVrXitFmh": {
+    "from": "D",
+    "reason": "Marked answer denies that barodontalgia can occur on descent. It can: gas trapped under a filling or in a cavity that cannot equalise is compressed as the outside pressure rises, and pain results. The near-duplicate KTrH0PZWrgmlkREG1GWs asks the identical question and is keyed to 'Yes'.",
+    "to": "A"
   },
   "b8MfpP4xioH0T3fU0I38": {
     "from": "A",
@@ -1224,6 +1399,11 @@
     "reason": "This row is corrupted: options B and C are fragments of the question stem that were parsed into the option list, and the marked answer was one of those fragments, so no answer was being tested at all. Reconstructing the intended question (aircraft on the 142 radial, 146 set on the OBS, FROM showing), the deviation is 4 degrees at 2 degrees per dot = 2 dots, and the aircraft is left of the selected outbound course, so the indication is 2 dots fly right.",
     "to": "A"
   },
+  "bo2jmNHRoW4lYutgE5Wz": {
+    "from": "A",
+    "reason": "Marked answer describes a linear increase, but the Yerkes-Dodson relationship between arousal and performance is an inverted U - performance falls away at high arousal as well as at low. Numerous companion items in this bank rest on the inverted U (A01m4dLZQ6Mf5P180PAL, JDlrGBG50akRExFGnDP1, F4nX4tf9s0zXYdB6SQ7w, Yxh6HaV6COGfXzb4uzoC), and option B states it explicitly.",
+    "to": "B"
+  },
   "boi8dEePtRr9rnjO1ALt": {
     "from": "C",
     "reason": "Marked answer '8 km and 5-15 minutes' does not match any standard definition. ICAO Doc 9817 and the ATPL syllabus define a microburst as a downburst whose damaging outflow spans 4 km or LESS (larger is a macroburst), with an intense phase lasting 1-5 minutes. Option B (4 km and 1-5 minutes) is the definition.",
@@ -1243,6 +1423,16 @@
     "from": "C",
     "reason": "Marked answer said the BFO is needed to hear the ident and must ALWAYS be on, which is wrong on both counts. The BFO is needed only for NDBs radiating an unmodulated continuous wave (NON A1A), whose keyed ident is otherwise inaudible; for ordinary NON A2A beacons it is unnecessary and is switched off after identification.",
     "to": "D"
+  },
+  "c6Pp4swNCLAxr2oSdBbl": {
+    "from": "D",
+    "reason": "Marked answer omits statement 4, which is the plainest description of what an action plan does - define a framework and a probable strategy for the situation - and includes statement 3, which asserts that such plans are readily interchangeable and reformulable at any time. That undercuts their whole purpose: their value lies in being agreed and stable so that each pilot can predict what the other will do. The correct set is 1, 2 and 4.",
+    "to": "B"
+  },
+  "cBrBT8SupYGKrf5AoSuM": {
+    "from": "B",
+    "reason": "Marked answer says fatigue does not affect hypoxia at all. Fatigue and sustained concentration raise oxygen demand and reduce physiological reserve, so hypoxia appears at a lower altitude and the time of useful consciousness shortens. The near-duplicate CzvYLz3SDsw4nwJnwNJi asks the same question about fatigue and stress and is keyed to 'lower the tolerance to hypoxia'.",
+    "to": "A"
   },
   "cFJDRvdFnnv7MSwUPTTV": {
     "from": "B",
@@ -1274,15 +1464,30 @@
     "reason": "Marked answer was 'from take off to landing'. JAR-OPS 1.320 requires flight crew members to keep the safety belt fastened while AT THEIR STATION, which is the wider obligation and the wording of the rule. Confirmed by sibling 2Ze4A4ABrxlFJu0PcoOS.",
     "to": "C"
   },
+  "cwFMM25AEviKvsiivxan": {
+    "from": "D",
+    "reason": "Marked answer claims over-the-counter preparations have no side effects that would trouble a pilot in flight, which is false - antihistamines, decongestants and analgesics all cause drowsiness, blurred vision or reduced concentration. The correct answer is to take aeromedical advice before self-medicating and flying. The near-duplicate 4zQcICl1kMG1Stvoe3kn carries the same four options and is keyed to exactly that statement.",
+    "to": "C"
+  },
   "cxZMjrAtyZN2uMZC69IO": {
     "from": "D",
     "reason": "Marked answer has the sign reversed. A DECREASE in aerodrome pressure altitude means denser air, which increases thrust and increases the lift generated at a given TAS, so the take-off distance required DECREASES (option A), along with the ground run and accelerate-stop distance. It is INCREASING pressure altitude that lengthens these distances - as questions 3pihDhKKny6mjLW7NHCy and 6Ihh8LXVH0bwLwmzAo7k in this section correctly state.",
     "to": "A"
   },
+  "czMeBtHgLhSpZnVQy21v": {
+    "from": "D",
+    "reason": "Marked answer includes minerals, which supply no energy at all, and omits protein, which the body does break down for energy. The energy-yielding nutrients are carbohydrates, proteins and fats; of the four items listed, protein (2) and carbohydrate (3) qualify. The companion question ISl53KMmQaIpSo0FEg49 is keyed to 'carbohydrates, proteins and fats' and excludes minerals and vitamins.",
+    "to": "B"
+  },
   "d8W3ujcjVcypvTlq4X2w": {
     "from": "D",
     "reason": "Marked answer was 'MAP'. There is no MAP section in the ICAO AIP structure. Holding, approach and departure procedures are published in ENR (En-route). Option C is correct.",
     "to": "C"
+  },
+  "dA4kK5Jd6HszdeXD6TV6": {
+    "from": "D",
+    "reason": "Marked answer declares statement 1 false, but statement 1 is the correct definition of psychosomatic - mental or emotional stressors producing organic reactions. Statement 2 reverses the direction and is the false one. The near-duplicate 8e4ub5tL0Oz8pamUefTu carries the same two statements and is keyed to '1 is correct, 2 is false'.",
+    "to": "B"
   },
   "dAHHyBT9Ok3vZvsSk5Ip": {
     "from": "B",
@@ -1293,6 +1498,11 @@
     "from": "C",
     "reason": "Marked answer SHSN (snow showers) consists of ice crystals, which largely bounce off a cold airframe. The severe icing condition among the options is +FZRA, heavy freezing rain (option B): large supercooled drops that run back and freeze as dense clear ice beyond the protected leading edges, at rates that overwhelm de-icing systems. GR and PE are also already frozen.",
     "to": "B"
+  },
+  "dElqMjIuVBg1rhuTD1Nc": {
+    "from": "A",
+    "reason": "Marked answer claims distress INCREASES vigilance, which is the opposite of the documented effect and is internally inconsistent with the narrowing of attention it goes on to concede. Overstress reduces vigilance - the broad monitoring of the situation stops - while attention tunnels onto one or two salient items, which is option D.",
+    "to": "D"
   },
   "dYwC8LOGtVvX4UMnOq4L": {
     "from": "C",
@@ -1344,6 +1554,11 @@
     "reason": "Marked answer required specifically one INS. The MNPS special-route concession is written in terms of long-range navigation SYSTEMS: two independent LRNS normally, reduced to one LRNS on the notified special routes. An LRNS may be an INS, an IRS or an approved GNSS, so naming the INS states the rule too narrowly.",
     "to": "C"
   },
+  "e3UpKTPknUoj1fw6aK4Q": {
+    "from": "D",
+    "reason": "Marked answer selects statement 2, staying on departure-country time, but that is the strategy for a SHORT stop; with a layover beyond 24 hours the body clock will shift anyway and the advice is to adapt to local time at once. FXy33NoPeWQusTJTFYBw and 8rbRWFIonHoxG79pmbTl both ask the same question about stop-overs longer than 24 hours and are keyed to 'move to the new time as soon as possible'. Statement 3, keeping regular sleep and meal patterns, is correct in both readings, so the correct pair is 1 and 3.",
+    "to": "B"
+  },
   "eOYrBMHibFyzQbd3YUGB": {
     "from": "D",
     "reason": "Marked answer applied the beacon's variation to both. An ADF/NDB bearing is measured at the AIRCRAFT relative to aircraft heading, so the aircraft's variation applies; a VOR radial is generated at the STATION and is already magnetic there, so the beacon's variation applies. The bank is consistent on this elsewhere: am27H1H7zOWgTQZcNCeB uses the station variation for a VOR radial, while CqfE4HZmN43Tk8HbTtXM and dh960M7ZoZA0oMoZthdA use the aircraft variation for an NDB bearing.",
@@ -1374,6 +1589,11 @@
     "reason": "Marked answer was 'block time'. The estimated total time in block 16 is from take-off to arrival overhead destination, not block time (which includes taxi). Option A is correct.",
     "to": "A"
   },
+  "f3Vc9ORPBrW7fWNhrcJx": {
+    "from": "D",
+    "reason": "Marked answer selects 'two ventricles' and the semicircular canals. Ventricles are chambers of the heart and brain and form no part of the vestibular system, which consists of the saccule, the utricle and the three semicircular canals. The near-duplicate IIhoI8RDMIiybcPLP3er carries the identical four statements and is keyed to '2, 3, 4'.",
+    "to": "C"
+  },
   "f4U5pA2vpxXxAJptkQ58": {
     "from": "B",
     "reason": "Marked answer 'tailwind' is impossible: the runway is parallel to the coast and the afternoon sea breeze blows perpendicular to the coast, so it can only be a crosswind. Geometry: on downwind over the sea the airfield is on the RIGHT, so the sea is on the aircraft's left; final is flown in the reverse direction, putting the sea on the right. The sea breeze therefore arrives from the right - option D. This holds whichever way round the coastline is oriented.",
@@ -1384,10 +1604,20 @@
     "reason": "Marked answer was 45 minutes, a figure that appears in no ICAO arrival-report provision. The ATS unit at the filed destination must be informed within 30 minutes of the ETA there, which matches the alerting service: the uncertainty phase INCERFA is declared when an aircraft fails to arrive within 30 minutes of its ETA, so the report must beat that same clock.",
     "to": "D"
   },
+  "fbWRH2LFoPu9ZCCRoeo2": {
+    "from": "B",
+    "reason": "Marked answer asserts photochromic lenses are generally forbidden for pilots, which is not a regulatory requirement. The real objection is technical: they darken in response to ultraviolet, which the windscreen largely blocks, so they behave unpredictably in the cockpit - failing to darken against glare and clearing slowly on descent. That is option A.",
+    "to": "A"
+  },
   "fkBbv0tJgV9jd2n6C3sq": {
     "from": "D",
     "reason": "Marked answer gave an apparent turn towards the south. ANDS - Accelerate North, Decelerate South - means ACCELERATING gives an apparent turn towards the NORTH. The card direction is right in both options: the indicated heading moves from 090 back towards 000, i.e. decreasing, which is a clockwise card rotation. The sibling ddioXNufGHf2UM62RVsf keys the deceleration case as clockwise/south, which is consistent.",
     "to": "C"
+  },
+  "fpgCkUbZsh48cPqLm3Qq": {
+    "from": "C",
+    "reason": "Marked answer gives 'pressure vertigo', which is an ear-pressure phenomenon and not what a head movement in a turn produces. Bending down during a turn stimulates additional semicircular canals and produces the Coriolis illusion. The near-duplicates HpO4TuqvlMRkecZzvP9n and CrqEoqoFDEEJ4vn2UJ8n ask the identical question and are both keyed to the Coriolis illusion.",
+    "to": "D"
   },
   "frxwSVf8VN70dOHH3Ywj": {
     "from": "D",
@@ -1419,10 +1649,20 @@
     "reason": "Marked answer would reject the take-off above V1, which is precisely the overrun scenario V1 exists to prevent. V1 is the decision speed: at or ABOVE it the accelerate-stop distance is no longer assured, so the take-off MUST be continued (option C). Rejection is only permitted below V1.",
     "to": "C"
   },
+  "gIah2cJXD585445SJ5ap": {
+    "from": "C",
+    "reason": "Marked answer says a SURPLUS of CO2, but hyperventilation is by definition ventilation in excess of metabolic need, so carbon dioxide is blown off and the blood level falls. It is that shortage - and the respiratory alkalosis it produces - which causes the dizziness, tingling, blurred vision and tetany.",
+    "to": "D"
+  },
   "gYnGVm73rZ0mkL9JSpED": {
     "from": "A",
     "reason": "Marked answer was 'by states but not on basis of regional agreements'. ICAO Doc 4444: RNP shall be prescribed by States on the basis of regional air navigation agreements. Option C is correct.",
     "to": "C"
+  },
+  "gkrpg8CbTK688rf3ibW4": {
+    "from": "B",
+    "reason": "Marked answer states that stress slows sugar production and slows the heart rate. Both are the reverse of the physiology: adrenaline and cortisol raise blood glucose and drive the heart rate up. Of the options offered, only D is defensible - the stress response prepares the body for physical action, increasing physical capability while mental performance is degraded by narrowed attention and impaired judgement.",
+    "to": "D"
   },
   "gljFDB73BwrDd2En25Wd": {
     "from": "A",
@@ -1443,6 +1683,21 @@
     "from": "A",
     "reason": "Marked answer was the State of registry. The MEL is drawn up by the OPERATOR, from the manufacturer's MMEL, and is then approved by the Authority - the Authority approves, it does not author. Confirmed by siblings ahV7fpWy4GNxyijInk3C, BikanX9nxWxdJJO3jIEL and 5LLmgh4Ea4Wm6bqCQqpI, all of which key the operator.",
     "to": "B"
+  },
+  "gx9IDHGQgZ9xK0vR44vn": {
+    "from": "C",
+    "reason": "Marked answer transposes argon and carbon dioxide. Dry air is about 78% nitrogen, 21% oxygen, 0.9% ARGON and 0.03% CARBON DIOXIDE, which is option D. The companion question VDlJtjAO9CaSjOUxy6NZ matches carbon dioxide to 0.03% and the rare gases to 0.92%, confirming the figures.",
+    "to": "D"
+  },
+  "gzCrhEDILM0L2FvYfmsS": {
+    "from": "D",
+    "reason": "Marked answer tells the copilot to withdraw internally and think positive, which leaves the grievance unaddressed and damages the crew coordination the flight depends on. The correct handling is to state the problem, return to his duties and settle it at a more appropriate time. The near-duplicate NlhjTJCnhqRUtKgWLdqx offers the same four options and is keyed to exactly that.",
+    "to": "B"
+  },
+  "h92Zm2wGeUz2zJIDIEnd": {
+    "from": "B",
+    "reason": "Marked answer asserts that stress AUTOMATICALLY reduces performance, which contradicts the inverted-U on which the rest of this syllabus rests - a moderate level of stress improves performance. Stress is the body's adaptation mechanism for meeting demand, which is option A. The near-duplicate TlkvuNZq8trggvwtR0BW offers the same options and is keyed to the equivalent statement.",
+    "to": "A"
   },
   "hAdR68SxQICfZ2aY3zgc": {
     "from": "C",
@@ -1513,6 +1768,11 @@
     "from": "C",
     "reason": "Marked answer 'cold air passing over warm ground' describes an unstable advection situation producing convection or steaming fog, not radiation fog. Radiation fog is by definition caused by the ground losing heat by long-wave radiation on a clear night and cooling the moist air in contact with it below its dewpoint - option D.",
     "to": "D"
+  },
+  "iDFU3dX9P5XVSqZUY3CH": {
+    "from": "D",
+    "reason": "Marked answer gives 40-60% humidity, which is false: cruise cabin humidity is roughly 5-15%. QWGX6ZhIdPJxPWnqH9dW and NG48WtluhPsqMBYVxgGq both key the 5-15% figure. This row is a corrupted fragment of a multi-statement item - its options are individual statements rather than combinations, and two of them are true - but of those offered, the 5-15% statement is the one that answers the question directly and the marked answer is simply wrong.",
+    "to": "A"
   },
   "iF6f4w5TxJffpCrI9QU9": {
     "from": "C",
@@ -1594,6 +1854,11 @@
     "reason": "Marked answer limited to ATC units with 121.5 MHz. Alerting service is by the ATS unit responsible, not limited to those with 121.5. Option B is correct.",
     "to": "B"
   },
+  "jRkLdZ8zUce8iOz1V8V0": {
+    "from": "C",
+    "reason": "Marked answer says success requires DIFFERENT contexts for sender and receiver, which is the opposite of the truth - a shared context is what makes a short message intelligible. A message achieves its objective when the verbal, non-verbal and contextual meanings all agree, which is option D; where they diverge, the receiver believes the non-verbal channel and the intended message is not the one received.",
+    "to": "D"
+  },
   "jY7PQSOgdRFH1SWGAcSu": {
     "from": "D",
     "reason": "Marked 10 km. ICAO wake turbulence landing separation Heavy-Light = 6 NM. Option B (6 NM) is correct.",
@@ -1607,6 +1872,11 @@
   "jbp8tSGlQNw1ZdCujDgD": {
     "from": "C",
     "reason": "Marked answer was 27 000 kg, which is the threshold in the older requirement for turbine aeroplanes certificated before 1 April 1998. For a recent aeroplane the FDR is required above a maximum certificated take-off mass of 5700 kg. Confirmed by sibling KAeR8od1qy1oTeSdyvXs, which keys 5700 kg for aeroplanes certificated after 1 June 1990.",
+    "to": "D"
+  },
+  "jpwt1wznvZxzHWhf9AGf": {
+    "from": "B",
+    "reason": "Marked answer pairs colds with SLOW ASCENTS. Ascent is the safe direction - expanding middle-ear air vents itself through the Eustachian tube - and a slow rate is safer still. Barotrauma occurs on descent, when the tube acts as a one-way valve and rising outside pressure drives the drum inwards, and a rapid descent is worst of all. The near-duplicate ZnsHBwR4HGgT7djroTUF carries the same four options and is keyed to 'with colds and rapid descents'.",
     "to": "D"
   },
   "jwbs2tRFXCkEwkBXjDnL": {
@@ -1684,10 +1954,20 @@
     "reason": "Marked answer gave MDH 600 ft and 2400 m, which are the CATEGORY C circling minima. Category B is MDH 500 ft with 1600 m. Confirmed by sibling DwkkbVqJZzehqhZieGkk.",
     "to": "C"
   },
+  "kx8CSD1G8C44H3ukx080": {
+    "from": "A",
+    "reason": "Marked answer equates an error of intention with a routine error; routine errors are skill-based slips of execution, whereas an error of intention is a mistake in planning - the two are different categories. The correct statement is that an error is the mismatch between the pilot's intention and the result of his actions. The near-duplicate MMKnKaaYOOB23GvpiyZH carries the same four options and is keyed to that statement.",
+    "to": "B"
+  },
   "kxD3VrH8hjUhkRxVcTq0": {
     "from": "A",
     "reason": "Marked answer 'not signed by the meteorologist' is not a meteorological code at all. NOSIG is a TREND group in a METAR or SPECI meaning NO SIGNIFICANT CHANGE is expected in the following two hours - option D. It occupies the same slot as BECMG or TEMPO.",
     "to": "D"
+  },
+  "kyeVBRkLcwgGRbn1VlA2": {
+    "from": "B",
+    "reason": "Marked answer describes prolonged suppression of all basic needs in favour of self-actualisation, which inverts Maslow - the lower needs must be reasonably satisfied before the higher ones motivate at all. An unmet need changes motivation, and the changed motivation shows as adapted behaviour directed at satisfying it, which is option A.",
+    "to": "A"
   },
   "kywWI5LfhreMVaWl4kJA": {
     "from": "B",
@@ -1722,6 +2002,11 @@
   "lY8W3lpC3Yr8pYfGY4Tg": {
     "from": "C",
     "reason": "Marked 1500 m. Code 4 = reference field length 1800 m and over. Option B is correct.",
+    "to": "B"
+  },
+  "lZiu1Yp6IwjimG7DA4Wh": {
+    "from": "C",
+    "reason": "Marked answer describes a climbing and turning sensation in the ORIGINAL direction. Stopping the rotation makes the canal fluid overshoot, so the sensation is of spinning in the OPPOSITE direction - which is exactly why the instinctive correction re-enters the original spin. The near-duplicates OQLIkQy0NrkR27QKdWz5, XoxZ2tfCr7WCdAD7XVqZ and CSrt2VLjbOLaZFXwgGz6 all key this sensation as spinning in the opposite direction.",
     "to": "B"
   },
   "lbYEYfVdNTV5C9yPyjxY": {
@@ -1764,6 +2049,11 @@
     "reason": "Marked answer of 15 NM is the GROUND distance, but DME measures slant range, which must be greater. With 36 000 ft (5.9 NM) of height difference the slant range is root(15 squared + 5.9 squared) = about 16 NM. The near-duplicate sibling cUSLvZVBm4GQ7U96ucye, with identical data, keys 16 NM.",
     "to": "D"
   },
+  "lxVa6mFR6wjuciktxW4X": {
+    "from": "D",
+    "reason": "Marked answer says SOPs should follow only the manufacturer's proposals and not reflect the operator's cockpit philosophy, which is neither true in practice nor the point of the question - operators legitimately add their own MCC procedures. What an SOP must be is shared by the whole crew and updated whenever it changes, since its value lies in each pilot being able to predict and monitor the other. The near-duplicate Vu1O4emvkEPEL2YDd4Lq carries the same four options and is keyed to that statement.",
+    "to": "A"
+  },
   "m2pmCj7eMPdd7RDygnQ1": {
     "from": "C",
     "reason": "Marked answer says the equatorial easterly jet occurs all year in the northern hemisphere. It is a strictly SEASONAL feature, present only in the northern-hemisphere summer over southern Asia and Africa, when the monsoon reverses the upper-level temperature gradient, and its core lies very high at around 100-150 hPa, roughly 45,000 ft. Option B states both the season and the height correctly.",
@@ -1773,6 +2063,11 @@
     "from": "C",
     "reason": "Marked answer 'water vapour freezing to the aircraft' describes HOAR FROST, which is deposition of vapour directly as ice, not clear ice. Clear ice forms when LARGE supercooled droplets strike the airframe, release latent heat, only partly freeze on impact and SPREAD back over the surface before freezing - option D. Option A (freezing on impact) describes rime.",
     "to": "D"
+  },
+  "m7M1KaKMSw4YVJPpwEuQ": {
+    "from": "A",
+    "reason": "Marked answer declares individual tolerance false, but hypoxia tolerance varies widely between people and from day to day in the same person with fitness, fatigue, smoking and alcohol - the companion item 6M2czfiEF7MT5kdX8PxV is keyed to exactly that point. All four factors determine severity, which is option C.",
+    "to": "C"
   },
   "mKrZdIz0jssT5knVKO3d": {
     "from": "D",
@@ -1802,6 +2097,11 @@
   "mjTFq9htaAZBizqhnoWh": {
     "from": "C",
     "reason": "Marked answer has the sign reversed. Dihedral INCREASES static lateral stability (option D): in a sideslip the lower wing meets the airflow at a greater effective angle of attack, generates more lift and rolls the aeroplane back toward level. It is not the only means to that end - sweepback, a high wing and keel surface do the same - which also rules out option B.",
+    "to": "D"
+  },
+  "mmhwcIE49v4cpIZoAVO5": {
+    "from": "B",
+    "reason": "Marked answer names the arterioles, which are effectors of blood-pressure control, not sensors. Pressure is measured by the pressoreceptors (baroreceptors) in the carotid sinuses and the aortic arch, as the companion item BITEx2RvczwOunF2UJYO confirms.",
     "to": "D"
   },
   "mo4hgBkvy0hrWUfd5r5h": {
@@ -1848,6 +2148,11 @@
     "from": "C",
     "reason": "Marked 'NOT POSSIBLE'. Standard ICAO interception phrase for inability to comply is 'CAN NOT'. Option B is correct.",
     "to": "B"
+  },
+  "nGsgyRM6vW1Lux19yf8f": {
+    "from": "A",
+    "reason": "Marked answer selects statements 2 and 3, both of which are false: short-term memory is limited in time (about 10-20 seconds), not unlimited, and it is highly sensitive to disturbance - an interruption wipes it. Only statement 1, 'limited in time and size', is correct, which is option D.",
+    "to": "D"
   },
   "nHnsxwxxdz2TPWKA2ZeG": {
     "from": "C",
@@ -1909,6 +2214,11 @@
     "reason": "Marked answer was FL120, which does not clear the obstacle: with QNH 1035 that is an indicated altitude of about 12 590 ft, and at ISA-15 a true altitude of about 11 840 ft, giving only 1240 ft over the 10 600 ft obstacle instead of 1500 ft. The required pressure altitude is about 12 280 ft, and a track of 215 takes even levels, so FL140 is the lowest usable. The sibling yMeLuWybifUWRvC97yEi, with the same data plus the variation, keys FL140.",
     "to": "A"
   },
+  "oTfp7qEYNTiswU7bOggu": {
+    "from": "D",
+    "reason": "Marked answer names the paranasal sinuses, which equalise through their own ostia and have nothing to do with the Eustachian tube. The tube connects the middle ear to the nasopharynx and so equalises middle-ear pressure with the external atmosphere - option A. The companion items MEAnXfMY2FGe2gYtS34B, WsPR1nL11m99CshckJ8v, 5nzqVk8yK5LbNuEyTFwq and mRajTxRE57jX05xzmYDu all place the tube between the middle ear and the nose/throat.",
+    "to": "A"
+  },
   "oaXSWwLMJFxCjznLBBVo": {
     "from": "A",
     "reason": "Marked answer 'it stays the same throughout the year' does not even address the question, which asks how tropopause height varies with LATITUDE. Tropopause height follows the depth of the troposphere beneath it, so it falls from about 16-18 km over the equator to 11 km in mid-latitudes and about 8 km over the pole: it decreases from south to north in the northern hemisphere (option C).",
@@ -1933,6 +2243,11 @@
     "from": "A",
     "reason": "Marked answer included the statement that surface moisture changes the colour without making the runway shiny - that is the definition of DAMP, not wet. JAR-OPS defines WET as water or its equivalent up to 3 mm, or enough moisture to make the surface appear reflective without significant standing water: statements 1 and 3. Confirmed by sibling PFgfcG8hW5i8l2gwOmWK, which keys the colour-change wording to DAMP.",
     "to": "D"
+  },
+  "pBR0xx59rmdtufaA3tXU": {
+    "from": "C",
+    "reason": "Marked answer attributes accommodation to the retina; accommodation is performed by the ciliary muscle changing the shape of the crystalline lens, as f4uPuM5gvHtGHIW2qQex and Tc1rzYSoIAP1EollPzgW both confirm. The retina's function is to capture the visual signal and transduce it into nerve impulses, which is option B.",
+    "to": "B"
   },
   "pJqhrkI6azKuwEV02iBJ": {
     "from": "D",
@@ -2074,6 +2389,21 @@
     "reason": "Marked answer was 7 NM. Directly overhead, the DME slant range IS the height above the station: 36 000 ft / 6076 = about 5.9 NM, i.e. 6 NM. The near-duplicate sibling HwMsniLtO9xcrmN5TcwL, with identical data, keys 6 NM.",
     "to": "A"
   },
+  "rYzyvYKjs2vj4zzzq7Q4": {
+    "from": "C",
+    "reason": "Marked answer accepts only statement 1 and rejects statement 4, but motor programmes - procedural skills such as flying an approach - are stored in long-term memory, which is exactly why a skill survives months without practice. Statements 2 and 3 are false because working memory and the seven-item limit both belong to short-term memory, so the correct pair is 1 and 4.",
+    "to": "D"
+  },
+  "reu3mk2BDD0FWulzpFjK": {
+    "from": "D",
+    "reason": "Marked answer gives 'descending'. A forward linear acceleration tilts the resultant of gravity and acceleration backwards, which the otoliths read exactly as a nose-up pitch, so the illusion is of CLIMBING - it is deceleration that feels like a descent. The near-duplicate kSsldLwTBas5wq5CBBqi asks the identical question and is keyed to 'climbing', as are UO7V73JI9GQJDkIu1Qm2 and HfpelHyizQD3jQy2oFSw on the same mechanism.",
+    "to": "A"
+  },
+  "rfUtBs1M3GwaFN3LNqgr": {
+    "from": "A",
+    "reason": "Marked answer gives 'good visibility only', which is a precondition for seeing anything rather than the mechanism of depth perception. At close range depth comes from binocular disparity - the two eyes viewing the object from slightly different positions. The companion items DXrTlGc3Y2ZhTMilaf6V and U1anWQeupCKokUbFEHIF both key close- to medium-range depth perception to binocular vision.",
+    "to": "D"
+  },
   "rgOJtyN6P2eMyGAAGfZn": {
     "from": "D",
     "reason": "Marked answer had the aeroplane taxiing clear of the runway before an evacuation. After an emergency landing that requires escape the aeroplane stops where it is and all systems are shut down - taxiing with an evacuation pending exposes passengers on the ground to running engines. Confirmed by siblings cuDsfThvsn5sQ5hPr5rP and KluLUeJxEVCLTEf2eif2, both keyed to 'remain on the runway, turn off all systems'.",
@@ -2094,9 +2424,19 @@
     "reason": "Marked answer uses a 30-minute averaging period. ICAO Annex 3 specifies that the METAR wind group is the mean over the TEN minutes immediately preceding the observation (option D), with gusts appended if the speed varied by 10 kt or more within that period. The 2-minute mean is what ATC passes for take-off and landing; 30 minutes is not used at all.",
     "to": "D"
   },
+  "rviYaoeALsnrX0i3gn65": {
+    "from": "C",
+    "reason": "Marked answer gives barotitis, which is barotrauma of the MIDDLE EAR, not of the gut. Gas expanding in the stomach and intestines produces distension, colicky pressure pain and flatulence. The near-duplicate bhh7DLhWW2uzq01X3vhO carries the same four options and is keyed to 'pressure pain or flatulence'.",
+    "to": "B"
+  },
   "rvzweKvnVMVZ8EqF8XNp": {
     "from": "A",
     "reason": "Marked answer claimed the oxygen would explode - oxygen does not burn or explode; it accelerates the combustion of other materials. The real objection is that passenger masks are continuous-flow units that mix CABIN AIR with oxygen, so in a smoke-filled cabin they deliver the smoke too. Only the crew's smoke masks and protective breathing equipment isolate the wearer from cabin air.",
+    "to": "B"
+  },
+  "rxjKhIy2wZWRLM8UHMSD": {
+    "from": "D",
+    "reason": "Marked answer says the sensation will not stimulate the seat-of-the-pants sense, which is self-contradictory - being pressed into the seat is precisely what that sense registers. The point of the item is that the same increased force is produced by a climb, by a level turn's increased load factor and by a forward acceleration, so without an outside reference the sensation is ambiguous, which is option B.",
     "to": "B"
   },
   "rykoEDvCYDwDzo9cIPFu": {
@@ -2134,6 +2474,11 @@
     "reason": "Marked answer simply repeats the indicated reading. With 1013 set but an actual QNH of 993, the subscale is 20 hPa too HIGH, so the altimeter over-reads by 20 x 27 = 540 ft. The elevation is therefore 1200 - 540 = 660 ft (option D). Cross-check: question 0KdNKNzLkK3BJFugU9mg in this section uses the identical figures in reverse - elevation 540 ft, QNH 993, 1013 set, reading 1080 ft - and is correctly keyed.",
     "to": "D"
   },
+  "sbsgdXVDgFwJ6un0EVAJ": {
+    "from": "D",
+    "reason": "Marked answer places the risk below 18,000 ft, but decompression sickness requires the ambient pressure to fall far enough for dissolved nitrogen to come out of solution, which in practice means cabin altitudes ABOVE about 18,000 ft. The near-duplicate HrKUy3wHtxL0KSVAuWa4 carries the same four options and is keyed to 'cabin pressure loss when flying at higher altitudes (above 18,000 ft)'.",
+    "to": "B"
+  },
   "soPqk3cLK3Ufw35O9OtF": {
     "from": "C",
     "reason": "Marked answer has friction drag DECREASING after transition, which is backwards. A turbulent boundary layer mixes fast free-stream air toward the surface, giving a fuller velocity profile (higher mean speed) AND a steeper velocity gradient at the wall, which INCREASES skin friction drag - option B. Cross-check: question PCUvN1EztLbwkPVKn9F0 in this section is the identical item and is correctly keyed.",
@@ -2148,6 +2493,11 @@
     "from": "B",
     "reason": "Marked answer 'spiral dive' is a slow divergence corrected by the pilot or autopilot, not by a yaw damper. A yaw damper senses yaw rate and applies opposing rudder to break the roll-yaw coupling that produces DUTCH ROLL (option D). Cross-check: question tlD5vGpGeMnIOnu6xghv in this section is the identical item and is correctly keyed to Dutch roll.",
     "to": "D"
+  },
+  "swYaKttr7pbVoL8Q3jV4": {
+    "from": "D",
+    "reason": "Marked answer claims altitude compensates for the effects of carbon monoxide; in fact the two compound each other, since both reduce the oxygen delivered to the tissues. The true statement is that carbon monoxide is odourless and gives no sensory warning. The near-duplicate 9c1c9PKOc2TbfezPs0Bp carries the same four statements and is keyed to 'carbon monoxide is odourless and colourless'.",
+    "to": "C"
   },
   "t14lpNAKtiYhSm3QB2pc": {
     "from": "D",
@@ -2194,6 +2544,11 @@
     "reason": "Marked answer describes trade winds in both seasons and puts the NE trade in summer, which is backwards. The Gulf of Guinea follows the ITCZ: in NORTHERN SUMMER the ITCZ migrates to 15-20 N and the south-east trades cross the equator, are deflected right, and arrive as the moist SOUTH-WEST MONSOON; in WINTER the ITCZ retreats south and the dry NORTH-EAST TRADE (Harmattan) prevails. Option C.",
     "to": "C"
   },
+  "tp6M2BwiezlCZQd8jmdT": {
+    "from": "B",
+    "reason": "Marked answer declares both statements false, but both are plainly true: sleep loss produces drowsiness, irritability and poor concentration, and it raises the error rate. The near-duplicate Pg8UL8rv3z9CDs5DI6B1 carries the identical two statements and is keyed to '1 and 2 are both correct'.",
+    "to": "C"
+  },
   "tpDSUf1BEgm6c9Z62K0g": {
     "from": "A",
     "reason": "Marked 3 kt. Significant crosswind change = 5 kt per ICAO Doc 4444. Option C is correct.",
@@ -2213,6 +2568,16 @@
     "from": "D",
     "reason": "Marked answer says the airspace would be temporarily closed, which is not a meteorological function at all. Severe turbulence, including severe CAT, is a mandatory SIGMET phenomenon, so pilot reports of it lead the responsible meteorological watch office to issue a SIGMET (option A). A SPECI is a special aerodrome observation and has nothing to do with en-route hazards.",
     "to": "A"
+  },
+  "uGKekGZ7Pgwxk9P1t05a": {
+    "from": "B",
+    "reason": "Marked answer claims the human-factor share has more than tripled since 1980. It has not: the proportion has been broadly stable at around 70-80% for decades, while the absolute accident rate fell as engineering causes were removed. The near-duplicate FOA04VCxqCVtegoEXyad carries the identical four options and is keyed to 'approximately 70-80% of aviation accidents'.",
+    "to": "A"
+  },
+  "uJBauIATnYl6PQV4fruw": {
+    "from": "B",
+    "reason": "Marked answer gives muscular spasms, which are a symptom of hyperventilation rather than of sleep loss. Lack of sleep increases fatigue, degrades concentration and attention, raises the risk of sensory illusions and disturbs mood - option D. The near-duplicate rwiuJNq89K69zdJ0fOmt is keyed to the equivalent statement.",
+    "to": "D"
   },
   "uL5WMMxsNI3kyZq84EyE": {
     "from": "B",
@@ -2254,6 +2619,11 @@
     "reason": "Marked NOTAM. Temporary long-term changes (3+ months) are published as AIP Supplements. Option D is correct.",
     "to": "D"
   },
+  "uzytCCwnyMKkqBOFlIdW": {
+    "from": "A",
+    "reason": "Marked answer includes statement 3, which prescribes abandoning automatic processing in favour of conscious analysis - the opposite of what helps under overload, since conscious processing is the scarce resource. The correct set is to use one's own reserves (1), divide the tasks among the crew (2) and shed low-priority tasks (4). The near-duplicate OH70R8Kcbjon2dkKQDEN carries the same statements and is keyed to '1, 2 and 4'.",
+    "to": "D"
+  },
   "v3aKa0vJ1MmHjUNanz7t": {
     "from": "A",
     "reason": "Marked answer is backwards: trailing-edge flap LOWERS the angle of attack for maximum lift, it does not raise it (raising the stalling angle is what SLATS do). Flap adds much more drag than lift, so (L/D)max falls and the best glide angle is WORSENED - option C. Cross-check: questions PEbp3gUeKZMc8XrVaoto and w17FSBytisDto3yPkVXu in this section both confirm flap decreases the critical angle of attack.",
@@ -2269,10 +2639,20 @@
     "reason": "Marked FAF. ILS final approach begins at the FAP (Final Approach Point), not the FAF. Option B is correct.",
     "to": "B"
   },
+  "vANZdEzZWbe6g6r65iSO": {
+    "from": "D",
+    "reason": "Marked answer gives a feeling of rotation, which is a semicircular-canal effect. Acceleration and deceleration in level flight act on the OTOLITHS, tilting the resultant of gravity and acceleration and producing the somatogravic illusion of climbing or descending. The near-duplicate OqmVgwc9JCUIRuDF6XsO carries the identical four options and is keyed to 'the illusion of climbing or descending'.",
+    "to": "A"
+  },
   "vB5j1wHJYzyOluKT43vJ": {
     "from": "A",
     "reason": "Marked answer of 1230 km is about 664 NM, far beyond VHF line of sight. The formula gives 1.23 x root(10 000) = 123 NAUTICAL MILES; the option set repeats the figure 123 in the wrong unit, which is the point being tested.",
     "to": "D"
+  },
+  "vDydqZSxM7GVZ1G7ZtHt": {
+    "from": "D",
+    "reason": "Marked answer admits only childhood environment and upbringing, excluding heredity and past experience. Personality is formed by inherited temperament together with childhood environment, upbringing and accumulated experience - all four. The near-duplicate O0xZg5gdezKbJzLHYa9a lists the same elements and is keyed to '1, 2, 3 and 4 are correct'.",
+    "to": "A"
   },
   "vJSDGgGNyG6CPT7oXJVM": {
     "from": "D",
@@ -2349,6 +2729,11 @@
     "reason": "Marked 'final missed approach track'. When losing visual during circling, turn towards the landing runway. Option B is correct.",
     "to": "B"
   },
+  "w31IYmjr6qciHY1qM4E6": {
+    "from": "A",
+    "reason": "Marked answer admits only linear acceleration. The inner ear houses the semicircular canals (angular acceleration), the otolith organs (linear acceleration and gravity) AND the cochlea (hearing), so all three functions listed belong to it. The near-duplicate 8PjTufWJcOvBFfCH3L4x carries the same three statements and is keyed to '1 and 2 and 3 are correct'.",
+    "to": "D"
+  },
   "w3eLG32LI4mVOz3vSin5": {
     "from": "A",
     "reason": "Marked answer was that the handle goes out once the extinguisher has been fired. The fire warning and the illuminated shut-off handle are driven by the fire detection loops, so the handle extinguishes when fire is no longer DETECTED - discharging a bottle into a fire that is still burning does not clear the warning. Confirmed by sibling yUyFwCc3m5mBxUHJkiKg.",
@@ -2404,6 +2789,11 @@
     "reason": "Marked answer 1.2 Vs is essentially V2, the take-off safety speed, not the best-angle-of-climb speed. For a jet, thrust available is roughly constant with speed, so maximum excess thrust - and hence the steepest climb angle - occurs where drag is least: at the highest CL/CD ratio (option D). Cross-check: question sopEG4tp6lz5jQodbkaA in this section correctly groups maximum climb angle with holding and minimum glide angle, all of which are the (L/D)max condition.",
     "to": "D"
   },
+  "wp5bIpHPv4R5R24BNlcO": {
+    "from": "D",
+    "reason": "Marked answer gives an authoritarian approach, but the motives listed - wanting to be integrated into the team, to be liked as leader, to avoid conflict - all push towards conformity, not towards asserting authority. They lead the individual to endorse what others have already proposed rather than evaluate it. The near-duplicate H6qh1LzJZ8lbXzXGaIf1 carries the identical four options and is keyed to 'the attempt to agree on decisions made by other crew members'.",
+    "to": "B"
+  },
   "wqpRG2Gx33XnIKEibfbg": {
     "from": "B",
     "reason": "Marked 250 ft. CAT I DH minimum is 200 ft. Option C is correct.",
@@ -2424,9 +2814,29 @@
     "reason": "Marked answer was a preceding aircraft briefly applying take-off thrust before departure - that is jet blast, not wake turbulence, which needs lift to be produced. The worst wake case offered is a heavy aeroplane having just taken off from a closely spaced parallel runway with a light crosswind, because a light crosswind holds the vortex over the adjacent runway instead of clearing it. Confirmed by sibling 9QAk0dmdVyYRdYAM92rX.",
     "to": "B"
   },
+  "x3q76damVbKDAy1g0oZA": {
+    "from": "D",
+    "reason": "Marked answer accepts only statement 4 and rejects statement 1, but a limited vocabulary is the defining feature of a professional language - it is what allows each term to carry exactly one meaning. Statements 1 and 4 are both correct. The near-duplicate QETnXijPa80TxON4J4x6 carries the identical four statements and is keyed to '1 and 4 are correct'.",
+    "to": "A"
+  },
+  "x5Xeq0fKjM7sJJUrKg7X": {
+    "from": "C",
+    "reason": "Marked answer gives the bends, which is JOINT pain. Bubbles under the SKIN produce itching, a crawling sensation and mottling - the creeps. The near-duplicate nSfZIy3287zFKY0hFhmN asks the identical question and is keyed to 'creeps'.",
+    "to": "B"
+  },
   "x7KzknV0rpkNfFLZXevL": {
     "from": "D",
     "reason": "Marked answer was to request permission to follow another aircraft. With the last navigation system lost, the first action is to notify ATC and await instructions - the controller can offer radar assistance or a revised clearance. Confirmed by siblings hAL7jc0NyJpfVwmDMu7a and ta8wPqEsl7dxJ92BDFLW.",
+    "to": "A"
+  },
+  "x7T87kvadpNyzTEp8TET": {
+    "from": "A",
+    "reason": "Marked answer gives 0.02-0.05% per hour, which is two to three times the actual elimination rate. Alcohol is metabolised at about 0.015% blood alcohol (15 mg per 100 ml) per hour, which falls in the 0.01-0.015 band of option B. The companion item i6SFEXW8DjbeDpHJ8RnB is keyed to 'approx. 0.015% per hour and cannot be expedited'.",
+    "to": "B"
+  },
+  "xAJViZX8ik10RnA7bdm0": {
+    "from": "C",
+    "reason": "Marked answer says too much motivation produces HYPOvigilance, which is the under-arousal failure and the opposite of what excessive motivation does - it pushes arousal past the optimum and narrows attention. The near-duplicates faWGBZksLjNEMJq4GbQm and rEhclEs4Fm8BtB075lVf both carry this option set and are keyed to 'excessive motivation in combination with high stress will limit attention management capabilities'.",
     "to": "A"
   },
   "xD3cjfddASHZDab61Gow": {
@@ -2479,6 +2889,11 @@
     "reason": "Marked answer credits clearway to the accelerate-stop distance, but a clearway cannot be used for stopping - that is what a STOPWAY is for. A clearway is an obstacle-free area over which the initial climb to 35 ft may be made, so it counts toward the TAKE-OFF DISTANCE AVAILABLE (option B), up to a maximum of half the take-off run available.",
     "to": "B"
   },
+  "xmquChWJwnDZiRNTK7RM": {
+    "from": "D",
+    "reason": "Marked answer gives a climbing sensation, which is a somatogravic (otolith) illusion and unrelated to a fading light. Perceived brightness is a distance cue, so a light dimmed by fog, dust or haze is read as receding - the source appears to move away. The near-duplicate ErorERNv1c7rZlpxCJj4 carries the identical four options and is keyed to 'the source of light moves away from him'.",
+    "to": "C"
+  },
   "xplj9SmJd2CGQyh6YD04": {
     "from": "D",
     "reason": "Marked answer was 230 m, which is not a value in the table. Category IIIA requires an RVR of not less than 200 m. Confirmed by siblings iwE4S5EHT7ClkCXFEyUi, o6Nk53AvYX9bYZ6fvIQK, QlV6aZueHBajw5OArkvy and khpR6PuW1quwvKPT4llo.",
@@ -2497,6 +2912,11 @@
   "y5g4WWkPw1MjeAvIC3ep": {
     "from": "B",
     "reason": "Marked 'do not prevent terrain collisions'. ATC does prevent terrain collisions when vectoring IFR by radar. Option A is correct.",
+    "to": "A"
+  },
+  "y6PgWZuWxOWRJDbqs4Qo": {
+    "from": "B",
+    "reason": "Marked answer selects only statement 1, a decrease in heart rate, which is the reverse of what happens - the baroreceptors detect the falling pressure and drive the heart rate up. The genuine effects of +Gz are blood pooling in the lower body (2), a fall in blood pressure above heart level (3) and downward displacement of soft organs (4). The near-duplicate EVfx9Os6SB1FCjMp30Gb carries the same four statements and is keyed to '2, 3, 4'.",
     "to": "A"
   },
   "yDhL2pcZ4fnzDsNQDfL9": {
@@ -2549,6 +2969,16 @@
     "reason": "Marked answer was 102 minutes. PET distance from Q = 1760 x 385 / 820 = 826 NM, which at the outbound groundspeed of 435 kt takes 1.90 hours = about 114 minutes. The near-duplicate sibling R2HgpjNFRHGnfvz2U9dn, with identical data, keys 114 minutes.",
     "to": "D"
   },
+  "yUWmxhL6FJGztl5P4MZ6": {
+    "from": "D",
+    "reason": "Marked answer describes trembling, a rise in body temperature, convulsions and slowed breathing - none of which is the hypoxia picture; body temperature falls and breathing quickens. The symptoms above 12,000 ft without oxygen are headache, fatigue, dizziness and loss of coordination. The near-duplicate E9t8UfExFoPLlVEmQec1 carries the identical four options and is keyed to that set.",
+    "to": "C"
+  },
+  "yUoiNDjQu4cklbnyOlyC": {
+    "from": "A",
+    "reason": "Marked answer gives water vapour in the alveoli, which plays no part in respiratory drive. The rate and depth of breathing are regulated principally by the carbon dioxide level in the blood, sensed as a change in pH. The companion items LW5ndXahwD6Eb45eAybS, NGkgzFSia4hiH4XKO23p, DaFy6dHITcA5ygrtOmv3, PEp51yjCPCN8K3xALna8 and svS7ExO50huiPdzkkEcv are all keyed to carbon dioxide.",
+    "to": "B"
+  },
   "yaRjAX8EFCo7qJbzVaez": {
     "from": "C",
     "reason": "Marked answer refers to the COLD air being stable, which is irrelevant: the cold air is not the air being lifted at a warm front. Thunderstorms occur on a warm front only when the WARM air riding up the frontal surface is convectively UNSTABLE (option B), so that once frontal ascent saturates it, it keeps accelerating upward on its own. Cross-check: question sMx87iPUV1McwkzWUrLW in this section is correctly keyed to the warm air being moist with an ELR exceeding the SALR.",
@@ -2564,10 +2994,20 @@
     "reason": "Marked 6 NM. ICAO Doc 4444: notify at approximately 8 NM. Option A is correct.",
     "to": "A"
   },
+  "yfYX6nKFQSzXyqlX55rU": {
+    "from": "C",
+    "reason": "Marked answer restricts the definition to latent errors, but error tolerance is a property of the system with respect to ANY error made in it: the system is tolerant when the consequences of an error do not seriously jeopardise safety. The near-duplicate nQTZ2h7Pp0ZpbPZ5paID carries the identical four options and is keyed to that statement.",
+    "to": "D"
+  },
   "yg05YLuhHKFefoCthkPF": {
     "from": "B",
     "reason": "Marked States won't assist. States WILL assist with nav aids/ATS. Aircraft detained unless departure needed to protect lives. Option D is correct.",
     "to": "D"
+  },
+  "yrKq3qnRtcmCgYtgJYds": {
+    "from": "C",
+    "reason": "Marked answer has the bias running the wrong way. Once a mental model is formed, information that CONFIRMS it is given undue weight while contradictory information is discounted - that is confirmation bias, and it is why a wrong diagnosis survives contrary evidence. The near-duplicate r3TTObOmsZ8oLyRGScXH carries the identical four options and is keyed to 'undue weight to information that confirms the model'.",
+    "to": "A"
   },
   "zENscEKrpT97VxvukRj4": {
     "from": "D",
@@ -2613,6 +3053,11 @@
     "from": "C",
     "reason": "Marked answer of 359 comes from applying the drift the wrong way. Left drift means the true heading is 348 + 17 = 005; adding 32W variation gives 037 magnetic, and subtracting the 4E deviation gives a compass heading of 033. The near-duplicate sibling vYaJEZ9DWWbcdOlUXX5J, with identical data, keys 033.",
     "to": "D"
+  },
+  "zotS7BdnOq4tp7S3ZYRI": {
+    "from": "A",
+    "reason": "Marked answer credits glass-cockpit technology with improving man-machine communication 'as a result of flight sensations', which is incoherent - such aircraft provide fewer physical sensations, not more. The documented effect on crew communication is the opposite of an improvement: work moves head-down onto keyboards and small displays, the large visible control movements that told the other pilot what was being done have gone, and the non-verbal channel between the crew is correspondingly reduced.",
+    "to": "C"
   },
   "zq62N344zs7WI6o76mMd": {
     "from": "D",

@@ -1,13 +1,13 @@
 # Handoff — Aviation Exam Pro
 
-State as of 2026-08-31. Read this first in a new session.
+State as of 2026-09-08. Read this first in a new session.
 
 ---
 
 ## START HERE — next action
 
-The question-bank audit is 63% done (5 of 7 sections). Next section is
-**human_performance** (1,417 questions).
+The question-bank audit is 68% done (6 of 7 sections). One section is left:
+**aircraft_general** (2,559 questions) — the largest in the bank.
 
 All shell/python snippets in this file assume the repo root as the working
 directory. Each has been run and verified as written.
@@ -19,15 +19,15 @@ import csv
 rows = list(csv.reader(open('app/src/main/assets/all_questions.tsv', encoding='utf-8'), delimiter='\t'))
 h = rows[0]; i = {k: n for n, k in enumerate(h)}
 n = 0
-with open('/tmp/hp.txt', 'w', encoding='utf-8') as f:
+with open('/tmp/ag.txt', 'w', encoding='utf-8') as f:
     for r in rows[1:]:
-        if r[i['sectionId']] != 'human_performance': continue
+        if r[i['sectionId']] != 'aircraft_general': continue
         n += 1
         f.write(f"[{n}] {r[0]}\nQ: {r[1]}\nA) {r[2]}\nB) {r[3]}\nC) {r[4]}\nD) {r[5]}\nKEY: {r[6]}\n\n")
 print(n, 'written')
 EOF
 
-# 2. Work through it in batches of ~43, authoring each batch as a JSON file
+# 2. Work through it in batches of ~58, authoring each batch as a JSON file
 #    and merging it with the validator (see "The batch workflow" below)
 python3 tools/merge_batch.py /path/to/batchNN.json
 
@@ -38,7 +38,13 @@ python3 tools/apply_explanations.py
 ```
 
 Read **"How to audit a section"** below before starting — the cross-check
-technique there accounted for 63 of the 133 navigation corrections.
+technique there accounted for 63 of the 133 navigation corrections and for
+roughly half of the 89 in human performance.
+
+One practical note from the human-performance pass: dump only the questions that
+still lack an explanation (`if r[0] not in explanations_cache`) and number those.
+Numbering the whole section and skipping the done ones wastes a dump and makes
+the batch ranges drift.
 
 ---
 
@@ -51,14 +57,16 @@ technique there accounted for 63 of the 133 navigation corrections.
 | meteorology | 509 | 509 | 65 | 13% |
 | operational_procedures | 885 | 885 | 115 | 13% |
 | navigation | 1,090 | 1,090 | 133 | 12% |
-| **human_performance** | **1,417** | — | — | **next** |
-| aircraft_general | 2,559 | — | — | |
-| **Total** | **7,948** | **3,972 (50%)** | **524** | |
+| human_performance | 1,417 | 1,417 | 89 | 6.3% |
+| **aircraft_general** | **2,559** | — | — | **next** |
+| **Total** | **7,948** | **5,386 (68%)** | **613** | |
 
-3,976 questions remain. The wrong-answer rate has now been measured at 12–14.5%
-across five independent sections, so expect roughly **520 more bad answers**.
-
-Suggested order: smallest first — human_performance, then aircraft_general.
+2,559 questions remain, all in aircraft_general. The wrong-answer rate has been
+12–14.5% in the five technical sections but only **6.3%** in human performance,
+which is the outlier: its questions are mostly definitional, the option sets are
+short, and the bank carries a great many near-duplicates that cross-check each
+other. Aircraft_general is technical, so budget for the higher rate — expect
+roughly **300–350 bad answers**.
 
 ---
 
@@ -278,6 +286,64 @@ cross-check found roughly half the errors on its own.
 - **A corrupted row that keyed a stem fragment as the answer**
   (`bkRS48ec8ZdBuqRQFQrE`).
 
+### Human performance — 100% complete (2026-09-08)
+
+1,417 explanations, **89 corrections (6.3%)**. Much the lowest error rate of any
+section so far — see the note in Progress above for why.
+
+Systematic error categories found:
+
+- **Reversed or inverted definitions.** The commonest single class. Hyperventilation
+  keyed as a *surplus* of CO2 (`gIah2cJXD585445SJ5ap`) and as producing no acid-base
+  change at all (`VrNcvzYSPSSsf5hiXeSq`); confirmation bias keyed as favouring
+  *contradictory* information (`yrKq3qnRtcmCgYtgJYds`); acute stress keyed as a
+  *decrease* in mobilised resources (`BqZ1e7OjxiDVR241BZap`); linear acceleration
+  keyed as feeling like a descent rather than a climb (`reu3mk2BDD0FWulzpFjK`);
+  arousal/performance keyed as "approximately linear increasing" instead of the
+  inverted U (`bo2jmNHRoW4lYutgE5Wz`).
+- **Vestibular / illusion mix-ups.** Spin recovery keyed as a sensation in the
+  original direction (`lZiu1Yp6IwjimG7DA4Wh`); the Coriolis illusion keyed as
+  "pressure vertigo" (`fpgCkUbZsh48cPqLm3Qq`); a fading light keyed as a climb
+  illusion (`xmquChWJwnDZiRNTK7RM`); acceleration in level flight keyed as a
+  sensation of rotation (`vANZdEzZWbe6g6r65iSO`); the vestibular system keyed as
+  containing "two ventricles" (`f3Vc9ORPBrW7fWNhrcJx`); radial acceleration keyed
+  along the transverse axis instead of the vertical (`VHXUvsc8SA8VXyDeiAnM`).
+- **Wrong anatomy.** The Eustachian tube keyed to the paranasal sinuses
+  (`oTfp7qEYNTiswU7bOggu`); accommodation attributed to the retina
+  (`pBR0xx59rmdtufaA3tXU`); blood pressure keyed as measured by the arterioles
+  (`mmhwcIE49v4cpIZoAVO5`); respiratory drive keyed to alveolar water vapour
+  (`yUoiNDjQu4cklbnyOlyC`); the inner ear keyed as sensing linear acceleration only,
+  excluding hearing (`w31IYmjr6qciHY1qM4E6`); creeps and bends transposed
+  (`x5Xeq0fKjM7sJJUrKg7X`); conductive hearing loss keyed to include auditory-nerve
+  damage (`X4tEAlxPbd7jr116tEdB`); gut barotrauma keyed as "barotitis"
+  (`rviYaoeALsnrX0i3gn65`).
+- **Numbers.** 100% oxygen keyed as sufficient to 45,000 ft rather than ~38-40,000
+  (`6AhVhaliyz79MSPTsU0w`); the hypoxia critical threshold keyed at 38,000 ft in a
+  non-pressurised aircraft (`MkzrKBlleC5NUM2eKCIk`); alcohol elimination keyed at
+  0.02-0.05% per hour instead of 0.015% (`x7T87kvadpNyzTEp8TET`); the simple-task
+  human error rate keyed at 1 in 50 instead of 1 in 100 (`8cxdDE2GEPhSKLpPDWUF`);
+  argon and CO2 transposed in the composition of air (`gx9IDHGQgZ9xK0vR44vn`);
+  post-dive delay keyed at 48 h for a no-stop dive (`K7W4JF50H4pcw5Y52mju`).
+- **Multi-statement sets with one wrong member.** Ten or so corrections were of the
+  form "the marked combination includes a statement that is false, or omits one
+  that is plainly true" — e.g. `BQROPcJgkX00dWHGzt7X` (exercise "reduces tolerance
+  to hypoxia"), `Z4bkJyQsgMK5JpkoY2CX` (blood pressure not depending on the work of
+  the heart), `F427w1mfM5wCA2URhWrC` (aggression omitted from the behavioural
+  effects of stress), `nGsgyRM6vW1Lux19yf8f` (short-term memory "unlimited in time
+  and insensitive to disturbance"), `YX3DnVkE2O13hbHqASh6` (sustained monitoring
+  assigned to people rather than machines).
+- **CRM answers that contradict CRM.** High automation "guarantees" situational
+  awareness (`TSjtVTNummcFbADcluDP`); the copilot who feels unfairly treated should
+  "internally retire and think positive" (`gzCrhEDILM0L2FvYfmsS`); SOPs should not
+  reflect an operator's cockpit philosophy (`lxVa6mFR6wjuciktxW4X`); over-the-counter
+  medicines have "no side effects which would give problems to a pilot"
+  (`cwFMM25AEviKvsiivxan`); overload met by abandoning automatic processing
+  (`uzytCCwnyMKkqBOFlIdW`).
+
+Cross-checking siblings did most of the work here: 60 of the 89 corrections cite a
+near-duplicate whose key settles the matter. Where the bank keyed the *same* answer
+twice, the key was left even when it looked wrong — see Open questions.
+
 ### Operational procedures — 100% complete (2026-08-30)
 
 885/885 explanations, 115 corrections (13%).
@@ -420,6 +486,26 @@ explanations that teach the underlying point and say the row is corrupted.
   altitude; from sea level the answer is 6.7 NM, which is not offered.
 - `zM6HI2SEoXsuLH3wCUgF` (navigation) — longitude printed as 123 deg 75 min, which
   is not a valid coordinate. Reading it as 123.75W gives the keyed answer.
+- `uIKGhTk3zXoef0Fic8fi` (human_performance) — the stem contains the whole of a
+  *different* question plus the bank's own export metadata ("41740.2.1.2
+  Respiratory and circulatory systems Typ: MC 460 AviaExam6931 9/4/1996") before
+  the real question. The key is correct for the question that actually follows.
+- `iDFU3dX9P5XVSqZUY3CH` (human_performance) — a multi-statement item whose
+  options have been flattened into the individual statements ("-2: varies between
+  5 and 15%", "-3: may cause dehydration…"), so two of the four are true. The
+  marked answer was the one false statement (40-60% humidity) and was corrected to
+  the 5-15% figure; the row is still not properly answerable.
+- `AmMXyniYBTiH7z7VLJY2` (human_performance) — statement 3 reads "smokers have a
+  greater chance of *decreasing* lung cancer". Read as "developing", which the key
+  assumes.
+- `bBNGDqMcUXkqlGQ6kRyG` (human_performance) — every option denies that
+  confirmation bias is common; option A ("not usual") is almost certainly a
+  corruption of "not unusual", which is what the key requires.
+- `SlEVXAovPbAj3QnUD0Fz` (human_performance) — the stem's tail has migrated into
+  option C, which reads "pilot may: A get colour blindness…". Key still correct.
+- `kPEEnZmhSCOt7K1L0DCs` (human_performance) — stem garbled to "an aircraft system
+  should at The lowest permissible to". Intact siblings `H70JoPZh18pVicz6Oiv1` and
+  `DpHMmqEeWjOn0A8eVBZ9`; the key is correct.
 
 ### Duplicate or defective option lists
 
@@ -437,6 +523,22 @@ explanations that teach the underlying point and say the row is corrupted.
   of the GPS navigation message. Key left.
 - `Hrd09rAYTD7dRXpY1hCD` (navigation) — under RVSM both FL300 (keyed) and FL320
   satisfy the semi-circular rule for a magnetic course of 200. Key left.
+- `Jg8dcLFFuBMshuBZH013` (human_performance) — "the two types of fatigue" offered
+  as "Chronic short-term and acute". Garbled, but the only option naming both
+  acute and chronic. Key left.
+- `wCLaBpE8aNfXu8EvwWDm` (human_performance) — the true pair (1 and 3) is not
+  offered; every combination includes a false statement. Keyed 1,3,4, the nearest.
+- `o3J40xxzqyQ4k0YqTyLE` (human_performance) — the true set (1,2,3) is not offered.
+  Statement 4 says personality matters "above all", which overstates it, but the
+  only alternative combinations drop statements that are plainly true. Key left.
+- `UIkAWBwwCb5dHE0aLFmK` (human_performance) — asks how age affects performance,
+  but every option is wrong in some respect; the keyed one ("better when relaxed,
+  independent of the period of day") ignores the circadian rhythm the rest of the
+  syllabus insists on. Key left as the least wrong.
+- `wEO0HsuKNZzcIrg0LZDS` (human_performance) — asks what hyperventilation *is*, but
+  does not offer "increased lung ventilation" (which `VRUTW0a5I0YbxVkpYpi0` keys).
+  Keyed to the compensatory hyperventilation of altitude, which is a real
+  phenomenon but not the definition. Key left.
 
 ### Blank option D — 69 total
 
@@ -532,6 +634,56 @@ an audit.
 - `xBpsdy1LJbBZnY6oVXJH` — whether a VOR designating an RNAV waypoint must be in
   range when ENTERED or only when USED. Keyed "must be in range".
 
+**Human performance**
+
+- **"Which of these provides the basis of all perceptions?"** — `5ci2hY850YfmWa3uC11H`
+  and `GX4vyEWXEyaPxJHOxgA7` both key "the intensity of the stimuli". The Gestalt
+  answer, and the one most HPL texts give, is "the separation of figure and
+  background", which both items offer. Two entries keyed the same way is one source
+  question duplicated, not independent corroboration — but the key was left rather
+  than overturn a self-consistent bank on a textbook-phrasing argument.
+- **Hypoxia critical threshold, three different figures.** `iClF3YKh5YsP1MvxaiAp`
+  keys 20,000 ft, `2zEnhsolg65gLhziZmQc` keys 18,000 ft, and `MkzrKBlleC5NUM2eKCIk`
+  keyed 38,000 ft. The last was corrected to 22,000 ft (the only offered value
+  inside the critical zone); the 18,000 / 20,000 clash is unresolved.
+- **Rasmussen error types, rule-based mode.** `8HqpsotTzFitY2pyGPLj` keys "errors of
+  technical knowledge" and `JeT4jVcyMbqgbCkXaxZU` keyed "handling errors" — the same
+  question with the options shuffled. `gH2wPX3XT1z3Le1eHO2d` fixes skill-based =
+  routine errors and knowledge-based = creative errors, leaving the other two both
+  claiming the rule-based slot. JeT4 was corrected to match 8Hqp on the argument
+  that handling errors are execution slips, but the bank's taxonomy is not
+  self-consistent here.
+- `psnHuOlMK7Ha5L4sFApX` — the DECIDE model keyed as "a prescriptive generic model
+  which is subject to mathematical logic". DECIDE is prescriptive but heuristic, not
+  mathematical, and the option immediately above it defines the mathematical model
+  as *normative*. Left as keyed; no sibling to settle it.
+- `uGnnX0a2VbudIkwPJvnZ` — when pilots take greater risks, keyed "making decisions
+  independently of others". The risky-shift and audience literature both point at
+  the other option (part of a group, feeling observed and admired, e.g. air shows).
+  Both are defensible; key left.
+- `oClSCOcE0ajSge4GKjtW` — detectability keyed as including "tolerance of the various
+  systems to errors", which is a different property from detection. "2 and 4" alone
+  reads better; key left.
+- `4LtznRYTQrSsXyDTWsQl` ("skill and/or rule based") vs `nfFglUn1AkXqiRu2xExq`
+  (skill-based) vs the same stem elsewhere — when to select flaps. The bank itself
+  says "and/or" in one place, so the single-answer variants cannot be settled.
+- `bgzCyxPkMMJCVa4JRwKt` — how long to wait after an uneventful rapid decompression,
+  keyed 12 hours. `dgkjjfDf0CBDHPNkvcIX` keys "seek prompt aeromedical advice" for
+  the same scenario. 12 h is not corroborated anywhere else in the bank.
+- `wAsBfc0ihziVPLORnkVu` (includes the gastrointestinal system) vs
+  `T6w6opzwN3yXQjZbDjHl` (excludes it) — systems involved in motion sickness. The
+  stems differ slightly ("involved in" vs "involved in the appearance of"), so both
+  keys can stand.
+- `oemS0oxqDwotGiItNM0c` (8,000 ft) vs `sI3L3D4Q2RZNTZxVyysS` (12,000 ft) — the
+  altitude at which short-term memory is first affected. Different option sets, and
+  8,000 is not offered in the second; both keys left.
+- `kFATYwS38cBqUC82FjkM` / `pEHmiU0gDrOhnxGI2k6w` — confirmation bias defined as
+  "ignoring information indicating the decision is poor" in one and as "looking for
+  facts that confirm expectations" in the other. Both describe it; both keys left.
+- `mT9P9RNxfA3y007MwWRy` — the resistance phase attributed to "the parasympathetic
+  system" using cortisol. Cortisol is an HPA-axis hormone, not parasympathetic, but
+  the rest of the statement set is correct and no alternative combination works.
+
 **Air law**
 
 - `0lfw6se01Qq66VP5fwqq` stays B (MET) — correct as framed against the legacy AIP
@@ -541,9 +693,9 @@ an audit.
 
 ## Build state — REBUILD NEEDED before uploading
 
-The AAB from an earlier session is stale: the TSV has changed four times since
-(meteorology, principles of flight, operational procedures, navigation) and
-`QuestionCacheManager.kt` has changed again.
+The AAB from an earlier session is stale: the TSV has changed five times since
+(meteorology, principles of flight, operational procedures, navigation, human
+performance) and `QuestionCacheManager.kt` has changed again.
 
 ```
 ./gradlew :app:bundleRelease
@@ -557,9 +709,9 @@ Release notes and store listing copy: `docs/STORE_LISTING.md`.
 ### TSV version stamp
 
 `QuestionCacheManager.kt` compares an integer `tsv_data_version` against
-`TSV_ASSET_VERSION`, **now 5** (bumped 2026-08-31 for the navigation pass).
-Version 4 covered operational procedures, version 3 meteorology and principles of
-flight.
+`TSV_ASSET_VERSION`, **now 6** (bumped 2026-09-08 for the human-performance pass).
+Version 5 covered navigation, version 4 operational procedures, version 3
+meteorology and principles of flight.
 
 **Bump `TSV_ASSET_VERSION` whenever the TSV changes** — existing users re-parse
 the TSV on next launch when the stored version differs.
@@ -613,15 +765,15 @@ columns. (Earlier notes claiming 9,076 were wrong — verified by row count and
 device logs.)
 
 Column 10 is `explanation`, rendered by `ResultsScreen.kt` when non-blank.
-3,969 rows now carry one (3 more are intentionally blank).
+5,386 rows now carry one (3 more are intentionally blank).
 
 **Do NOT use an LLM API for explanations — Claude writes them directly
 in-session.**
 
 All corrections are auditable in `tools/answer_corrections.json` with a written
 reason and a `from` value that is verified before writing. Most operational
-procedures and navigation entries also cite the sibling question id that proves
-the correction.
+procedures, navigation and human performance entries also cite the sibling
+question id that proves the correction.
 
 ---
 
@@ -693,6 +845,13 @@ Committed on `release/1.2.0-play-compliance`:
   `tools/merge_batch.py`, `TSV_ASSET_VERSION` 3 -> 5, and this file. The 2026-08-30
   operational-procedures work had never been committed because git was unusable
   that day; it went in with this commit.
+- 2026-08-31 (later) — `tools/merge_batch.py` hardened after four batch merges were
+  silently lost mid-session: an exclusive `flock` held across the whole
+  read-modify-write, per-PID temp files, and a read-back verification that exits
+  non-zero if any key is not present with the exact value it was given. Merges now
+  print "read-back verified". **Never run two merges concurrently anyway.**
+- 2026-09-08 — the human-performance pass (1,417 explanations, 89 corrections),
+  `TSV_ASSET_VERSION` 5 -> 6, and this file.
 
 Still uncommitted and unrelated: `gradle/wrapper/gradle-wrapper.properties`
 (Gradle 8.14.3 -> 8.14.5, bumped by the wrapper itself). Left alone deliberately —

@@ -36,3 +36,6 @@ firebase.json
 firestore.rules
 .firebaserc
 .idea/
+
+# merge_batch.py lock file (local only)
+tools/.cache.lock
