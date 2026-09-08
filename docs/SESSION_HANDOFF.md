@@ -1,50 +1,31 @@
 # Handoff — Aviation Exam Pro
 
-State as of 2026-09-08. Read this first in a new session.
+State as of 2026-09-09. Read this first in a new session.
 
 ---
 
 ## START HERE — next action
 
-The question-bank audit is 68% done (6 of 7 sections). One section is left:
-**aircraft_general** (2,559 questions) — the largest in the bank.
+**The question-bank audit is finished.** All 7,948 questions in all seven
+sections have a written explanation, and 775 wrong answer keys have been
+corrected. There is no section left to audit.
 
-All shell/python snippets in this file assume the repo root as the working
-directory. Each has been run and verified as written.
+What remains before this can be shipped:
 
 ```bash
-# 1. Dump the section to a working file
-python3 - <<'EOF'
-import csv
-rows = list(csv.reader(open('app/src/main/assets/all_questions.tsv', encoding='utf-8'), delimiter='\t'))
-h = rows[0]; i = {k: n for n, k in enumerate(h)}
-n = 0
-with open('/tmp/ag.txt', 'w', encoding='utf-8') as f:
-    for r in rows[1:]:
-        if r[i['sectionId']] != 'aircraft_general': continue
-        n += 1
-        f.write(f"[{n}] {r[0]}\nQ: {r[1]}\nA) {r[2]}\nB) {r[3]}\nC) {r[4]}\nD) {r[5]}\nKEY: {r[6]}\n\n")
-print(n, 'written')
-EOF
+# 1. Build and install, then confirm the re-parse actually happens
+./gradlew assembleDebug           # see "Build state" below
+adb logcat -s QuestionCacheManager  # expect "TSV asset version changed ... reloading"
 
-# 2. Work through it in batches of ~58, authoring each batch as a JSON file
-#    and merging it with the validator (see "The batch workflow" below)
-python3 tools/merge_batch.py /path/to/batchNN.json
-
-# 3. When the section is finished, apply and bump the version stamp
-python3 tools/apply_corrections.py
-python3 tools/apply_explanations.py
-# then edit TSV_ASSET_VERSION in QuestionCacheManager.kt
+# 2. Spot-check explanations in the app UI on a few questions from each section
+# 3. Work through "Open questions" below — those keys were deliberately left
+#    alone and want a subject-matter decision, not another audit pass
 ```
 
-Read **"How to audit a section"** below before starting — the cross-check
-technique there accounted for 63 of the 133 navigation corrections and for
-roughly half of the 89 in human performance.
-
-One practical note from the human-performance pass: dump only the questions that
-still lack an explanation (`if r[0] not in explanations_cache`) and number those.
-Numbering the whole section and skipping the done ones wastes a dump and makes
-the batch ranges drift.
+If you are picking up a *new* audit task (a new question source, say), read
+**"How to audit a section"** below — the sibling cross-check technique
+described there found 63 of the 133 navigation corrections, roughly half of the
+89 in human performance, and about 110 of the 162 in aircraft_general.
 
 ---
 
@@ -52,21 +33,29 @@ the batch ranges drift.
 
 | Section | Questions | Explanations | Corrections | Error rate |
 |---|---|---|---|---|
-| air_law | 817 | 817 | 114 | 14% |
+| air_law | 817 | 817 | 114 | 14.0% |
 | principles_of_flight | 671 | 671 | 97 | 14.5% |
-| meteorology | 509 | 509 | 65 | 13% |
-| operational_procedures | 885 | 885 | 115 | 13% |
-| navigation | 1,090 | 1,090 | 133 | 12% |
+| meteorology | 509 | 509 | 65 | 12.8% |
+| operational_procedures | 885 | 885 | 115 | 13.0% |
+| navigation | 1,090 | 1,090 | 133 | 12.2% |
 | human_performance | 1,417 | 1,417 | 89 | 6.3% |
-| **aircraft_general** | **2,559** | — | — | **next** |
-| **Total** | **7,948** | **5,386 (68%)** | **613** | |
+| aircraft_general | 2,559 | 2,559 | 162 | 6.3% |
+| **Total** | **7,948** | **7,948 (100%)** | **775** | **9.8%** |
 
-2,559 questions remain, all in aircraft_general. The wrong-answer rate has been
-12–14.5% in the five technical sections but only **6.3%** in human performance,
-which is the outlier: its questions are mostly definitional, the option sets are
-short, and the bank carries a great many near-duplicates that cross-check each
-other. Aircraft_general is technical, so budget for the higher rate — expect
-roughly **300–350 bad answers**.
+The wrong-answer rate ran 12–14.5% in the four smaller technical sections but
+only 6.3% in both of the two largest, human_performance and aircraft_general.
+The pattern is about redundancy rather than subject: the big sections carry many
+near-duplicate questions, and a key that disagrees with its siblings is easy to
+spot and was usually the only thing wrong. Where a section had few duplicates,
+errors survived unnoticed.
+
+Verification after the final apply (re-run any time):
+
+```
+7948 rows, all 10 columns
+7945 explanations in the TSV, 3 deliberately blank
+775 corrections, 0 unreflected
+```
 
 ---
 
@@ -403,6 +392,66 @@ Systematic categories, useful as a checklist for the remaining sections:
 
 ---
 
+### Aircraft general — 100% complete (2026-09-09)
+
+2,559 explanations, **162 corrections (6.3%)** — the last section, and the
+largest. About 110 of the 162 were settled by a sibling: the bank carries whole
+families of the same question with the options shuffled, and where one member
+disagrees with two or three others the outnumbered key is the error. Several
+families disagree *internally* and are listed under Open questions instead.
+
+Systematic error categories found:
+
+- **Arithmetic and unit slips in mass & balance.** `WOzbtbL4BjEOz75HD5Ou` keyed
+  the CG at 20.18 in (the distance from the LE of MAC) instead of 645.78 in from
+  the datum; `u6Uc0e9A3XwagAfQqti4` keyed a moment as 49 000 ÷ 7 rather than
+  × 7; `XwHsGua8LHHQT6CPc6YY` keyed a take-off mass computed with *trip* fuel;
+  `Y5NVnhLn71mtPcEFUnhM` keyed a take-off mass 2 000 kg above the MTOM stated in
+  its own stem; `cGLCnhKqjn5hvmkYpULa` keyed the traffic load where the useful
+  load was asked for; `noCHCVAE9TUjwo1Tl5B1` keyed 250 ft/min for a 3° descent
+  at 100 kt (it is 500).
+- **Reversed physical roles.** Oil and nitrogen swapped in the oleo strut
+  (`WfpvRTbxMmyycVkID64g`, and `Z3Y5CoeH3ySv9mpp5yua` keying "springs" as the
+  damper); the bootstrap order given as expand-then-cool (`esbH2nJDKlqo0NnvqPXs`);
+  the impulse turbine's pressure drop put across the rotor instead of the nozzles
+  (`zdP53fxY02M7PRJCakoP`); spoilers deploying on the *outside* of the turn
+  (`vV3YQKLqsc7E0bAW3TAZ`); the alternator rotor carrying AC rather than DC
+  (`hkDdTF9UtEFG2Xlw9OaN`); the pack cooling fan running in the cruise rather
+  than on the ground (`Z2IrldnlskCflJSTT5Qm`, outnumbered three to one).
+- **Alerting-hierarchy confusions.** Caution and warning definitions swapped in
+  `iNm6GtW8l6Pr4wSFXVdc` and `wX7PWTrEsH6mpSL7wQ2q` — the second had the caution
+  keyed to the *advisory* wording, which the bank's own `GevaIlZruo4eOl3qAWx1`
+  assigns to advisories.
+- **TCAS answers that contradict TCAS.** Horizontal resolution advisories keyed
+  in `qzbjJLEhAMuiD03USPHw` and `t6vtVvK8S7WB0XujabKT` (TCAS resolves vertically
+  only); the RA symbol keyed as a red *circle* (`vO3gJ8bK7NO66U8gcvjj`); TCAS II
+  keyed as giving only a proximity warning (`cMV7NFtSz8E8Y9BAbft6`).
+- **Compass and turn-indicator sign errors.** `oAW7ogOgAY2xxScmdYlc` and
+  `uNaJyv19em4D9elWUUD6` both had the aeroplane turning the wrong way for the
+  needle shown; `j1IbLxGg5YtgV0y4AXqp` gave a 180° turning error on an easterly
+  heading, where the error is nil; `mf50peNnStas8JGUHmKc` made transport wander
+  greatest on a *meridional* track, where it is zero; `wn6z7goS2JN0Lttp4hE9`
+  denied any acceleration error on an east-west heading, where it is greatest.
+- **Regulatory numbers that appear nowhere in the rule.** Oxygen masks required
+  to exceed the number of *passengers* rather than seats + 10%
+  (`lavzKr4l1FpTavZ85Wzm`, three siblings agree); crew oxygen above 14 000 ft
+  instead of 10 000 (`heT3PtQL5UyY9M5Dym24`, three siblings); one pilot on oxygen
+  above FL490 instead of FL410 (`sjpwa3uDvUZqDOTj59yo`); cabin altitude limited to
+  6 000 ft instead of 8 000 (`yrjdwiZDtUlL2Z8aMDFn`); FDR duration 30 minutes
+  (`gSL7OID8LpKvcKo2wIFa`) or "24 hours / 60 minutes" (`z0Sh1ddK10sc4CQ8CDO9`)
+  instead of 25 hours; a child standard mass of 38 kg (`cYFtA9PN9tArZbXB9XOp`).
+- **Definitions keyed to a different instrument's answer.** Rate of turn keyed as
+  a speed (`hO5yAbvOW9XgmaKbxjdK`); VLO keyed to the VLE definition
+  (`gE08YBhlw1nlevYNo7wJ`) and VFE to the take-off setting (`rHqw2ek2Dh7qogQ831Xn`);
+  the radio altimeter keyed as measuring altitude rather than height
+  (`yNB3rNugtcEGT8lFH89m`); the PFD keyed as a systems display
+  (`x0N3zoIuy1V9liSq1Fxw`); an EGT limit bug keyed as a vibration indicator
+  (`tle55uQrUWrNxtKFzMGr`); the yaw damper keyed as an elevator augmentor
+  (`l5goYnVGfOyaSp3JBlah`); the autopilot keyed as performing navigation
+  (`ZPxvTndA8vLxhaTBgEGe`).
+
+---
+
 ## Bank-wide data defects
 
 ### Image-dependent questions — 16 total, 11 in sections NOT yet audited
@@ -507,6 +556,19 @@ explanations that teach the underlying point and say the row is corrupted.
   should at The lowest permissible to". Intact siblings `H70JoPZh18pVicz6Oiv1` and
   `DpHMmqEeWjOn0A8eVBZ9`; the key is correct.
 
+- `V1xbLmjRKUJbJk6UtzeJ` (operational_procedures) — option D contains two whole
+  unrelated exam questions ("119. The tip vortices…", "120. …noise abatement
+  take-off and climb procedure B…") spilled into the field. The intended option D
+  ("1, 2, 3, 4, 5") is the first fragment of it, and the key is correct for that.
+- `wmaCG1t6BU3CMgGoNKIu` (aircraft_general) — stem and options split across the
+  wrong fields: the stem breaks off at "turns left onto" and option C reads
+  "should be initiated on a compass heading off:". Not answerable as printed; the
+  explanation covers the underlying southern-hemisphere turning error instead.
+- `yn3S4vqpIsOaF2TOteIr` (aircraft_general) — refers to "Image I", a hydraulic
+  press diagram that is not in the bank. Key left alone; the explanation gives
+  Pascal's principle so the item is at least instructive. Add it to the
+  image-dependent list above.
+
 ### Duplicate or defective option lists
 
 - `Ge8FlHinKPARXKWnuwa9` — "4.0 NM" offered twice.
@@ -539,6 +601,28 @@ explanations that teach the underlying point and say the row is corrupted.
   does not offer "increased lung ventilation" (which `VRUTW0a5I0YbxVkpYpi0` keys).
   Keyed to the compensatory hyperventilation of altitude, which is a real
   phenomenon but not the definition. Key left.
+
+**Aircraft general**
+
+- `T5EIhBf90gswHLwqukJ4` — options A ("operating mass plus passengers and cargo")
+  and D ("operating mass plus load of passengers and cargo") say the same thing.
+- `RdeKyRPzpOtCiHHb23Ja` — options A and C are printed identically.
+- `YbIpm9kZd2yND3K5KNUv` — asks what SAT is; every option pairs the wrong
+  descriptor with the wrong unit ("absolute … in degrees Celsius", "relative … in
+  degrees Kelvin"). Left keyed D as the least wrong.
+- `hJR1ph3A7w5bSzPPyiur` — accessory gearbox drives. The correct set is 2,4,5,6,7
+  (N2 tacho, generator and CSD, oil, hydraulic and HP fuel pumps); the keyed
+  option has the N1 tacho instead of the N2, and the only alternative drops the
+  HP fuel pump. No option is right.
+- `utEdjYwgvStDaJjL2pd0` — 10 seats requires one extinguisher on the flight deck
+  and one in the cabin; no option offers 1 + 1.
+- `UPM8T8ktFjv818s4sGZk` — cabin air source. The bank's `DpZREhevvel8O0T3cFCN`
+  and `zUWkuFDIP8WOvorsYIc9` both key "LP, and HP if necessary", which is right,
+  but that combination is not among this question's options.
+- `kV6YlGSgSZt23koB1A5W` — induction tachometer advantages. Statements 1, 2 and 3
+  are all true and no option offers them together.
+- `tUZJRjIN2DX2W5OsML38` — electrical protections. Over-speed and under-frequency
+  are the same fault expressed two ways, and no option is cleanly right.
 
 ### Blank option D — 69 total
 
@@ -684,6 +768,63 @@ an audit.
   system" using cortisol. Cortisol is an HPA-axis hormone, not parasympathetic, but
   the rest of the statement set is correct and no alternative combination works.
 
+**Aircraft general**
+
+Conflicting sibling pairs — both keys left, one of each pair is wrong:
+
+- `B7QlGhIOZ8Zu3jL3UfXh` (both valves closed) vs `iVKrOAUyOUI21V1ml3Qz` (corrected
+  to exhaust open, inlet closed) — valve positions at the end of the power stroke.
+  The first is the ideal-cycle answer, the second the real-timing answer; the
+  stems differ only by "so as to get the optimum efficiency".
+- `jxiwLZIPxcNBIiwS1x2Z` vs `scOovxMzQI0ryJ59KXNY` — density altitude. One keys
+  "pressure altitude corrected for relative density", the other "the altitude in
+  the standard atmosphere at which the density equals the actual density". Both
+  definitions are correct; the option sets are identical.
+- `gv3OTJbjGrU4OX8PP1qJ` (3,4) vs `tfFahf1qeE6TEZNDffbb` (1,3) — what a rate of
+  turn indicator shows. The disagreement is whether it indicates the yaw rate or
+  the rate of turn about the true vertical; in a banked turn these differ.
+- `dXGwG4pGDkCSalid1Aze` (defective condenser) vs `ybvjth31cOCnP0hYDCp8`
+  (excessive carbon) — why an engine will not stop with the mags off. The real
+  answer, an open P-lead, is not offered in either.
+- `crxhVLZkMKiIYCTY4MM3` / `VQHqYC2t4RhGI9PGbGuK` ("high pressure and large flow")
+  vs `z83aPXKuajtvJMuBzc2Z` ("high pressure and low volume flow"). The stems ask
+  slightly different things — what the system produces, and what gives maximum
+  power for least mass — but the pair reads as a contradiction.
+- `P86N87WRaMh0QIpCaiY8` vs `QfZJrnVgIQktx4wIVFyY` (rain protection);
+  `Q7Wu55bNqjOmDpMmbR21` vs `RDBEK5xiVBMjtOZRWDKt` (tubeless tyre characteristics).
+
+Single items left as keyed, with the doubt recorded:
+
+- `kYIZ93cBxnCNef2nX5GK` — the FMS defined as a "global 2-D" management system.
+  An FMS with VNAV manages the vertical profile too, so 3-D looks right, but
+  nothing in the bank settles it and no sibling exists.
+- `mvkizXykyOIwAvoUIHMp` — passenger masks to deploy before the cabin altitude
+  exceeds 12 000 ft. CS 25.1447 says 15 000 ft and most question banks say
+  14 000; the keyed figure matches neither, but there is no way to choose between
+  the two candidates from the options given.
+- `lC2gHyEvWL8dEaJY4S8E` — corrected to the electric unfeathering pump on the
+  strength of `ppbyNP3z3bnbAtgaIquy`. Worth a second opinion: some light twins do
+  unfeather aerodynamically once the blades are off the stop.
+- `gdBsBPqnNFZWiMosLPGJ` — heading gyro of a "three-axis data generator" given as
+  1 degree of freedom with a *vertical* spin axis. A conventional DG has two
+  degrees of freedom and a horizontal axis; the phrasing may describe a rate-gyro
+  package, so the key was left.
+- `iOSt3RT8A1tBIpHyRwTd` — gaseous fire loop tested "by heating up the sensor".
+  Plausible in principle, impractical for a three-metre loop in flight.
+- `xr3hFi77jQOoT0jm7IOc` — air cycle machine. The keyed option (compressor raises
+  the temperature, improving the secondary exchanger) and option D (the turbine's
+  temperature drop is the main cooling effect) are both true statements.
+- `woToCw3Q6cqMrDAun7Jj` — capacitance gauge "information independent of fuel
+  temperature". True, but option D says the same thing more completely.
+- `qJORP2sjXm0tOJ05M0Xl`, `trn3SSEUYKbwUqJRD6vo` — helicopter DOM and empty mass.
+  The option wording does not match the standard definitions closely enough to
+  correct with confidence.
+- `zw47YghLH2RbwlhZux6M` — which terms drive the autopilot's altitude-hold
+  correction; the keyed 1,2,3 excludes the altitude-error rate term, which a real
+  control law would use.
+- `wOI7rArKKH8bX3WP6Tl2` — a single autopilot called "fail soft"; "fail passive"
+  is arguably the better term for a simplex channel that simply disconnects.
+
 **Air law**
 
 - `0lfw6se01Qq66VP5fwqq` stays B (MET) — correct as framed against the legacy AIP
@@ -693,9 +834,10 @@ an audit.
 
 ## Build state — REBUILD NEEDED before uploading
 
-The AAB from an earlier session is stale: the TSV has changed five times since
+The AAB from an earlier session is stale: the TSV has changed six times since
 (meteorology, principles of flight, operational procedures, navigation, human
-performance) and `QuestionCacheManager.kt` has changed again.
+performance, aircraft general) and `QuestionCacheManager.kt` has changed again.
+This build is the first that would ship a complete set of explanations.
 
 ```
 ./gradlew :app:bundleRelease
@@ -709,9 +851,10 @@ Release notes and store listing copy: `docs/STORE_LISTING.md`.
 ### TSV version stamp
 
 `QuestionCacheManager.kt` compares an integer `tsv_data_version` against
-`TSV_ASSET_VERSION`, **now 6** (bumped 2026-09-08 for the human-performance pass).
-Version 5 covered navigation, version 4 operational procedures, version 3
-meteorology and principles of flight.
+`TSV_ASSET_VERSION`, **now 7** (bumped 2026-09-09 for the aircraft-general pass,
+which completed the bank). Version 6 covered human performance, version 5
+navigation, version 4 operational procedures, version 3 meteorology and
+principles of flight.
 
 **Bump `TSV_ASSET_VERSION` whenever the TSV changes** — existing users re-parse
 the TSV on next launch when the stored version differs.
@@ -852,6 +995,9 @@ Committed on `release/1.2.0-play-compliance`:
   print "read-back verified". **Never run two merges concurrently anyway.**
 - 2026-09-08 — the human-performance pass (1,417 explanations, 89 corrections),
   `TSV_ASSET_VERSION` 5 -> 6, and this file.
+- 2026-09-09 — the aircraft-general pass (2,559 explanations, 162 corrections),
+  which finishes the bank at 7,948/7,948 explanations and 775 corrections;
+  `TSV_ASSET_VERSION` 6 -> 7, and this file.
 
 Still uncommitted and unrelated: `gradle/wrapper/gradle-wrapper.properties`
 (Gradle 8.14.3 -> 8.14.5, bumped by the wrapper itself). Left alone deliberately —

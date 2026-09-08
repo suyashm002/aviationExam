@@ -14,6 +14,11 @@
     "reason": "Marked answer was the MEL. The MEL is a DISPATCH document: it governs whether the aeroplane may set off, and it ceases to apply once the aeroplane first moves under its own power. A failure during taxi is therefore handled by the abnormal and emergency procedures in the Operations Manual, with the commander deciding whether to continue or return to stand - where the MEL applies again. Confirmed by sibling ssGnRu3NxKRHznttdwis (failure while taxiing to the holding point, keyed to abnormal and emergency procedures), and consistent with ttjboUiIhQ6exZtny3iV and KDfonxhU1Vh5UIr87emV, which key the MEL only for a failure found while still parked.",
     "to": "B"
   },
+  "0T07KpReeGaWD9LNiem2": {
+    "from": "D",
+    "reason": "Marked answer selects statements 1 and 2, which describe an autocoupled approach in which both autopilot and autothrottle disengage at decision height - by definition NOT an automatic landing. An automatic landing requires the autopilot to remain coupled to the flare (3), the autothrottle to retard at about 30 ft (4) and the flare and roll-out to be flown automatically (5), which is option C.",
+    "to": "C"
+  },
   "0jPIfeFcJkuYFXwBLVOU": {
     "from": "D",
     "reason": "Marked answer 15690 ft applies the pressure correction with the wrong sign. True altitude 15000 ft, ISA deviation -15 C, so indicated on 1013 before pressure error = 15000 / 0.94 = 15957 ft. QNH 1003 with 1013 set means the datum is 270 ft BELOW sea level, so the altimeter over-reads by a further 270 ft: 15957 + 270 = 16227, i.e. option A (16230 ft). Option D is 15957 - 270, the same sum with the sign reversed. Cross-checked against question 15Gt5NNgFbroYMRmtNKl in the same section, which uses identical arithmetic and whose key is consistent with this sign convention.",
@@ -38,6 +43,11 @@
     "from": "C",
     "reason": "Marked answer was 1,3 - it dropped the tailwind case. ICAO PANS-OPS lists all three: crosswind including gusts exceeding 15 kt, tailwind including gusts exceeding 5 kt, and a runway that is not clear and dry. All three statements are correct, so the answer is 1,2,3.",
     "to": "D"
+  },
+  "0usX4C3eJPwe2FEDJnLT": {
+    "from": "D",
+    "reason": "Marked answer adds the cylinder head temperature gauge, which indicates engine cooling and not induction pressure. Boost is the pressure delivered to the induction manifold and is read on the manifold pressure gauge alone. The near-duplicate hDgM9POMsliN5h6PxA72 carries the identical four options and is keyed to 'a manifold pressure gauge only'.",
+    "to": "C"
   },
   "0wTXCxHq3mFzt0bxk6ww": {
     "from": "C",
@@ -89,10 +99,20 @@
     "reason": "Marked answer claims a larger load factor for A, but load factor n = 1/cos(bank) depends ONLY on bank angle, and both aircraft are at 20 degrees - so the load factors are identical. Rate of turn = g tan(bank)/V, so the slower aircraft A turns faster (option B). For completeness: turn radius = V2/(g tan bank), so A's radius is SMALLER not larger, and A must fly at the HIGHER CL not the lower.",
     "to": "B"
   },
+  "1nj0hSyyQcAhJab3rF80": {
+    "from": "D",
+    "reason": "Marked answer describes a differential between the pressure and scavenge pumps, which is not what the gauge is connected to. The gauge senses delivery pressure downstream of the pressure pump - the pressure actually being supplied to the bearings. The near-duplicate gNOFChxPbNFRkzRkzHKU carries the identical four options and is keyed to 'pressure of the oil on the outlet side of the pressure pump'.",
+    "to": "B"
+  },
   "1tlKvPaC5LI5ZHHStQMC": {
     "from": "A",
     "reason": "Marked answer specifies idle power and 'no other corrections', which is not the stall recovery. The standard technique is to reduce the angle of attack with the stick centrally forward and ailerons NEUTRAL, apply FULL POWER to minimise height loss, and level the wings with RUDDER - aileron input at high alpha risks a wing drop or spin. Option B states all three correctly.",
     "to": "B"
+  },
+  "1u4OBVpHwVCRVb2hVige": {
+    "from": "A",
+    "reason": "Marked answer gives roll rate. Rate of turn is rotation about the vertical, and at low bank angle the aircraft's yaw axis is close to the vertical, so it is YAW rate that is measured. The companion question aZtH2OSu1EDOGbT3hBwa asks the same thing directly - 'at a low bank angle, the measurement of rate-of-turn actually consists in measuring the...' - and is keyed to 'yaw rate of the aircraft'.",
+    "to": "C"
   },
   "2CY7Ou6r17R61WyubXBD": {
     "from": "A",
@@ -157,6 +177,11 @@
   "3JYnBjd7Ku2m5pEDOZGr": {
     "from": "A",
     "reason": "Marked answer was 'beam lock', which is not a technique but a restatement of the fault. The piezo-electric correction for ring laser gyro lock-in is DITHER: the block is vibrated through a small oscillation so the gyro is rarely at a near-zero input rate.",
+    "to": "D"
+  },
+  "3O2plHSC2KHznm2GaOTH": {
+    "from": "C",
+    "reason": "Marked answer refers to the air entering the CARBURETTOR. What defines mixture strength is what reaches the combustion chamber, so the ratio is of the masses entering the cylinder. The near-duplicate 42ZLv3AUV7tu7JbXNdQE carries the identical four options and is keyed to 'mass of fuel and mass of air entering the cylinder'.",
     "to": "D"
   },
   "3QP4M6vfxkw5ToVmerIu": {
@@ -279,6 +304,11 @@
     "reason": "Marked answer gave the radial as 315, which is the QDM read at the HEAD of the needle. The tail of an RMI pointer indicates the radial, and the stem states the tail shows 135, so the radial is 135. The pointer is servo-positioned against the card so the radial remains valid, but relative bearing is lost because the frozen card no longer gives heading.",
     "to": "C"
   },
+  "7Aca5xhsemje0IQZxFKk": {
+    "from": "D",
+    "reason": "Marked answer gives an apparent turn to the west. Acceleration and deceleration errors occur only on easterly and westerly headings - on north or south the pendulous magnet is aligned with the fore-and-aft force and there is no turning moment at all, so there is no apparent turn. The near-duplicate 5CAOPgIMizjEtDpucbFC asks the same question about deceleration on a northerly heading and is keyed to 'no apparent turn'.",
+    "to": "B"
+  },
   "7QfcksPGncXhXilEWuGE": {
     "from": "D",
     "reason": "Marked answer was '30 minutes with normal cruising consumption', which is not a quantity defined anywhere in JAR-OPS 1.255 - the final reserve is 30 minutes of HOLDING at 1500 ft, and the isolated-aerodrome additional fuel for a turbine aeroplane is two hours at normal cruise consumption. Confirmed by sibling A7kNhVvb7dUeYX0pVvLW, which keys two hours at normal cruise consumption.",
@@ -289,6 +319,11 @@
     "reason": "Marked answer combined 'flies above the climb-out path' with 'decreasing true airspeed', which cannot both follow from a decreasing headwind. Losing headwind is a decreasing-performance shear: airspeed falls, lift falls and the aeroplane descends BELOW the climb-out path - statements 2 and 4. Confirmed by the mirror questions 9luycFuR0XE4ZJHLRlns (increasing headwind: above path, increasing TAS) and 3u4DCjTIpsQov0xJDKjZ (decreasing tailwind: above path, increasing TAS). Safety-relevant: the marked answer teaches the wrong sign for the dangerous shear.",
     "to": "D"
   },
+  "7gQr3Sb1EP7GaN3Av3C5": {
+    "from": "A",
+    "reason": "Marked answer admits only aural warnings and passenger announcements, omitting radio communications and crew interphone - which are precisely what the CVR exists to record, and what its four channels are dedicated to. The four channels carry each pilot's audio (radio), the third station or PA, the interphone, and the cockpit area microphone which picks up the aural warnings, so all four items are recorded.",
+    "to": "C"
+  },
   "7nxWBLtXsiu9rpslTZck": {
     "from": "B",
     "reason": "Marked answer was 'scale fairly constant and error distributed evenly', which is a genuine requirement of a topographical map. The property NOT required is that ALL bearings be correct: no projection can make every bearing correct, since that would need great circles and rhumb lines straight on the same sheet.",
@@ -298,6 +333,11 @@
     "from": "A",
     "reason": "Marked answer was 0.8. JAR-OPS 1.515 applies the same factor at the destination and at any alternate: 70% of the landing distance available for a turbo-propeller aeroplane, 60% for a turbo-jet. Confirmed by sibling bs2GALWUjzXQskdi5njl, which keys the ALTERNATE factor for a jet at 0.6 - identical to its destination factor - proving this bank applies no relaxation at the alternate.",
     "to": "C"
+  },
+  "8UNh1Lss2K3W3i4Pyvbt": {
+    "from": "B",
+    "reason": "Marked answer has the air data computer measuring static position error and transmitting it to ATC, which is not something an ADC does at all. Its function is to take the pitot, static and temperature inputs, apply the corrections and output altitude, airspeed, Mach number and vertical speed as electrical signals to drive the instruments and feed the other systems - option D.",
+    "to": "D"
   },
   "8ZKxwyJ0soSEJikW4sck": {
     "from": "D",
@@ -329,9 +369,19 @@
     "reason": "Marked answer stated CTA extends from 1000 ft. A Control Area extends upwards from a specified limit above the earth — not a fixed height. The lower limit varies per ATC authority. Option B is correct.",
     "to": "B"
   },
+  "8zCj8Zan7lFnLH0Q2kcS": {
+    "from": "C",
+    "reason": "Marked answer of 130,000 Nm has no derivation - it is the sum of the moment about the datum and the moment about the present centre of gravity, which is not a meaningful quantity. Loading manifest moments are taken about the DATUM, so the arm is 16 m and the moment is 500 x 10 x 16 = 80,000 Nm.",
+    "to": "D"
+  },
   "9577z1bvzcHmgjx70Imi": {
     "from": "C",
     "reason": "Marked answer was 'concave to the pole of projection', which is the behaviour of a RHUMB line on a Lambert chart. A great circle is a curve concave to the PARALLEL OF ORIGIN, because chart convergence is exact only at that parallel. The near-duplicate sibling BhQbl7JSYmePo68NY1f8 asks the identical question and keys 'curves concave to the parallel of origin'.",
+    "to": "B"
+  },
+  "9gYuXKQuHpK0vf1GCT78": {
+    "from": "D",
+    "reason": "Marked answer has the error the wrong way round. Cold air is denser, so the pressure levels lie closer together and the aircraft is LOWER than the altimeter shows - the indication is higher than the true altitude, which is the basis of the cold-weather altitude correction. The companion question 9hQeUCcye5LwyORAwCnB covers the warm-air case and is keyed to 'lower than the true altitude', which is the mirror image and confirms the sign.",
     "to": "B"
   },
   "9hhEW2jd3HNVePs8e0oD": {
@@ -364,6 +414,11 @@
     "reason": "Marked answer 'take-off is not possible' is wrong; a 5 kt tailwind is within normal limits and a safe departure exists. Runway 27 would give a 5 kt headwind on the roll followed by a 30 kt tailwind above the 300 ft inversion - a 35 kt decreasing-performance shear, the classic wind-shear accident profile. Runway 09 gives a 5 kt tailwind on the roll followed by a 30 kt headwind through the shear layer, an increasing-performance shear. Option C is the safest departure procedure.",
     "to": "C"
   },
+  "BD1gIiZNiJIx7AnHbOkb": {
+    "from": "D",
+    "reason": "Marked answer describes two horizontally arranged torque motors. The pendulous detector's function is to sense departure from the local vertical and drive the LEVELLING erection torque motor, which precesses the gyro back to horizontal. The companion question 7UPUNT70uYc9fNDpxYVm asks what the system detecting the local vertical supplies and, from the same four options, is keyed to 'a levelling erection torque motor'.",
+    "to": "B"
+  },
   "BPWmaDv3bai9YS5lZwQk": {
     "from": "B",
     "reason": "Marked answer claimed increased Mach number stability above optimum altitude, which is the reverse of what happens - above optimum the aeroplane sits on the back of the drag curve with narrowing buffet margins and poorer speed stability. Optimum altitude is by definition the altitude of best specific air range, so flying above it REDUCES range.",
@@ -384,6 +439,16 @@
     "reason": "Marked answer was 3000 ft, which is the height at which procedure A ACCELERATES and retracts flap, not where thrust is reduced. In procedure A the reduction to climb thrust happens at 1500 ft, after which V2 + 10 to 20 kt is held to 3000 ft. Confirmed by the identical sibling ZyGjuJzLznBBhX8EcoSX, which keys 1500 ft.",
     "to": "D"
   },
+  "BadulEtdMC0PY0VqDGmg": {
+    "from": "D",
+    "reason": "Marked answer says the instrument indicates frequency in Hz. The frequency is known already - it is the spool speed, and it is used to FILTER the accelerometer signal so that N1 and N2 imbalance can be distinguished. What is displayed is the amplitude of the vibration at that frequency. The near-duplicate IQXkMuiuiVKvGuQcoSei carries the identical four options and is keyed to 'vibration amplitude at a given frequency'.",
+    "to": "B"
+  },
+  "Bnrvrl9qCoP3FUL2YO71": {
+    "from": "C",
+    "reason": "Marked answer accepts statements 2 and 3 together, which is self-contradictory: they claim supply-voltage immunity for the ratiometer AND for the galvanometer. A ratiometer compares two currents and is immune; a galvanometer measures a single current and is not. Statement 3 is therefore false and the correct set is 1, 2 and 4.",
+    "to": "B"
+  },
   "BqZ1e7OjxiDVR241BZap": {
     "from": "C",
     "reason": "Marked answer describes the exhaustion phase, not the acute response. Acute stress triggers the alarm reaction of Selye's General Adaptation Syndrome, in which adrenaline release mobilises the resources needed to face the stressor. The near-duplicate kNRC4XqIXh2Ieex5jEwx offers the same four options and is keyed to 'the mobilization of resources required to cope with the stressor'.",
@@ -394,10 +459,25 @@
     "reason": "Marked answer was '8 km visibility, clear of clouds'. Above 10,000 ft in all classes including B, ICAO requires 1500 m horizontal and 1000 ft vertical distance from clouds — not just clear of clouds. Option C is correct.",
     "to": "C"
   },
+  "CGdcIKvHqcUnCoB8lJwM": {
+    "from": "B",
+    "reason": "Marked answer gives a warning light alone. A fire warning drives both a visual indication - the fire warning light and master warning - and an aural alert, the fire bell, precisely so that it cannot be missed. The companion question 8WpZ1nWScRTBVzdEojTC asks how an engine fire is indicated and is keyed to 'a visual warning and an aural alert'.",
+    "to": "C"
+  },
+  "COuM6uM5Y2qNuhrNcPrO": {
+    "from": "D",
+    "reason": "Marked answer gives the navigation display, which presents the horizontal situation - map, flight plan, weather and traffic. Autothrottle and autopilot modes are annunciated in the flight mode annunciator across the top of the PRIMARY FLIGHT DISPLAY, which is where the crew reads what the automatics are doing.",
+    "to": "C"
+  },
   "CRD8XXpj1s9RHrDRW1b1": {
     "from": "A",
     "reason": "Marked answer was COM (communications). Meteorological service information for areas/routes is published in the MET section of the AIP, not COM. Option D (MET) is correct.",
     "to": "D"
+  },
+  "CRTZwPDbQomjHCDy26Oz": {
+    "from": "D",
+    "reason": "Marked answer says true airspeed. An airspeed indicator is calibrated using the compressible-flow (Saint-Venant) relationship at standard SEA LEVEL density, so with instrument and position errors absent it reads calibrated airspeed. It cannot indicate TAS because it has no knowledge of the actual air density.",
+    "to": "A"
   },
   "CUHwJgC3Ov8lMiSMk63x": {
     "from": "B",
@@ -454,6 +534,11 @@
     "reason": "Marked answer was '60 centimetres'. ICAO Annex 7 specifies the height of marks under wings shall be at least 50 cm. Option D (50 cm) is correct.",
     "to": "D"
   },
+  "E1mCM44y4cuHuPE7ZAyU": {
+    "from": "A",
+    "reason": "Marked answer says the constant speed propeller has its best efficiency in the climb, which is not so - propeller efficiency is highest in the cruise, and what the climb shows is the constant speed unit's greatest ADVANTAGE over a fixed propeller rather than its own best figure. Option C states the relationship precisely: the two are equal at the fixed propeller's design point and the constant speed unit is better above and below it.",
+    "to": "C"
+  },
   "E8JQ4qTbQQaJM1oTJvc5": {
     "from": "B",
     "reason": "Marked answer was 5 NM. ICAO Doc 4444: radar identification of departing aircraft must be within 1 NM (2 km) of the departure runway end. Option C (1 NM) is correct.",
@@ -479,6 +564,11 @@
     "reason": "Marked answer gives the (L/D)max condition, which is maximum range for a PROPELLER aeroplane and maximum ENDURANCE for a jet. A turbojet's maximum range is at the tangent-from-origin point on the drag curve, about 1.32 x VMD - a HIGHER speed, hence a smaller CL and a LOWER angle of attack than (L/D)max (option B). Cross-check: question 7wX9NgKn9RzSOemiMP6V in this section correctly places jet max range at the tangent from the origin.",
     "to": "B"
   },
+  "EgPDQmpC6sEyjY4wQQ9F": {
+    "from": "D",
+    "reason": "Marked answer includes statement 1, that the design is complex. Simplicity is the float gauge's principal virtue - the companion question Bnrvrl9qCoP3FUL2YO71 lists 'ease of manufacture' among its ADVANTAGES and is keyed to include it. The genuine disadvantages are sensitivity to attitude (2), to acceleration (3) and to temperature (4); statement 5 is also wrong, since 5ScQo6JrRviOT2NGAzfE keys the float gauge as a DC powered system.",
+    "to": "A"
+  },
   "EpkluG0fEZ1n1dhNMSRk": {
     "from": "B",
     "reason": "Marked answer 'critical angle of attack' is not a speed and is not what this construction yields. Power required = drag x speed, so a tangent from the ORIGIN to the power curve touches where P/V - i.e. the DRAG - is minimum: that is VMD. For a jet, whose fuel flow follows thrust, minimum drag gives maximum ENDURANCE (option A). Jet maximum specific range comes from the tangent to the DRAG curve, at a higher speed.",
@@ -489,6 +579,11 @@
     "reason": "Marked answer omits AGGRESSIVENESS, which is one of the standard behavioural manifestations of stress, and instead includes 'a willingness to improve communication', which is the opposite of what stress does - communication degrades under stress and the crew fragments. The behavioural set is aggression (1), withdrawal (4) and inappropriate gestural agitation (5), which is option D.",
     "to": "D"
   },
+  "FSY7kyikFSZjypZmClXd": {
+    "from": "D",
+    "reason": "Marked answer includes cabin windows, which are not anti-iced, and omits pitot tubes and waste water drain masts, which certainly are electrically heated - a blocked pitot or a frozen drain mast is a serious hazard. The correct set is the engine intake, the windscreen, the pitot heads and masts, and the wing leading edge. The near-duplicate nMU2jtnjBD13qIPX1CRd carries the identical eight statements and is keyed to '1, 2, 4, 5'.",
+    "to": "C"
+  },
   "Fem8la2rabKSlA4dxggq": {
     "from": "B",
     "reason": "Marked answer had the geometry reversed. Westerly variation means MAGNETIC north lies west of true north, so TRUE north lies EAST of magnetic north. The check is the standard rule 'variation west, magnetic best': magnetic = true + westerly variation, which only works if magnetic north is the westward one.",
@@ -497,6 +592,11 @@
   "FiWhDgxLogYVL3U1m0mV": {
     "from": "B",
     "reason": "Marked answer uses a 35 ft screen height, which is the TAKE-OFF screen; the certified LANDING distance is measured from 50 ft above the runway surface, so option B is false. The correct statement is the dispatch rule: for a turbojet the landing distance required must not exceed 60% of the landing distance available (option D). Cross-check: question fNYq2K6UhlHscazezEAV in this same section asks the equivalent question and is correctly keyed to the 60% statement.",
+    "to": "D"
+  },
+  "Fl8kU2cQxsKpKeHbiSkm": {
+    "from": "A",
+    "reason": "Marked answer of 41.6 kg is the correct figure divided by ten. The pallet covers 0.8 x 0.8 = 0.64 m2 and the limit is 650 kg per square metre, so the maximum is 650 x 0.64 = 416 kg. The companion question H98XWGF69wEd3cGMRl6M performs the same calculation in reverse and is keyed correctly, confirming the method.",
     "to": "D"
   },
   "FqC2sivLGFYdSSSNjbBj": {
@@ -589,6 +689,11 @@
     "reason": "Marked answer claims the critical angle of attack changes with CG position. It does not: the critical (stalling) angle is a fixed aerodynamic property of the aerofoil and configuration, unaffected by weight, CG, load factor or altitude - option A. Those variables change only the SPEED at which the critical angle is reached, which is why stall protection systems sense alpha rather than airspeed.",
     "to": "A"
   },
+  "Ihcqvp4VMqATIUQkyboM": {
+    "from": "A",
+    "reason": "Marked answer describes the pulse-counting arrangement used with a magnetic sensor and a toothed wheel, not with a three-phase generator. A three-phase tachogenerator feeds a synchronous motor in the instrument, which turns at a speed locked to the supply frequency and drives a magnetic drag-cup tachometer. The companion item 8lNwclbyk0EJmfuJz4L2 describes exactly that chain, and G1taMSXHKaNNvQHjZ7EI keys the pulse-counting answer to the magnetic-sensor transmitter instead.",
+    "to": "B"
+  },
   "IqP0TYhpzIhoQlZwfYoI": {
     "from": "D",
     "reason": "Marked answer is self-contradictory as an explanation for unconsciousness - more blood and more oxygen would not cause anyone to pass out. Hyperventilation lowers blood CO2, and CO2 is a cerebral vasodilator, so the vessels supplying the brain constrict and cerebral blood flow falls by up to a third despite fully saturated blood. The brain is starved by reduced flow, which is option A.",
@@ -608,6 +713,16 @@
     "from": "B",
     "reason": "Marked answer included special fires - metals, gas, chemicals - which ordinary dry chemical powder must not be used on; burning metals need a dedicated class D agent. Powder covers class A, class B and electrical fires. Confirmed by sibling 1QZMo8vN5uwm4PmkNQxv, which keys 1-2-3.",
     "to": "D"
+  },
+  "JFprE7msTMGrXGVYEryK": {
+    "from": "D",
+    "reason": "Marked answer routes the cold air unit's compressor outlet to the PRIMARY heat exchanger. The bootstrap order is primary heat exchanger, then compressor, then SECONDARY heat exchanger, then turbine - so it is the secondary heat exchanger outlet that feeds the turbine inlet. The near-duplicate YJOOA6bmciiD2p4Ohuwl carries the identical four options and is keyed to 'secondary heat exchanger outlet to the turbine inlet of the cold air unit'.",
+    "to": "B"
+  },
+  "JToqCkJ8HBRWmupwAe4a": {
+    "from": "A",
+    "reason": "Marked answer gives a ratiometer circuit, which is used with resistance bulbs for lower temperatures such as oil and outside air. Cylinder head temperature is measured with a thermocouple of two dissimilar metals, which generates its own EMF and copes with the temperature range. The near-duplicate 7BdxtFCNPXAU3Qjkj1Ik carries the identical four options and is keyed to the thermocouple.",
+    "to": "C"
   },
   "JeT4jVcyMbqgbCkXaxZU": {
     "from": "D",
@@ -679,6 +794,11 @@
     "reason": "Marked answer quoted 140 000 kg; the ICAO HEAVY threshold is 136 000 kg maximum certificated take-off mass. The remaining candidate alters the mass type to landing mass. The only accurate statement offered is that H is the highest wake turbulence category, LIGHT and MEDIUM being the other two.",
     "to": "D"
   },
+  "LYMU5Twu9OoXqUbZsljh": {
+    "from": "D",
+    "reason": "Marked answer is a garbled statement of the 10,000-13,000 ft rule, under which only a proportion of the passengers need oxygen and only for the time beyond 30 minutes. The requirement for 100% of the passengers for the ENTIRE flight time applies above 13,000 ft. The near-duplicate KUqZMdLCoRFxG4WRfgz6 asks the same question and is keyed to 13,000 ft.",
+    "to": "B"
+  },
   "LaAT02awwgE8926vMPAx": {
     "from": "C",
     "reason": "Marked answer was paper, fabric and wood only - that is the WATER extinguisher's list. CO2 covers those plus hydrocarbons and electrical fires; only burning metals are excluded, and none appears here. Confirmed by the identical sibling Akg9ISLrD0HcuIs1E8NL, which keys all five.",
@@ -709,10 +829,25 @@
     "reason": "Marked answer gave the maximum unambiguous range as being set by the length of the timebase, which only governs what the display can show. It is set by the pulse recurrence frequency, because the set must receive the echo from the most distant target before transmitting again. The siblings 2u89GeTShMcPa7exAnvH and 9x7z2BXdFYNu3Y2FfJl0 key pulse length for minimum range and PRF for maximum range respectively.",
     "to": "D"
   },
+  "MMCwmJLEMvPZLDcjULDE": {
+    "from": "D",
+    "reason": "Marked answer omits statement 3, but leaving the aeroplane correctly trimmed at autopilot disconnect is the whole operational point of automatic trim - without it the pilot would take over a large out-of-trim force. The near-duplicate 6slUuH8FfNZl4b81twwK carries the identical three statements and is keyed to all three.",
+    "to": "B"
+  },
+  "MNqT65xAPggOs6wgkMw4": {
+    "from": "C",
+    "reason": "Marked answer of +5°/hour is arithmetically unattainable on this track: apparent drift is 15 x sine of latitude, which reaches only about 1.3°/hour at 5° and is zero at the equator. Flying due north from 5°S to 5°N the drift reverses sign at the equator and the net effect over the track is nil, so 0°/hour is the only defensible option.",
+    "to": "D"
+  },
   "MRmPuTsrZFW7EyjUXslD": {
     "from": "A",
     "reason": "Marked answer blamed INS 1 specifically. INS 1 is driving the autopilot, so its cross-track reads zero by definition and says nothing about its accuracy; the 8 NM on INS 2 could belong to either system. All that can be deduced is that at least one is drifting, which is what the near-duplicate sibling MqaO2C0JJ6z4L3x2nCKS keys.",
     "to": "D"
+  },
+  "MVN8Q8QWajV5b6c5Aq2g": {
+    "from": "B",
+    "reason": "Marked answer adds the 120 kg of unusable fuel, which is already included in the basic empty mass by definition - the item is a distractor in the list, exactly like the take-off fuel and the traffic load. Dry operating mass is basic empty mass plus the operating items only: 30,000 + 300 catering + 365 crew = 30,665 kg.",
+    "to": "C"
   },
   "Mcze4HxiB5Gfr0sssQUU": {
     "from": "D",
@@ -764,6 +899,11 @@
     "reason": "Marked answer counted three take-offs and three landings. The single-pilot IFR/night recency requirement in JAR-OPS 1.970 is five IFR flights including three INSTRUMENT APPROACHES during the preceding 90 days, in the single-pilot role on the type or class - it is instrument currency that is being required, not landing currency, which is covered separately by the three take-offs and landings rule.",
     "to": "D"
   },
+  "OPFN9d14UTRMCUdY1lNi": {
+    "from": "C",
+    "reason": "Marked answer includes statement 1, that the indications are less reliable in the northern hemisphere. Turning errors are symmetric between the hemispheres - the sense reverses but the magnitude is the same at the same magnetic latitude - so neither hemisphere is worse. Statement 4 is also false: the behaviour is inherent, not a symptom of a bad swing. Statements 2 and 3 are the only true ones, and option B is the only combination containing neither of the false ones.",
+    "to": "B"
+  },
   "OQvlHfQCdG0OmOCUM3m0": {
     "from": "A",
     "reason": "Marked answer prescribes fast off-centre scanning, which is a night-vision technique and does nothing about vestibular vertigo - if anything the associated head movement provokes it. The standard prevention is to avoid steep turns and abrupt manoeuvres and to maintain an effective instrument cross-check, option D. The companion questions qKvqDwMDBrN2PJxYv9hZ and TqsdJGsSykHcUt2DH2dK both key the prevention of spatial disorientation to establishing and maintaining a good instrument cross-check.",
@@ -772,6 +912,11 @@
   "OVYbnWDmf4Y0Slz3DL7L": {
     "from": "B",
     "reason": "Marked 'D and E airspaces'. Special VFR without radio receiver only in Class E. Option D is correct.",
+    "to": "D"
+  },
+  "OadbSrYjxd2iFEgsp7D2": {
+    "from": "A",
+    "reason": "Marked answer requires the datum to lie between the nose and the tail. It need not: the datum is an arbitrary reference plane chosen by the manufacturer, and it is commonly placed ahead of the nose so that every arm is positive. The companion question FjTNYHJWsBbiNqwUHUxm makes the point directly and is keyed to 'a convenient point which may not physically be on the aeroplane'.",
     "to": "D"
   },
   "Oj4va9Lj52EPNg1IKiU3": {
@@ -804,6 +949,11 @@
     "reason": "Marked answer describes a hybrid case that does not exist in the regulations: the LANDING climb is all engines in the landing configuration with the gear DOWN, not gear up. The requirement that commonly limits landing mass is the APPROACH climb - one engine inoperative in the approach configuration (option B), requiring 2.1% for a twin.",
     "to": "B"
   },
+  "P9oDiWLvby6boxvvUKpF": {
+    "from": "B",
+    "reason": "Marked answer names the shunt exciter, which is not part of the differential detector. Feeder fault protection compares the flux produced by the voltage coil with that of the series winding turn, and any imbalance means current is escaping to earth along the feeder. The near-duplicate BhgUCffuXBRfJNYQweVm carries the identical four options and is keyed to 'voltage coil and the series winding turn'.",
+    "to": "C"
+  },
   "PGV4izw9KaBFFbys159P": {
     "from": "B",
     "reason": "Marked answer describes the tangent-from-the-origin construction, which minimises D/V (the jet maximum-range point at about 1.32 x VMD), not CD/CL. In level flight lift equals weight, so minimising CD/CL is identical to minimising DRAG - the LOWEST POINT of the drag curve, VMD (option A).",
@@ -829,9 +979,19 @@
     "reason": "Marked answer 16030KT leaves the direction unchanged. Going from the surface up to 2000 ft AGL over land, the wind VEERS about 30 degrees and roughly doubles in speed, so 16020KT becomes about 19040KT - option B. Cross-check: the parallel question L1hEu64xVgNYLQmOXOw9 in this section applies the same rule.",
     "to": "B"
   },
+  "QMBr5aRxZJH5vmyrqmrR": {
+    "from": "D",
+    "reason": "Marked answer 'beam lock' is not a technique - it is a restatement of the problem. The countermeasure is DITHER: a piezo-electric motor vibrates the whole laser block back and forth so that the instantaneous rotation rate is almost never near zero, and the known dither motion is then subtracted from the output.",
+    "to": "C"
+  },
   "QOydrgf5Ech5DNjkjJEn": {
     "from": "A",
     "reason": "Marked answer 1.9 does not follow from the figures. A 2 degree gust raises CL by 2 x 0.079 = 0.158, giving a new CL of 0.35 + 0.158 = 0.508. With speed unchanged in that instant, lift is proportional to CL, so the load factor is 0.508 / 0.35 = 1.45 (option D). Cross-check: question pkRhyDaDSJQcm1mMK6zi in this section uses the identical method and is correctly keyed.",
+    "to": "D"
+  },
+  "QfmNH6nC2IaW9ywRcBy0": {
+    "from": "C",
+    "reason": "Marked answer of 010° is past north, which is overshooting. Turning onto north in the northern hemisphere requires an UNDERSHOOT - the turn is stopped before the compass reads north. Turning right the heading increases towards 360, so the roll-out heading is still west of north, about 330°. The companion question E3hJx0O7P7w2Fn9K6OfS asks for a right turn onto north at the same 40°N and is keyed to 330°.",
     "to": "D"
   },
   "QlIF0yiZs81d2nPxtRmN": {
@@ -882,6 +1042,11 @@
   "RVimcPkWqqu174xuiTbl": {
     "from": "B",
     "reason": "Marked answer was 130 degrees, which is 90 degrees to the TRACK. Maximum drift occurs with the wind at 90 degrees to the HEADING: maximum drift is arcsin(30/120) = 14.5 degrees, so the heading is 054.5 and the wind direction is 054.5 + 90 = about 145 degrees. The sibling bIUjyAU7jGKW7TrcqGRq carries the same data.",
+    "to": "A"
+  },
+  "RdeKyRPzpOtCiHHb23Ja": {
+    "from": "D",
+    "reason": "Marked answer gives multiple load paths and redundancy, which is the FAIL SAFE philosophy, not safe life - the companion question HMi6ZJVWOYOUHcr091jf keys exactly that pair to fail safe. Safe life uses a single adequate load path and retires the component at its calculated life, which is statements 2 and 3. (Note that options A and C are printed identically as '2, 3', so this row also has a duplicated option.)",
     "to": "A"
   },
   "RipsbUUQL8KGC7QOP7ZI": {
@@ -944,6 +1109,11 @@
     "reason": "Marked answer paired range with wavelength. Range affects signal strength but not whether a given cloud is reflective at all; that is decided by the SIZE OF THE WATER DROPS relative to the WAVELENGTH used, which is why weather radar paints rain but barely sees cloud droplets or dry ice crystals.",
     "to": "D"
   },
+  "T8NIMO5QZrhxtMbgjrHE": {
+    "from": "B",
+    "reason": "Marked answer selects statements 1 and 4, both of which put PFD content on the navigation display: the flight director command bars and the flight mode annunciator are both on the PRIMARY flight display. The true statements are that the altimeter setting is shown on the PFD (2) and that the PFD is the main flying instrument (3).",
+    "to": "A"
+  },
   "TBQx3hO5w1N4nQja1S79": {
     "from": "B",
     "reason": "Marked answer was 30 NM, which is the contingency OFFSET distance, not a separation minimum. The minimum lateral separation in MNPS airspace is 60 NM - the spacing of the organised track structure. Confirmed by siblings dB2NpfBOmsmFSv3N3X0a and LDdK7Azb8OIJygndpVLu.",
@@ -958,6 +1128,16 @@
     "from": "B",
     "reason": "Marked 20° or less. Non-precision straight-in approach acceptable at 30° or less. Option D is correct.",
     "to": "D"
+  },
+  "TaqSQGPLUBJZ1ZOZqxDl": {
+    "from": "C",
+    "reason": "Marked answer makes the error reverse sign between climb and descent. A leak simply lets the trapped total pressure fall towards cabin pressure, so the difference the instrument sees is always smaller than it should be and the indication always under-reads. The near-duplicate MtArMjmZf8IUlNeruIcP asks the identical question and is keyed to 'under-read'.",
+    "to": "D"
+  },
+  "UTTCNw7go0GgWJC9lN5L": {
+    "from": "A",
+    "reason": "The near-duplicate wML3OjkmBCRiIOjHa9xh is the identical question with the same four options shuffled and is keyed to 'it washes the lubricant off the cylinder walls', which is also the standard answer. Oil dilution is a consequence of over-priming but it is the loss of the oil film during the first turns, and the scoring that follows, that makes it damaging.",
+    "to": "C"
   },
   "Uh81wYvd1LgLrwMgQOv7": {
     "from": "A",
@@ -1029,6 +1209,11 @@
     "reason": "Marked answer raises V1, which is the wrong direction. Clearway adds to TODA but NOT to ASDA, so only the go case improves. Exploiting it requires REDUCING V1: a lower V1 shortens the stop distance (which must still fit the unchanged ASDA) while lengthening the go distance (which now has the extra clearway available). The result is a greater field-length limited mass at a LOWER V1 - option B.",
     "to": "B"
   },
+  "Vamo7iBLArAPUgOfoQ1C": {
+    "from": "C",
+    "reason": "Two near-duplicates of this question, acjgkRj0uIAtS1Xaf9kk and RgyQNW1OgI9wMYUDIfDv, are both keyed to 'a set of permanent magnets'. A brushless machine has no external path to its field, so the initial excitation must come from the permanent-magnet pilot exciter; the marked 'auxiliary winding' is outnumbered two to one and is not how the machine builds up.",
+    "to": "D"
+  },
   "VeTutTZ8WlISpiquNmG3": {
     "from": "A",
     "reason": "Marked answer asserted that RVR is taken into account only for precision approaches, which is false - RVR governs non-precision approaches too. The controlling value is the touchdown zone (threshold) RVR, which must be at or above the minimum before the final approach is commenced. Confirmed by the identical sibling Mcze4HxiB5Gfr0sssQUU.",
@@ -1089,6 +1274,11 @@
     "reason": "Marked answer combined 30 rpm with 'never'. Surface movement radar scans at about 60 rpm so the picture refreshes about once a second, works in the SHF band, and has fine enough resolution that the shape of a return can sometimes suggest the aircraft type.",
     "to": "C"
   },
+  "WOzbtbL4BjEOz75HD5Ou": {
+    "from": "C",
+    "reason": "15% of a 134.5 inch MAC is 20.18 inches, measured from the leading edge of MAC, which itself is 625.6 inches aft of the datum: the CG is therefore 625.6 + 20.18 = 645.78 inches aft of the datum. The marked 228.34 inches corresponds to no step of the calculation at all; option A (20.18) is the distance from the leading edge of MAC rather than from the datum.",
+    "to": "B"
+  },
   "WX3HwqWakSk3LGgBVVGV": {
     "from": "D",
     "reason": "Marked answer put the icing band at 0 to -10 C. In stable stratiform cloud the most favourable range is 0 to -15 C, with icing becoming rare below about -18 C and droplet diameters of 0.002-0.03 mm. Confirmed by the identical sibling nhcq2WqTtVt1dXTvFQdu, which keys 2-3-5.",
@@ -1109,6 +1299,11 @@
     "reason": "Marked 5 minutes. Departing aircraft may take off until 2 minutes before arriving aircraft estimated over runway. Option A is correct.",
     "to": "A"
   },
+  "WfpvRTbxMmyycVkID64g": {
+    "from": "B",
+    "reason": "The two roles are the other way round in the marked answer. In an oleo-pneumatic strut the compressed nitrogen is the spring, carrying the aircraft's weight and returning energy, while the oil forced through the orifice is the damper that turns the landing energy into heat. Nitrogen is not there for heat dissipation.",
+    "to": "C"
+  },
   "WkXhLsEhSoWdOj1AC5X8": {
     "from": "D",
     "reason": "Marked answer put the aircraft SOUTH of 60N. A great circle between two points on the same parallel bows towards the nearer pole, which in the northern hemisphere means north of it: tan(60) = tan(vertex) x cos(5) gives a vertex latitude of about 60 degrees 06 minutes NORTH. The near-duplicate sibling x8jMmgQ3xs7OoaKhaK1C, with identical waypoints, keys 60 05.7 N.",
@@ -1117,6 +1312,11 @@
   "WoBKSIRRE38XZW7EneJB": {
     "from": "D",
     "reason": "Marked answer included passenger meals, which are not dangerous goods, and omitted fire extinguishers, which are. The items carried for operating reasons and classified as dangerous goods are extinguishers, portable oxygen and first-aid kits. Confirmed by sibling 6XzpFxF7a4BesubbfLb9.",
+    "to": "C"
+  },
+  "Wv2aFuhgAcpoKY7zTNpg": {
+    "from": "B",
+    "reason": "Marked answer pairs the correct statement 1 with statement 4, which is false: the autothrottle is engaged and disengaged independently of the autopilot and is routinely used with the autopilot out. The correct pair is 1 and 3 - the autothrottle holds a target N1 or a target IAS, as the sibling Uq9XxbEh2y00aNg4QAtp confirms. N2 is not a controlled parameter in either question.",
     "to": "C"
   },
   "X4tEAlxPbd7jr116tEdB": {
@@ -1149,10 +1349,30 @@
     "reason": "Marked answer describes manual handling driven by physical sensations, which is stick-and-rudder skill, not judgement. Judgement is the process of assessing a situation, evaluating the risk and deciding, drawing on knowledge, skill, experience and attitude to risk - option D. The near-duplicate GRviu78mJnlaFTHHyXXd offers the identical four options and is keyed to that statement.",
     "to": "D"
   },
+  "XrGn5kXZTCGm1nXcM6mK": {
+    "from": "B",
+    "reason": "The near-duplicate uwuFEbbdkpTG7eZOEWz1 has the identical stem and the same four options shuffled, and is keyed to 'generator at varying loads and speeds'. A voltage regulator acts on the generator field only; batteries have no regulator of their own, so the marked option is wrong on its face as well as outnumbered.",
+    "to": "A"
+  },
+  "XwHsGua8LHHQT6CPc6YY": {
+    "from": "A",
+    "reason": "Zero fuel mass is 1764+35+300+350 = 2449 lbs, which the sibling qttmek6brvm0PXwx8LPA confirms as its own keyed answer. Take-off mass adds the whole 60 gallons on board, 360 lbs, giving 2809 lbs. The marked 2659 lbs is 2449 plus the 210 lbs of TRIP fuel, which is not the fuel on board at take-off.",
+    "to": "D"
+  },
   "XzDLpTL3LoZHQPlgER4G": {
     "from": "C",
     "reason": "Marked answer allowed matches in hand luggage. The ICAO Technical Instructions permit one small packet of safety matches only when carried ON THE PERSON - not in checked baggage and not loose in cabin baggage. Confirmed by siblings fKNCHs2nFSZrWFkOVPhX and ADpP8wjJMGE5XRBVkZPe.",
     "to": "A"
+  },
+  "Y1rV48P6BMgg0iCqUTKq": {
+    "from": "C",
+    "reason": "The bank's own sibling OTbvov184dxrq4R7EwZ4 asks which sensors an angle of attack transmitter uses and is keyed to 'a vane detector and a conical slotted probe' - both principles, not the vane alone. Statement 3 here describes exactly that pressure-sensing probe, so the correct combination is 1 and 3.",
+    "to": "D"
+  },
+  "Y5NVnhLn71mtPcEFUnhM": {
+    "from": "C",
+    "reason": "Take-off mass is the zero fuel limit of 48 000 kg plus the take-off fuel of 18 000 + 900 + 700 + 2 000 = 21 600 kg, giving 69 600 kg. The marked 74 000 kg exceeds the stated maximum structural take-off mass of 72 000 kg, so it cannot be an achievable take-off mass under any reading of the data; 70 400 kg is the ramp mass, which includes the taxi fuel.",
+    "to": "D"
   },
   "YX3DnVkE2O13hbHqASh6": {
     "from": "A",
@@ -1168,6 +1388,11 @@
     "from": "B",
     "reason": "Marked answer 'rime ice' comes from SMALL supercooled droplets that freeze instantly, trapping air. LARGE supercooled drops carry enough latent heat that only part freezes on contact and the rest runs back before solidifying, building dense, transparent CLEAR ICE (option D). Cross-check: question Jot7ZSs0Lys0x4IOUEyV in this section asks the converse and is correctly keyed to large drops for clear ice.",
     "to": "D"
+  },
+  "YhQggo08vhSUhHKgdqok": {
+    "from": "C",
+    "reason": "Marker beacons transmit on 75 MHz. That is a wavelength of 4 metres, which is the metric band; hectometric wavelengths of 100 to 1000 m correspond to 300 kHz to 3 MHz, the medium frequency band used by NDBs, not by markers.",
+    "to": "A"
   },
   "Yo9tkjMvMWx97C8b2ZdB": {
     "from": "D",
@@ -1193,6 +1418,21 @@
     "from": "C",
     "reason": "Marked answer 'increasing the CAS' does not raise the lift coefficient - in level flight, flying faster actually REDUCES the CL required, since lift must stay equal to weight. Lift coefficient is a function of aerofoil shape and ANGLE OF ATTACK, so the alternative to flap extension is increasing the angle of attack (option D).",
     "to": "D"
+  },
+  "Z2IrldnlskCflJSTT5Qm": {
+    "from": "C",
+    "reason": "The pack cooling fan exists precisely because there is no ram air on the ground and little at low speed; in the cruise ram air cools the heat exchangers and the fan is shut down. Three near-duplicates - 5PcNSkDP778qCUykRvl9, fCiqmuCYvDizZ7SbLf1b and SafvkKYCvyPYADlM5qM2 - are all keyed to 'slow flight and ground operation', so the marked 'during cruise' is outnumbered three to one.",
+    "to": "A"
+  },
+  "Z3Y5CoeH3ySv9mpp5yua": {
+    "from": "B",
+    "reason": "Large aircraft use oleo-pneumatic struts and no mechanical springs at all, so 'springs' cannot be right. The sibling 8EAI73x8RUwh75niTe6P asks the same question and is keyed to 'oil'; of the options offered here only 'nitrogen and a viscous liquid' contains that damping fluid.",
+    "to": "D"
+  },
+  "Z3qbUOJoWF0sXaS13Z9d": {
+    "from": "D",
+    "reason": "The near-duplicate Z1HoCtwubu3mhEfoMgK9 is the same question with the options shuffled and is keyed to 'lowest pitch position by centrifugal force and/or spring force'. On a single engine constant speed propeller oil pressure coarsens the pitch, so losing the engine loses that pressure and the springs and counterweights drive the blades to the FINE stop, not to coarse.",
+    "to": "A"
   },
   "Z4A4k3h3HTFYuXsnksrG": {
     "from": "A",
@@ -1232,6 +1472,11 @@
   "ZJsvIJYB7LeEOTSPgGIb": {
     "from": "C",
     "reason": "Marked answer 850 hPa corresponds to about FL50, nowhere near FL290. The 300 hPa surface lies near FL300, so it is by far the nearest chart to a planned FL290 - option D. Cross-check: questions kgphsA7BeenETZfPj1aa and Mkpd7SIgsBMp2etC2z9e in this section apply the same standard chart heights.",
+    "to": "D"
+  },
+  "ZPxvTndA8vLxhaTBgEGe": {
+    "from": "B",
+    "reason": "Navigation - deciding and computing the route - is the flight management system's function, not the autopilot's. The autopilot both pilots the aircraft and guides it along the selected path in the horizontal and vertical planes, which is exactly what option D states.",
     "to": "D"
   },
   "ZQgxGPJ3ne0KU263zSUG": {
@@ -1279,6 +1524,11 @@
     "reason": "Marked answer was 6 NM and 3 minutes, which is the LIGHT-behind-HEAVY case. A MEDIUM following a HEAVY on approach to the same runway takes 5 NM (9.3 km) and 2 minutes. Confirmed by siblings 3MyiCges31htfg9RdORs and Wbx918uZDqC5z6desIIp.",
     "to": "C"
   },
+  "ZvXYVhqEbq9Mfq1y6d4M": {
+    "from": "D",
+    "reason": "The near-duplicate zykph4sKlRR86ffEw0QW has the identical stem and the identical four options and is keyed to 'used in AC and DC circuits'. A circuit breaker responds to current and works on either supply, whereas 'reset at any time' is false and dangerous: a breaker that has tripped may only be reset once, and only if the circuit is essential.",
+    "to": "B"
+  },
   "ZwdYrv4NDwrsYG1MOp7J": {
     "from": "C",
     "reason": "Marked answer lumps three substances together, but the question asks for THE chemical substance responsible for addiction, and that is nicotine - it acts on the brain's reward pathways and produces dependence and withdrawal. Tar carries the carcinogens and carbon monoxide occupies haemoglobin; neither creates the addiction. The companion item WFIw2k6Xd5naVGn9Cs5R keys tar separately as the carcinogen, confirming the bank treats these as distinct single substances.",
@@ -1288,6 +1538,11 @@
     "from": "C",
     "reason": "Marked answer invokes an 'internationally recognized list of stressors' with top-ten items to be avoided, which does not exist and contradicts the whole appraisal model of stress. Stress reactions arise from the individual's own appraisal and coping, so they differ from pilot to pilot - option A - which is why the other three options, all asserting uniformity, are wrong.",
     "to": "A"
+  },
+  "a5Iwlx3zMk14Vs5HSf6g": {
+    "from": "C",
+    "reason": "The near-duplicate 5fQWo8RFpGXEMpf0jD81 asks the same question with the same options shuffled and is keyed to 'the wiring and the warning are tested'. The test current is passed through the whole sensing element, so a break in the loop fails the test - the check covers the detector wiring as well as the bell and light.",
+    "to": "B"
   },
   "aCZYlTRqYDppa8EBIptm": {
     "from": "A",
@@ -1299,6 +1554,11 @@
     "reason": "Marked answer adds a reversal 'beyond a certain Mach number' that does not exist. Flow through an expansion wave is isentropic acceleration around a convex corner, in which static pressure, density and temperature all DECREASE monotonically - option D. The abrupt increase in those properties is the signature of a shock wave, the opposite phenomenon.",
     "to": "D"
   },
+  "aV3XXlGf5j36btoyCiJx": {
+    "from": "D",
+    "reason": "Altitude in an air data computer is pressure altitude, derived from the absolute static pressure measured at the fuselage static ports and converted using the standard atmosphere. The sibling 3VhwbPBO4pZP0jebCICC keys the same question to the barometric pressure measurement; outside air temperature is a separate input used for TAS and SAT, and no altitude can be computed from it.",
+    "to": "C"
+  },
   "aZIWZAv0eSPDVkWH7SGp": {
     "from": "B",
     "reason": "Marked answer tied the error to the aircraft's relative bearing, which has no bearing on coastal refraction; refraction depends on the angle at which the signal crosses the COASTLINE. With the same angular refraction, the positional error of the plotted position line grows with distance from the beacon, so the beacon 50 NM inland produces the greater error.",
@@ -1308,6 +1568,11 @@
     "from": "D",
     "reason": "Marked answer was code 7500 (unlawful interference/hijack). The emergency code on Mode A is 7700. Option B is correct.",
     "to": "B"
+  },
+  "aiz3zJfsCi0GRbINWKF5": {
+    "from": "A",
+    "reason": "The near-duplicate m5106EZAr11ghEoNkx8k has the identical stem and is keyed to 'maintain the correct fuel to air mass ratio when the altitude increases'. Increasing the fuel to air ratio with altitude, as the marked option says, would make the mixture progressively richer - the aneroid in fact cuts the fuel back as the air thins in order to hold the ratio constant.",
+    "to": "C"
   },
   "apiH8x6rsXtRok4lTQCy": {
     "from": "A",
@@ -1344,14 +1609,29 @@
     "reason": "Marked answer denies that barodontalgia can occur on descent. It can: gas trapped under a filling or in a cavity that cannot equalise is compressed as the outside pressure rises, and pain results. The near-duplicate KTrH0PZWrgmlkREG1GWs asks the identical question and is keyed to 'Yes'.",
     "to": "A"
   },
+  "b4ZUvybycO64Vfw8WHw9": {
+    "from": "C",
+    "reason": "Synchronous speed is 120f/p = 120 x 400 / 4 = 12 000 rpm, and an asynchronous motor runs just below it. The near-duplicate WiGAcnflPv5LG06FJT0o asks the identical question and is keyed to 12 000 rpm; the marked 800 rpm corresponds to no formula at all.",
+    "to": "D"
+  },
   "b8MfpP4xioH0T3fU0I38": {
     "from": "A",
     "reason": "Marked answer was 14 400 kg, which is only the take-off mass limit (64 400 - 50 000) and ignores the landing mass limit. Landing mass = 50 000 + fuel - 4900 must not exceed 56 200, so fuel is limited to 11 100 kg. The most restrictive limit governs.",
     "to": "D"
   },
+  "b8bYe1CRVuGjWK2BUaDn": {
+    "from": "B",
+    "reason": "The near-duplicate kH4tnJFvLIQGaSshYnGc asks the same question and is keyed to 'Saint-Venant, taking into account the air compressibility'. The marked option is self-contradictory: Bernoulli's simplified relation is precisely the one that treats air as incompressible, which is why Saint-Venant's compressible form is used to calibrate airspeed indicators.",
+    "to": "A"
+  },
   "b9NHU5SAuHsAv739jynv": {
     "from": "C",
     "reason": "Marked answer was 'parallel runways'. A white dumbbell with black perpendicular bars indicates taxiing need not be confined to taxiways — aircraft must use runways for takeoff/landing but may taxi on other surfaces. Option D is correct.",
+    "to": "D"
+  },
+  "bGGB1YMuPjOUKTxOQHVE": {
+    "from": "A",
+    "reason": "The near-duplicate 6kw8wNrKaes0zREFSdNZ has the identical stem and the same four options shuffled, and is keyed to 'generator breaker'. An underspeed is a drive fault: the machine must come off the busbar, which the generator breaker does, but there is no reason to collapse its field or to split the tie.",
     "to": "D"
   },
   "bHcIgUxlhK7SbPZuH8qs": {
@@ -1368,6 +1648,11 @@
     "from": "B",
     "reason": "Marked answer was the equatorial jet stream, which is a seasonal easterly feature of the tropical upper troposphere with no surface front beneath it. The jet directly associated with a surface front system is the POLAR FRONT jet (option C), which exists as the thermal-wind response to the temperature contrast across the polar front and lies above and on the cold side of it.",
     "to": "C"
+  },
+  "bLy3RReS4oF4oy9hdZSZ": {
+    "from": "A",
+    "reason": "Turbine gas temperatures are measured with thermocouples, as the bank's own c9K3INAVqtFvXf1KPfQy, cEX384q8FiR6qRlAbJRT and X9W1dli18XmOYwzXC76t all state. A liquid expansion thermometer could not survive those temperatures, could not respond quickly enough and could not be read remotely.",
+    "to": "B"
   },
   "bPnAbBjXsGWVh47LigPT": {
     "from": "B",
@@ -1399,6 +1684,11 @@
     "reason": "This row is corrupted: options B and C are fragments of the question stem that were parsed into the option list, and the marked answer was one of those fragments, so no answer was being tested at all. Reconstructing the intended question (aircraft on the 142 radial, 146 set on the OBS, FROM showing), the deviation is 4 degrees at 2 degrees per dot = 2 dots, and the aircraft is left of the selected outbound course, so the indication is 2 dots fly right.",
     "to": "A"
   },
+  "bnIoQoRiUv1cK7Pp6mh0": {
+    "from": "D",
+    "reason": "Heading is found by the alignment itself, by gyrocompassing on the earth's rotation - it is not derived from the entered coordinates, and a strapdown unit determines TRUE heading, never magnetic. The position is entered so that the computed local trihedron can be oriented with respect to the earth and the integration started from a known point, which the bank's WIp2eMzZBVAxNt98c1pW also reflects when it says longitude must be supplied.",
+    "to": "C"
+  },
   "bo2jmNHRoW4lYutgE5Wz": {
     "from": "A",
     "reason": "Marked answer describes a linear increase, but the Yerkes-Dodson relationship between arousal and performance is an inverted U - performance falls away at high arousal as well as at low. Numerous companion items in this bank rest on the inverted U (A01m4dLZQ6Mf5P180PAL, JDlrGBG50akRExFGnDP1, F4nX4tf9s0zXYdB6SQ7w, Yxh6HaV6COGfXzb4uzoC), and option B states it explicitly.",
@@ -1424,6 +1714,11 @@
     "reason": "Marked answer said the BFO is needed to hear the ident and must ALWAYS be on, which is wrong on both counts. The BFO is needed only for NDBs radiating an unmodulated continuous wave (NON A1A), whose keyed ident is otherwise inaudible; for ordinary NON A2A beacons it is unnecessary and is switched off after identification.",
     "to": "D"
   },
+  "c3dR8BrpC7WTLjrKpbjl": {
+    "from": "A",
+    "reason": "The near-duplicate abbF4wdYLT90WUjbiGQX asks the same question and is keyed to 'provided the engine is running'. The disconnect solenoid needs the drive turning to pull the pawl clear, so a CSD can only be disconnected in flight or with the engine running; what may only be done on the ground, with the engine shut down, is RELATCHING it.",
+    "to": "B"
+  },
   "c6Pp4swNCLAxr2oSdBbl": {
     "from": "D",
     "reason": "Marked answer omits statement 4, which is the plainest description of what an action plan does - define a framework and a probable strategy for the situation - and includes statement 3, which asserts that such plans are readily interchangeable and reformulable at any time. That undercuts their whole purpose: their value lies in being agreed and stable so that each pilot can predict what the other will do. The correct set is 1, 2 and 4.",
@@ -1439,6 +1734,21 @@
     "reason": "Marked answer was altostratus, a medium-level cloud that gives light continuous rain or snow. Drizzle (droplets under 0.5 mm with negligible fall speed) can only reach the ground from a very low-based cloud with no significant updraught, i.e. stratus (option D) or stratocumulus.",
     "to": "D"
   },
+  "cFqG8N9Sgl02xzBrixRz": {
+    "from": "D",
+    "reason": "The near-duplicate UfG91jvG6KJVcpKgp9nX has the identical stem and the same options shuffled, and is keyed to 'direct system pressure to either side of the piston of an actuator'. A selector valve routes pressure and return to an actuator; it has nothing to do with choosing which system a pump supplies.",
+    "to": "B"
+  },
+  "cGLCnhKqjn5hvmkYpULa": {
+    "from": "B",
+    "reason": "Useful load is traffic load plus usable fuel, as the bank's own WI3A3m8ZHX3Yiq7UfUKP states, so it is take-off mass minus dry operating mass: 302 550 - 161 450 = 141 100 kg. The marked 19 650 kg is 141 100 minus the 121 450 kg of fuel, which is the TRAFFIC load, not the useful load.",
+    "to": "C"
+  },
+  "cMV7NFtSz8E8Y9BAbft6": {
+    "from": "A",
+    "reason": "TCAS II does far more than a simple proximity warning: it displays the intruder's relative position and issues resolution advisories. Those advisories are vertical only, as the bank's own VZl3OpRuYUWqLosLvf1i and WuAwd6X5EPeEQy3w7aMR both state, so option B is the correct description and option A would describe TCAS I.",
+    "to": "B"
+  },
   "cO9ZHcMWsHJ3cZHUEwwW": {
     "from": "D",
     "reason": "Marked answer claimed increased Mach number stability above optimum altitude; in fact the buffet margins close in, manoeuvre capability falls and the aeroplane sits on the back of the drag curve where speed stability is worse. Optimum altitude is the altitude of best specific air range, so above it range is REDUCED. Confirmed by sibling BPWmaDv3bai9YS5lZwQk.",
@@ -1448,6 +1758,11 @@
     "from": "A",
     "reason": "Marked answer was 128.8 MHz, which is not an air-to-air frequency. The worldwide inter-pilot frequency is 123.45 MHz - absent from this option list - and 131.8 MHz is the North Atlantic air-to-air frequency, the only plausible option offered. Confirmed against sibling nmq0pE2At6AzjT3Q7gLu, which keys 123.45 MHz where that option exists.",
     "to": "D"
+  },
+  "cYFtA9PN9tArZbXB9XOp": {
+    "from": "B",
+    "reason": "In the JAR-OPS standard mass table the adult masses differ between holiday charters and other flights, but the figure for children aged 2 to 12 is 35 kg in both columns. There is no 38 kg child mass in the table at all, so the marked option pairs a correct figure with an invented one.",
+    "to": "A"
   },
   "cZfB0JUvtvD92dr4ixe1": {
     "from": "C",
@@ -1473,6 +1788,11 @@
     "from": "D",
     "reason": "Marked answer has the sign reversed. A DECREASE in aerodrome pressure altitude means denser air, which increases thrust and increases the lift generated at a given TAS, so the take-off distance required DECREASES (option A), along with the ground run and accelerate-stop distance. It is INCREASING pressure altitude that lengthens these distances - as questions 3pihDhKKny6mjLW7NHCy and 6Ihh8LXVH0bwLwmzAo7k in this section correctly state.",
     "to": "A"
+  },
+  "cy9KMMcYNxDezmOSwkfU": {
+    "from": "D",
+    "reason": "The near-duplicate mMQEql22FRwrbNUTZEWg has the identical stem and the same four options shuffled and is keyed to 'mechanically'. Alternate extension releases the uplocks by cable or crank and lets the gear fall under gravity, which needs no hydraulic power at all - an accumulator would be useless after a complete hydraulic failure.",
+    "to": "C"
   },
   "czMeBtHgLhSpZnVQy21v": {
     "from": "D",
@@ -1504,6 +1824,11 @@
     "reason": "Marked answer claims distress INCREASES vigilance, which is the opposite of the documented effect and is internally inconsistent with the narrowing of attention it goes on to concede. Overstress reduces vigilance - the broad monitoring of the situation stops - while attention tunnels onto one or two salient items, which is option D.",
     "to": "D"
   },
+  "dWWz9R5AdPhou5xXPVwK": {
+    "from": "C",
+    "reason": "Marked answer includes statement 3, non-ferrous metal masses, which have no magnetic effect whatever - aluminium and copper are used precisely because they do not disturb a compass. The correct combination is magnetic masses, ferrous masses and electrical currents: 1, 2 and 4.",
+    "to": "D"
+  },
   "dYwC8LOGtVvX4UMnOq4L": {
     "from": "C",
     "reason": "Marked answer was the region of the magnetic South Pole, where the earth's field is entirely vertical and the horizontal component that drives a compass is ZERO, so the compass is at its least effective there, not its most. The horizontal component peaks near the magnetic equator, i.e. midway between the poles. The near-duplicate sibling 55zcVg9C4SmsZ4Bm5qvj keys that answer.",
@@ -1513,6 +1838,16 @@
     "from": "B",
     "reason": "Marked answer was 4500 ft/min. Rate of descent = groundspeed x gradient percent x 1.01, so 540 x 12 x 1.01 = about 6500 ft/min. The sibling LakOdMNrlbFejjYlEKY2 applies the same formula (300 kt on a 6 percent slope = 1800 ft/min) and is keyed correctly, confirming the method.",
     "to": "C"
+  },
+  "dhcujVmBTZontdYcxJTo": {
+    "from": "C",
+    "reason": "A blade angle near 90° is the definition of feathered - the blades edge-on to the airflow with the propeller stopped and drag at a minimum. Windmilling is the opposite condition: fine pitch, propeller still being driven round by the airflow, and maximum drag.",
+    "to": "D"
+  },
+  "dhdFb3JII8WLbKskT1wC": {
+    "from": "D",
+    "reason": "Marked answer includes statement 4, holding an indicated airspeed or Mach number, which is a guidance function and not stabilisation - the bank's own bNJuUg9lRgh1l1CNnebd keys the basic stabilisation modes as pitch and roll attitude hold only. The correct combination here is pitch attitude holding, wings level and yaw damping: 1, 2 and 5.",
+    "to": "B"
   },
   "djCuWAKKvaF6dRQ2tphB": {
     "from": "A",
@@ -1559,10 +1894,25 @@
     "reason": "Marked answer selects statement 2, staying on departure-country time, but that is the strategy for a SHORT stop; with a layover beyond 24 hours the body clock will shift anyway and the advice is to adapt to local time at once. FXy33NoPeWQusTJTFYBw and 8rbRWFIonHoxG79pmbTl both ask the same question about stop-overs longer than 24 hours and are keyed to 'move to the new time as soon as possible'. Statement 3, keeping regular sleep and meal patterns, is correct in both readings, so the correct pair is 1 and 3.",
     "to": "B"
   },
+  "e6WXwssPbondWbLZOr7O": {
+    "from": "A",
+    "reason": "The near-duplicate He1B3tsWq5cki1OfVHpD asks the same question with the same options shuffled and is keyed to 'to cool the pumps'. Boost pumps run continuously and are cooled entirely by the fuel around them, which is why running a tank dry burns them out; priming is not an issue for a centrifugal pump permanently sitting in the tank.",
+    "to": "D"
+  },
   "eOYrBMHibFyzQbd3YUGB": {
     "from": "D",
     "reason": "Marked answer applied the beacon's variation to both. An ADF/NDB bearing is measured at the AIRCRAFT relative to aircraft heading, so the aircraft's variation applies; a VOR radial is generated at the STATION and is already magnetic there, so the beacon's variation applies. The bank is consistent on this elsewhere: am27H1H7zOWgTQZcNCeB uses the station variation for a VOR radial, while CqfE4HZmN43Tk8HbTtXM and dh960M7ZoZA0oMoZthdA use the aircraft variation for an NDB bearing.",
     "to": "B"
+  },
+  "eQZIFkCHgBVpg9OuERBj": {
+    "from": "C",
+    "reason": "The reason the mixture goes rich with altitude is the falling air DENSITY - the carburettor meters by volume, and the same volume of thinner air weighs less. Exhaust back pressure has nothing to do with it. Option D states the purpose correctly: to correct the fuel/air ratio for the reduced density.",
+    "to": "D"
+  },
+  "eWNwi500tsu41CJaTEqg": {
+    "from": "D",
+    "reason": "Automatic trim acts in pitch only, running the stabiliser to unload the elevator servo. Three near-duplicates in the bank - BDsRUvdjBdC4redSqwJu, Dbg2Qks7ux9xvhRX6ctQ and EBBDcatrHs3Q9UIn1vwR - all key the automatic trim system to trimming out the hinge moment of the ELEVATORS alone, and 6slUuH8FfNZl4b81twwK calls it the pitch channel automatic trim.",
+    "to": "A"
   },
   "eXUMw1eobBpUDS4JmcwW": {
     "from": "A",
@@ -1584,6 +1934,16 @@
     "reason": "Marked answer 'longitudinal axis' is wrong by definition. Lift is defined as the component of the resultant aerodynamic force PERPENDICULAR to the relative airflow, and drag as the component PARALLEL to it (option B). They are referenced to the airflow, not to the airframe axes or the horizon - which is why the lift vector tilts with the flight path in a climb or descent.",
     "to": "B"
   },
+  "esbH2nJDKlqo0NnvqPXs": {
+    "from": "B",
+    "reason": "The bootstrap order is compress, cool, then expand, as the bank's own d6zj5IrmS2hzoAlrB93a and bK72ONc7zZb2WgKu2FrD both state. Expanding the air first and only then passing it to a heat exchanger would throw away the pressure the turbine needs and would warm the air again afterwards.",
+    "to": "A"
+  },
+  "f1B9y49lu6zyEja64Y89": {
+    "from": "D",
+    "reason": "The near-duplicate UVDecLCibhuZvwk8fUWb asks the same question with the same options shuffled and is keyed to 'multiple disk brake'. Drum brakes disappeared from transport aircraft decades ago because they cannot dissipate the heat; the multiple disc stack is what every jet transport uses.",
+    "to": "B"
+  },
   "f2M81rnFtlD9LrDBamtj": {
     "from": "B",
     "reason": "Marked answer was 'block time'. The estimated total time in block 16 is from take-off to arrival overhead destination, not block time (which includes taxi). Option A is correct.",
@@ -1599,6 +1959,11 @@
     "reason": "Marked answer 'tailwind' is impossible: the runway is parallel to the coast and the afternoon sea breeze blows perpendicular to the coast, so it can only be a crosswind. Geometry: on downwind over the sea the airfield is on the RIGHT, so the sea is on the aircraft's left; final is flown in the reverse direction, putting the sea on the right. The sea breeze therefore arrives from the right - option D. This holds whichever way round the coastline is oriented.",
     "to": "D"
   },
+  "fGrtdpE4bUxf8gJZJ2kT": {
+    "from": "C",
+    "reason": "The near-duplicate G1taMSXHKaNNvQHjZ7EI has the identical stem and identical options and is keyed to the AC signal whose FREQUENCY varies with RPM, converted into pulses and counted. Option C describes a three-phase tachometer generator, which is a different transmitter entirely - a magnetic sensor is a coil facing a toothed wheel and produces one pulse per tooth.",
+    "to": "B"
+  },
   "fRDjRZKzmnxKkAqpcXPY": {
     "from": "A",
     "reason": "Marked answer was 45 minutes, a figure that appears in no ICAO arrival-report provision. The ATS unit at the filed destination must be informed within 30 minutes of the ETA there, which matches the alerting service: the uncertainty phase INCERFA is declared when an aircraft fails to arrive within 30 minutes of its ETA, so the report must beat that same clock.",
@@ -1609,6 +1974,16 @@
     "reason": "Marked answer asserts photochromic lenses are generally forbidden for pilots, which is not a regulatory requirement. The real objection is technical: they darken in response to ultraviolet, which the windscreen largely blocks, so they behave unpredictably in the cockpit - failing to darken against glare and clearing slowly on descent. That is option A.",
     "to": "A"
   },
+  "fc4sdEfoHZSUUzviUUjZ": {
+    "from": "A",
+    "reason": "The near-duplicate UaAzjeAjh2VraCu1lnvY asks the same question with the same options shuffled and is keyed to electric heating. Windscreens are heated by a conducting film laminated into the glass; the vinyl interlayer is a structural part of the screen, not the ice protection.",
+    "to": "D"
+  },
+  "fdXNp4EnfipHIYCCb4tD": {
+    "from": "A",
+    "reason": "A single support gives the total mass but no moment information at all, so the centre of gravity cannot be found. Weighing requires a minimum of three points - one under the nose or tail wheel and one under each main - which is what resolves both the mass and its distribution.",
+    "to": "D"
+  },
   "fkBbv0tJgV9jd2n6C3sq": {
     "from": "D",
     "reason": "Marked answer gave an apparent turn towards the south. ANDS - Accelerate North, Decelerate South - means ACCELERATING gives an apparent turn towards the NORTH. The card direction is right in both options: the indicated heading moves from 090 back towards 000, i.e. decreasing, which is a clockwise card rotation. The sibling ddioXNufGHf2UM62RVsf keys the deceleration case as clockwise/south, which is consistent.",
@@ -1617,6 +1992,11 @@
   "fpgCkUbZsh48cPqLm3Qq": {
     "from": "C",
     "reason": "Marked answer gives 'pressure vertigo', which is an ear-pressure phenomenon and not what a head movement in a turn produces. Bending down during a turn stimulates additional semicircular canals and produces the Coriolis illusion. The near-duplicates HpO4TuqvlMRkecZzvP9n and CrqEoqoFDEEJ4vn2UJ8n ask the identical question and are both keyed to the Coriolis illusion.",
+    "to": "D"
+  },
+  "fqSnudJIQp3VKHmCV7iD": {
+    "from": "C",
+    "reason": "The near-duplicate YDm7Lew0C9RhEfGSyr8e asks the identical question about a flight at FL 290 and is keyed to 'take-off'. The oxygen demonstration is part of the pre-departure briefing: leaving it until FL 140 would leave the passengers uninformed through the whole climb, when a decompression is possible.",
     "to": "D"
   },
   "frxwSVf8VN70dOHH3Ywj": {
@@ -1649,10 +2029,25 @@
     "reason": "Marked answer would reject the take-off above V1, which is precisely the overrun scenario V1 exists to prevent. V1 is the decision speed: at or ABOVE it the accelerate-stop distance is no longer assured, so the take-off MUST be continued (option C). Rejection is only permitted below V1.",
     "to": "C"
   },
+  "gE08YBhlw1nlevYNo7wJ": {
+    "from": "A",
+    "reason": "VLO is the landing gear OPERATING speed - the limit for moving the gear - while the marked option describes VLE, the limit with the gear extended. The bank's own XtfKpp024RL4qyBEx4sD keys VLE to 'flight speed with landing gear down', and 2eTL9oAO2Tf3JwxGwZFx keys VLO to 'landing gear operating speed'.",
+    "to": "D"
+  },
+  "gFZpIpjYWcu7aqCstiAe": {
+    "from": "C",
+    "reason": "Modern jet transports anti-ice the wing leading edges with engine bleed air. The bank's own ZO9wH8gaaCHTuVKGJxws and arhatGP1HFo6a2G6ov4I both key the method for large jets as thermal hot air; electrical heating is confined to small areas such as probes and windscreens, where the power demand is manageable.",
+    "to": "A"
+  },
   "gIah2cJXD585445SJ5ap": {
     "from": "C",
     "reason": "Marked answer says a SURPLUS of CO2, but hyperventilation is by definition ventilation in excess of metabolic need, so carbon dioxide is blown off and the blood level falls. It is that shortage - and the respiratory alkalosis it produces - which causes the dizziness, tingling, blurred vision and tetany.",
     "to": "D"
+  },
+  "gSL7OID8LpKvcKo2wIFa": {
+    "from": "C",
+    "reason": "The flight data recorder is required to retain the last 25 hours of recording. The marked 30 minutes is the old cockpit VOICE recorder duration - a different recorder with a different requirement, and the stem here asks about the flight data recording system.",
+    "to": "B"
   },
   "gYnGVm73rZ0mkL9JSpED": {
     "from": "A",
@@ -1668,6 +2063,11 @@
     "from": "A",
     "reason": "Marked answer was SHF, which is the radar band. VOR operates in VHF, 108.0 to 117.975 MHz. The near-duplicate sibling 667Sj5AvltP4qDsHJVf1 asks the same question and keys VHF.",
     "to": "C"
+  },
+  "goDEVvIxfrLts21cdCzP": {
+    "from": "B",
+    "reason": "A float follows the fuel surface, so attitude and acceleration move the reading as surely as temperature does. Two near-duplicates confirm it: Ex8PWlSiEmzeVZAu2HnC has the identical stem and options and is keyed to '1, 2, 4', and j4xWQ4oybbZA5LGOqYpq is keyed to attitude, accelerations and fuel temperature together. Only atmospheric pressure is irrelevant.",
+    "to": "D"
   },
   "gqcbyuJzXbBBp2FZNQeH": {
     "from": "C",
@@ -1719,6 +2119,11 @@
     "reason": "Marked answer was 'constant magnetic track'. Radio waves propagate along great circles, so a VOR radial is a great circle and the aircraft's own magnetic track changes along it by the convergency between its meridian and the station's. That is precisely why a VOR bearing must be corrected for convergency before being plotted on a Lambert chart, so the track cannot be constant.",
     "to": "A"
   },
+  "hO5yAbvOW9XgmaKbxjdK": {
+    "from": "D",
+    "reason": "Rate of turn is a rate of change of heading, expressed in degrees per second, not a speed. The near-duplicate exyHytfS1OcDvoS5pF6f has the identical stem and the same options shuffled and is keyed to 'change-of-heading rate of the aircraft'.",
+    "to": "C"
+  },
   "hTRMm84mbj8QnhlgMwer": {
     "from": "A",
     "reason": "Marked answer 31% corresponds to no standard figure here. Stall speed rises with the SQUARE ROOT of load factor: at 45 degrees of bank n = 1/cos45 = 1.41, and sqrt(1.41) = 1.19, so the increase is about 19% (option C). The 41% figure is the increase in LIFT (the load factor itself) - see question 7XFbQGRWQMNkxEdHHYL8 in this section, which correctly keys 41% for the lift increase at 45 degrees.",
@@ -1734,10 +2139,20 @@
     "reason": "Marked answer was +/- 8 kt. ICAO Doc 4444: speed adjustments on intermediate/final approach shall not exceed +/- 20 kt. Option C is correct.",
     "to": "C"
   },
+  "heT3PtQL5UyY9M5Dym24": {
+    "from": "C",
+    "reason": "Flight deck occupants on duty in an unpressurised aeroplane require supplemental oxygen for the entire flight time above 10 000 ft. Three siblings in the bank key exactly this - 0aWiHDJeIeM3YNY6hrWo, cGSmFOWBwLDN1OQHhEWj and jbU6oYXz8T3uHsgZ5FZv - all to 10 000 ft. The 13 000 ft threshold applies to passengers, and 14 000 ft appears nowhere in the rule.",
+    "to": "A"
+  },
   "hikdf70QIqTZTsKTYNE7": {
     "from": "C",
     "reason": "Marked answer used an 800 m RVR threshold. ICAO Annex 3 requires RVR to be reported throughout any period in which either the meteorological visibility OR the RVR is less than 1500 m, so option A states the actual trigger. The 800 m figure belongs to low-visibility procedures, not to the RVR reporting requirement.",
     "to": "A"
+  },
+  "hkDdTF9UtEFG2Xlw9OaN": {
+    "from": "B",
+    "reason": "The rotor of an alternator carries the FIELD winding, which must be fed with direct current to produce a steady magnetic field; the alternating current is generated in the fixed stator. The near-duplicate 4Ezc9atA2YW0LQnUv8SK has the identical stem and the same options shuffled and is keyed to DC.",
+    "to": "C"
   },
   "hkwwm8GKEvsPX3uNfKH0": {
     "from": "C",
@@ -1769,6 +2184,11 @@
     "reason": "Marked answer 'cold air passing over warm ground' describes an unstable advection situation producing convection or steaming fog, not radiation fog. Radiation fog is by definition caused by the ground losing heat by long-wave radiation on a clear night and cooling the moist air in contact with it below its dewpoint - option D.",
     "to": "D"
   },
+  "i9zfjQ5D7lalMzgjIx7n": {
+    "from": "D",
+    "reason": "Rate of turn is proportional to the tangent of the bank angle and inversely proportional to the true airspeed, so it depends on statements 1 and 2. Weight does not enter the relationship at all - a light and a heavy aeroplane at the same speed and bank turn at exactly the same rate.",
+    "to": "A"
+  },
   "iDFU3dX9P5XVSqZUY3CH": {
     "from": "D",
     "reason": "Marked answer gives 40-60% humidity, which is false: cruise cabin humidity is roughly 5-15%. QWGX6ZhIdPJxPWnqH9dW and NG48WtluhPsqMBYVxgGq both key the 5-15% figure. This row is a corrupted fragment of a multi-statement item - its options are individual statements rather than combinations, and two of them are true - but of those offered, the 5-15% statement is the one that answers the question directly and the marked answer is simply wrong.",
@@ -1779,6 +2199,16 @@
     "reason": "Marked answer was FL280 to FL400. NAT MNPS airspace extends from FL285 to FL420. Confirmed by sibling 7pW9BNLWR8lN0SSO6Nee, and consistent with the rule that a non-MNPS aeroplane plans FL280 or below (siblings AGR3viZSlIzKPY8wielE and iexUTk8AuzxghuxWB1ra).",
     "to": "B"
   },
+  "iME3bVZu3zQ4UBmXNg7j": {
+    "from": "B",
+    "reason": "CAS at a fixed Mach number is a function of the static pressure, which falls throughout a climb, so the CAS decreases - as the bank's own ZcyLX0x84KX2wngiNUYe and esdqAbHEJN7e2cSIH6qQ both state for a constant Mach climb. The constant total temperature only tells us the static temperature is unchanged, so TAS is constant; it does not stop the CAS falling.",
+    "to": "C"
+  },
+  "iNm6GtW8l6Pr4wSFXVdc": {
+    "from": "C",
+    "reason": "'Immediate crew awareness and subsequent crew action' is the definition of a CAUTION. The bank's own NW3QcDBoA0d0d2ft9duX keys a WARNING to 'immediate recognition and corrective or compensatory action', which is a different and more urgent wording, so the marked answer confuses the top two levels.",
+    "to": "D"
+  },
   "iOc9cbQG8x321CSeesLx": {
     "from": "C",
     "reason": "Marked 'special precautions'. A double white cross = glider operations. Option B is correct.",
@@ -1788,6 +2218,11 @@
     "from": "C",
     "reason": "Marked answer was 2 minutes. The North Atlantic reporting threshold for a revised estimate is 3 minutes or more. Confirmed by siblings gsPISaxOHmr7Sw0Ikv0Z and iGh5IQMatmJfWk434GGu, both keyed to 3 minutes.",
     "to": "B"
+  },
+  "iVKrOAUyOUI21V1ml3Qz": {
+    "from": "A",
+    "reason": "Both valves are open only during the overlap at the end of the EXHAUST stroke, never at the end of the power stroke. For good scavenging the exhaust valve opens before bottom dead centre, so at the end of the power stroke the exhaust valve is open and the inlet closed. The sibling B7QlGhIOZ8Zu3jL3UfXh, whose stem omits the efficiency qualifier, is keyed to the ideal-cycle answer of both valves closed - but neither question supports 'both open'.",
+    "to": "D"
   },
   "igFLt1ZzkaDwSKe6nApv": {
     "from": "B",
@@ -1829,6 +2264,11 @@
     "reason": "Marked answer was metal/gas/chemical, which is the special-fires class (D). A class A fire is a fire of solid material, generally of organic nature - wood, paper, fabric. Confirmed by sibling r6bYfjNt0bxqavf4T2eO.",
     "to": "A"
   },
+  "j1IbLxGg5YtgV0y4AXqp": {
+    "from": "B",
+    "reason": "The near-duplicate fHqT9trbUUPIcXhLXZy0 has the identical stem and the same four options shuffled and is keyed to 'none on a 090° heading in a right turn'. Turning error is zero on easterly and westerly headings, so it cannot be 180° there; a 180° error corresponds to nothing in the compass's behaviour.",
+    "to": "D"
+  },
   "j3dTnpO54NYEJfDx9PMv": {
     "from": "A",
     "reason": "Marked '21 days'. ICAO: one calendar month of consecutive illness triggers notification. Option C is correct.",
@@ -1854,6 +2294,11 @@
     "reason": "Marked answer limited to ATC units with 121.5 MHz. Alerting service is by the ATS unit responsible, not limited to those with 121.5. Option B is correct.",
     "to": "B"
   },
+  "jRgn6D5mzmBzjRqlv95H": {
+    "from": "C",
+    "reason": "The near-duplicate xi4C4oPrTQhJKO1i6pBT has the identical stem and the same four options shuffled and is keyed to the oil pressure at the fixed crown of the epicyclic reduction gear. That is the standard torquemeter: the annulus reacts the transmitted torque against pistons whose oil pressure is proportional to it. No aircraft torque system passes light through a rack-wheel.",
+    "to": "A"
+  },
   "jRkLdZ8zUce8iOz1V8V0": {
     "from": "C",
     "reason": "Marked answer says success requires DIFFERENT contexts for sender and receiver, which is the opposite of the truth - a shared context is what makes a short message intelligible. A message achieves its objective when the verbal, non-verbal and contextual meanings all agree, which is option D; where they diverge, the receiver believes the non-verbal channel and the intended message is not the one received.",
@@ -1878,6 +2323,11 @@
     "from": "B",
     "reason": "Marked answer pairs colds with SLOW ASCENTS. Ascent is the safe direction - expanding middle-ear air vents itself through the Eustachian tube - and a slow rate is safer still. Barotrauma occurs on descent, when the tube acts as a one-way valve and rising outside pressure drives the drum inwards, and a rapid descent is worst of all. The near-duplicate ZnsHBwR4HGgT7djroTUF carries the same four options and is keyed to 'with colds and rapid descents'.",
     "to": "D"
+  },
+  "jw7JP10dQLEY34FC3eqg": {
+    "from": "D",
+    "reason": "Mach number is derived from dynamic pressure divided by static pressure, so the ratio computed is (Pt - Ps) to Ps. The near-duplicate X7eePDQGo09X1G8X2nba asks the identical question and is keyed to (Pt - Ps)/Ps; the marked (Pt + Ps)/Ps is not a meaningful quantity at all.",
+    "to": "A"
   },
   "jwbs2tRFXCkEwkBXjDnL": {
     "from": "B",
@@ -1954,6 +2404,11 @@
     "reason": "Marked answer gave MDH 600 ft and 2400 m, which are the CATEGORY C circling minima. Category B is MDH 500 ft with 1600 m. Confirmed by sibling DwkkbVqJZzehqhZieGkk.",
     "to": "C"
   },
+  "kwPB5aUb3AfAxUWNGzZl": {
+    "from": "A",
+    "reason": "Swinging adjusts the compass for DEVIATION - the error caused by the aircraft's own magnetism and electrical circuits - using the corrector magnets, and records what is left on a deviation card. Variation is the angle between true and magnetic north at a place on the earth and no adjustment made to the aircraft can affect it.",
+    "to": "D"
+  },
   "kx8CSD1G8C44H3ukx080": {
     "from": "A",
     "reason": "Marked answer equates an error of intention with a routine error; routine errors are skill-based slips of execution, whereas an error of intention is a mistake in planning - the two are different categories. The correct statement is that an error is the mismatch between the pilot's intention and the result of his actions. The near-duplicate MMKnKaaYOOB23GvpiyZH carries the same four options and is keyed to that statement.",
@@ -1974,6 +2429,16 @@
     "reason": "Marked 1 NM. ICAO Doc 4444: missed approach advisory applies for the last 2 NM. Option A is correct.",
     "to": "A"
   },
+  "l1cuJtq5iU12XXhqomz4": {
+    "from": "C",
+    "reason": "A pressure relief valve is an automatic protection, not a manual control: it lifts if the pressure reducing valve fails and full bottle pressure reaches the low pressure side. The bank's own TsymFDsJX0hqJz9RG7wy asks the same question and is keyed to relieving overpressure if the reducing valve malfunctions.",
+    "to": "D"
+  },
+  "l5goYnVGfOyaSp3JBlah": {
+    "from": "D",
+    "reason": "A yaw damper acts on the RUDDER, sensing yaw rate and applying opposing rudder to damp Dutch roll. It has nothing to do with the elevator; the device that deals with the nose-down tendency at high Mach number is Mach trim, which is a separate system.",
+    "to": "A"
+  },
   "l6IMQrk4FIkykOmRc4do": {
     "from": "B",
     "reason": "Marked answer was MANUAL, which is a gain/tilt control setting rather than a beam shape. The cosecant squared pattern is used in MAPPING mode: it distributes energy so that ground return strength is roughly independent of range, giving an even ground picture. Weather and contour modes use the narrow pencil beam so displayed intensity reflects the cell itself.",
@@ -1989,10 +2454,20 @@
     "reason": "Marked 4000 ft. Standard VSM above FL 290 is 2000 ft (non-RVSM). Option A is correct.",
     "to": "A"
   },
+  "lC2gHyEvWL8dEaJY4S8E": {
+    "from": "C",
+    "reason": "A feathered propeller does not rotate, so the engine-driven pump cannot turn and no amount of speed will make it deliver pressure. Unfeathering is done with the electrically driven feathering pump, which works independently of the engine - as ppbyNP3z3bnbAtgaIquy in this same bank describes it.",
+    "to": "A"
+  },
   "lOTfsstbHjf4UtxzPoSf": {
     "from": "C",
     "reason": "Marked answer MMO is a fixed operating limit that does not vary with weight and altitude, so it cannot be what this chart provides. The buffet onset boundary chart gives the Mach numbers at which LOW-SPEED and MACH buffet occur at different weights and altitudes (option A) - the data used to establish the maximum altitude for a required manoeuvre margin.",
     "to": "A"
+  },
+  "lXpbLE9bEQMftP5L6Hc8": {
+    "from": "C",
+    "reason": "Window heat improves bird strike resistance rather than harming it - the warm interlayer stays pliable and absorbs the impact, which is why a speed restriction applies when the heating is unserviceable. It is left on continuously precisely to avoid the thermal cycling that would shorten the laminate's life.",
+    "to": "B"
   },
   "lY4524aGu4XnrQKwQe93": {
     "from": "A",
@@ -2008,6 +2483,11 @@
     "from": "C",
     "reason": "Marked answer describes a climbing and turning sensation in the ORIGINAL direction. Stopping the rotation makes the canal fluid overshoot, so the sensation is of spinning in the OPPOSITE direction - which is exactly why the instinctive correction re-enters the original spin. The near-duplicates OQLIkQy0NrkR27QKdWz5, XoxZ2tfCr7WCdAD7XVqZ and CSrt2VLjbOLaZFXwgGz6 all key this sensation as spinning in the opposite direction.",
     "to": "B"
+  },
+  "lavzKr4l1FpTavZ85Wzm": {
+    "from": "B",
+    "reason": "The requirement is that dispensing units and outlets exceed the number of passenger SEATS by at least 10%, not merely match the number of passengers carried. Three siblings key exactly this - FOC8DxziRouorOCTAJMd, gx9mcgiWUAqdYvx3xW3I and VtaaGvmmH6LwRtoToinh - all to 'seats by 10%'.",
+    "to": "A"
   },
   "lbYEYfVdNTV5C9yPyjxY": {
     "from": "A",
@@ -2059,6 +2539,11 @@
     "reason": "Marked answer says the equatorial easterly jet occurs all year in the northern hemisphere. It is a strictly SEASONAL feature, present only in the northern-hemisphere summer over southern Asia and Africa, when the monsoon reverses the upper-level temperature gradient, and its core lies very high at around 100-150 hPa, roughly 45,000 ft. Option B states both the season and the height correctly.",
     "to": "B"
   },
+  "m4SsbZ19nLfjfcE0xx9q": {
+    "from": "C",
+    "reason": "The near-duplicate 5muJKo0s8jQvZSszrN6B has the identical stem and the identical four options and is keyed to 'causes the directional gyro unit to precess'. The torque motor acts on the gyro itself, slaving it slowly to the flux valve; the heading indicator merely displays where the gyro is pointing.",
+    "to": "B"
+  },
   "m5v7WIgDUEoqWLR1hgIj": {
     "from": "C",
     "reason": "Marked answer 'water vapour freezing to the aircraft' describes HOAR FROST, which is deposition of vapour directly as ice, not clear ice. Clear ice forms when LARGE supercooled droplets strike the airframe, release latent heat, only partly freeze on impact and SPREAD back over the surface before freezing - option D. Option A (freezing on impact) describes rime.",
@@ -2068,6 +2553,16 @@
     "from": "A",
     "reason": "Marked answer declares individual tolerance false, but hypoxia tolerance varies widely between people and from day to day in the same person with fitness, fatigue, smoking and alcohol - the companion item 6M2czfiEF7MT5kdX8PxV is keyed to exactly that point. All four factors determine severity, which is option C.",
     "to": "C"
+  },
+  "mBJ9fKLWHOSaZ9g9pVtC": {
+    "from": "A",
+    "reason": "The near-duplicate iKJsnBr3IuueCvE7CqEk asks the same question and is keyed to 50 ft to 2 500 ft. The lower limit exists because a warning below 50 ft could not be acted on and would trigger on every landing, and the upper limit is set by the radio altimeter's own range of 2 500 ft.",
+    "to": "D"
+  },
+  "mIFmdePybc5ohoek2Cox": {
+    "from": "B",
+    "reason": "The flight data recorder must start automatically before the aeroplane is capable of moving under its own power, and stop only when it can no longer do so. Beginning at line-up would omit the pushback, taxi and any rejected take-off preparation, which is exactly the data an investigation needs.",
+    "to": "A"
   },
   "mKrZdIz0jssT5knVKO3d": {
     "from": "D",
@@ -2094,6 +2589,11 @@
     "reason": "Marked answer compares wing and tailplane AREAS, which influences where the neutral point lies but does not itself create stability. Longitudinal static stability exists when the CENTRE OF GRAVITY lies AHEAD of the neutral point (option A) - the distance between them being the static margin. Cross-check: question 44wDkCKg50OqCLRRWwuf in this section is correctly keyed to exactly this condition.",
     "to": "A"
   },
+  "mf50peNnStas8JGUHmKc": {
+    "from": "A",
+    "reason": "Transport wander is caused by the change of meridian beneath the aircraft, so it is zero on a due north or south track - a meridional track produces no change of longitude at all - and greatest on east-west tracks. The near-duplicate iOfJ7VuPbmkCFquDJTHg is keyed to the dependence on ground speed, true track and latitude, which is the correct statement here too.",
+    "to": "B"
+  },
   "mjTFq9htaAZBizqhnoWh": {
     "from": "C",
     "reason": "Marked answer has the sign reversed. Dihedral INCREASES static lateral stability (option D): in a sideslip the lower wing meets the airflow at a greater effective angle of attack, generates more lift and rolls the aeroplane back toward level. It is not the only means to that end - sweepback, a high wing and keel surface do the same - which also rules out option B.",
@@ -2113,6 +2613,11 @@
     "from": "B",
     "reason": "Marked answer of 34 641 NM is longer than the equator itself (21 600 NM), which is impossible for a parallel. The circumference of a parallel is 21 600 x cos(latitude), so at 60N it is 10 800 NM. The near-duplicate sibling sEi3fDGEukE7BI9LuNGx keys 10 800 NM.",
     "to": "D"
+  },
+  "mvMEKBPZ6tnbv7tUBsDC": {
+    "from": "A",
+    "reason": "An autothrottle holds a thrust setting or a target speed by moving the thrust levers; it has no authority to shut an engine down for any reason, and overtemperature protection is the engine control's business. Option B states the actual function.",
+    "to": "B"
   },
   "mw4y7gorh1qdb7vhzMyo": {
     "from": "C",
@@ -2139,6 +2644,11 @@
     "reason": "Marked answer of 360 is the TRUE bearing of the aircraft from the station reduced to a radial without applying any variation, and it also has the sense wrong: the aircraft is SOUTH of the VOR, so the true bearing from the station is 180. A radial is magnetic at the station, so apply its 32W variation: 180 + 32 = radial 212.",
     "to": "C"
   },
+  "n8d6UtlLUCMrPDh6gBdS": {
+    "from": "C",
+    "reason": "Measuring a magnetic field is not a tachometer principle at all. An electronic tachometer counts the pulses induced as a toothed wheel passes a magnetic probe, which is exactly what the bank's own dOhYt8IC3jbkBOUkrgrd (inductive probe tachometer) and G1taMSXHKaNNvQHjZ7EI (magnetic sensor transmitter) are keyed to.",
+    "to": "D"
+  },
   "nDwotTzBQyQ9JvbEukvm": {
     "from": "B",
     "reason": "Marked 'Procedure turn' (reciprocal tracks). Non-reciprocal tracks = base turn. Option A is correct.",
@@ -2159,10 +2669,20 @@
     "reason": "Marked answer was 1313 NM. PSR = E x O x H / (O + H) = 9 x 435 x 385 / 820 = 1838 NM. The near-duplicate sibling M2kmlOjpYqO2lJ9gdEM6, with identical data, keys 1838 NM. A PSR beyond the distance to R is legitimate: the endurance simply allows the aircraft to pass R and still return.",
     "to": "B"
   },
+  "nHqyQGPvOrO3Z3jLepXm": {
+    "from": "D",
+    "reason": "Electrical heating is anything but energy-cheap - it is confined to small surfaces precisely because the power required rises with the area protected. The near-duplicate kxA0vwbDyNoCA4KP10h8 has the same options shuffled and is keyed to 'used to prevent icing on small surfaces (pitot-static, windshield...)', which is the correct statement here too.",
+    "to": "C"
+  },
   "nJiGsjNr8zD8fjUznxkV": {
     "from": "B",
     "reason": "Marked answer 'mean aerodynamic chord line' is a different quantity entirely - the MAC is a spanwise-averaged chord used as the reference for CG position. The line drawn midway between the UPPER and LOWER surfaces from leading edge to trailing edge is the MEAN CAMBER LINE (option A); on a symmetrical aerofoil it coincides with the straight chord line.",
     "to": "A"
+  },
+  "nNpvk2SX8SsBHAi0YXIW": {
+    "from": "B",
+    "reason": "Carburettor ice does not need freezing air - it forms on warm days, because the venturi pressure drop and the evaporation of the fuel together cool the charge by 20 to 25°C inside the carburettor. The near-duplicate iSL1MH5MdezqzYOCmUSx asks the identical question and is keyed to 'vaporization of fuel and expansion of the air in the carburettor'.",
+    "to": "D"
   },
   "nOTHi5mgZk53HtQfO3wC": {
     "from": "B",
@@ -2189,6 +2709,16 @@
     "reason": "Marked answer was 'spherical capable flight segment', which is not a defined term. A minimum time track is the route selected on the day from the prevailing wind (and hence weather) field, so that the time flown is least - it is generally neither a great circle nor a rhumb line. Confirmed by sibling oTiTYbZ8GgVRuuOQ8y1h, which keys 'determined according to wind conditions'.",
     "to": "B"
   },
+  "ncSrfbqvxaxWPbcAhgeJ": {
+    "from": "D",
+    "reason": "A LOW PRESSURE switch senses pressure, not quantity, and a reservoir at its normal operating level is not a fault condition at all. The bank's own TvjmZjc2oNKoExaj9eUQ and kLOMUqvdt5OOGvKEpxmo both key this alert to the pump output pressure being insufficient.",
+    "to": "B"
+  },
+  "noCHCVAE9TUjwo1Tl5B1": {
+    "from": "C",
+    "reason": "A 3° slope is a gradient of about 5%, so the rate of descent is about five times the speed in knots: 5 x 100 = 500 ft/min. The standard ILS rule of thumb - half the groundspeed with a zero added - gives the same 500 ft/min; 250 ft/min would correspond to about 1.5°.",
+    "to": "A"
+  },
   "nr09MXXl3jOpCrpRT4xV": {
     "from": "C",
     "reason": "Marked answer 'snow falls into an above-freezing layer' describes melting, which produces ordinary rain, not freezing rain. What makes rain FREEZING is the subsequent descent into air below 0 C, where it becomes supercooled and freezes on impact - option B. Cross-check: question KXMQEV4d95D0KKSpQKKw in this same section poses the identical question and is correctly keyed to that same wording.",
@@ -2204,10 +2734,40 @@
     "reason": "Marked answer 'stable conditions and low atmospheric pressure' is wrong on both counts. Stability damps vertical motion and would prevent a thunderstorm entirely, and surface pressure is not a requirement - airmass thunderstorms form within high pressure areas. The two conditions needed alongside a lifting action are INSTABILITY and a high moisture content (option B).",
     "to": "B"
   },
+  "o20hkwhLxjEpJO0EPDHV": {
+    "from": "A",
+    "reason": "Cabin pressure is set by how much air is allowed to escape, which is the outflow valve's function - the bank's own iocui93X43CMWwCwNVh7 keys it to 'airflow leaving the cabin'. Engine RPM affects the bleed supply available but is not the controlling element and is not varied for pressurisation.",
+    "to": "C"
+  },
+  "oAW7ogOgAY2xxScmdYlc": {
+    "from": "A",
+    "reason": "The needle shows the direction of turn, so a needle to the LEFT means a left turn - the marked answer has the aeroplane turning the wrong way. With the ball out to the right, on the outside of a left turn, the turn is skidding, which is the 'not enough bank' case. The near-duplicate szUn5IM2yVP2VCOhek43 has the identical stem and is keyed to 'turning left with not enough bank'.",
+    "to": "D"
+  },
   "oDJrkm3369GjEyuVcEMs": {
     "from": "B",
     "reason": "Marked answer of 27 kt is close to the CROSSWIND (35 x sin48 = 26 kt), not the headwind. The angle between the wind and the runway is 083 - 035 = 48 degrees, so the headwind component is 35 x cos48 = about 24 kt. The near-duplicate sibling ZGr591UtzKFz1iRAo4QT, with identical data, keys 24 kt.",
     "to": "A"
+  },
+  "oF6TNKvwadGCuwhpMWHM": {
+    "from": "A",
+    "reason": "Modern jet transports anti-ice the wing leading edges with engine bleed air. The bank's own ZO9wH8gaaCHTuVKGJxws and arhatGP1HFo6a2G6ov4I both key the method for large jets as thermal hot air; electrical heating cannot supply the power a wing leading edge would need.",
+    "to": "D"
+  },
+  "oKCdBtG56AsrPIh6YWsw": {
+    "from": "B",
+    "reason": "Marked answer adds statement 4, excessive vertical speed, which is GPWS mode 1 and not part of the altitude alerting system. The near-duplicate nFmQf0mCo8eTd0tstZmY has the identical stem and is keyed to statements 1 and 3 alone - approaching the selected altitude, and deviating from it.",
+    "to": "A"
+  },
+  "oLgGElwyO4heohks4q3o": {
+    "from": "A",
+    "reason": "Marked answer describes a VERTICAL gyro, whose axis is held on the local vertical - that is an artificial horizon, not a directional gyro. A DG has two degrees of freedom with its spin axis held HORIZONTAL by the erection system, as the bank's own T7TMDIzD5hVTf9fHvQrj also states.",
+    "to": "B"
+  },
+  "oMnM9WDeMqhY2AOWpk6y": {
+    "from": "C",
+    "reason": "The near-duplicate RYy1BdRtX2OgP88RpRza has the identical stem and the same options shuffled and is keyed to 'two independent oxygen systems, one supplying the cockpit, the other the cabin'. The crew system is gaseous with demand regulators and the cabin system is normally chemical generators; keeping them independent is the whole point.",
+    "to": "B"
   },
   "oSocSA1JwnOm5Bl7tUtT": {
     "from": "C",
@@ -2228,6 +2788,11 @@
     "from": "D",
     "reason": "Marked answer of 62 degrees satisfies the condition but is not the HIGHEST latitude that does. The Arctic Circle is at 66 degrees 33 minutes, so at 66 degrees the sun still rises and sets every day, and 66 is higher than 62. The sibling DoXtA40hMgSBEwNJZB4r asks the same question and keys 66.",
     "to": "C"
+  },
+  "ovfpQo4LX43P2uqK0nHF": {
+    "from": "D",
+    "reason": "An air cycle system contains no Freon at all - the air itself is the refrigerant, which is the whole point of the design. The cooling happens in the expansion turbine, where the air gives up energy doing work on the compressor and its temperature drops sharply; a heat exchanger only rejects heat to ram air.",
+    "to": "B"
   },
   "owncKeqGWtUoqzTOTV5y": {
     "from": "B",
@@ -2274,6 +2839,11 @@
     "reason": "Marked answer 'half way between V1 and V2' is not a defined point. CS-25.113(b) measures the take-off RUN from brake release to a point equidistant between the point where VLOF is reached and the point where the aeroplane is 35 ft above the surface - option B. Cross-check: question opBuAU3lKfaezWFnitV2 in this section quotes exactly that definition in its stem, and question 8i5klJCVjPE2xJRYN9f6 asks the same thing.",
     "to": "B"
   },
+  "ppbyNP3z3bnbAtgaIquy": {
+    "from": "D",
+    "reason": "The feathering pump has to work when the engine has stopped, which is exactly when an engine-driven pump cannot - so it is an electrically driven auxiliary oil pump. The marked answer describes a pump that would be useless in the only circumstances the feathering pump exists for.",
+    "to": "C"
+  },
   "ps5NSb0oEJLmyvrVdnXJ": {
     "from": "A",
     "reason": "Marked '1000 ft within 5 km'. Mountainous terrain: 2000 ft above highest obstacle within 8 km. Option D is correct.",
@@ -2293,6 +2863,11 @@
     "from": "A",
     "reason": "Marked answer used a 30-day window. The co-pilot recency requirement is three take-offs and three landings in an aeroplane or approved simulator of the type within the preceding 90 DAYS. Confirmed by siblings an7x5KaEe1deprbHkfBz, 1YgCyKvLh7OJZsIuSg2A and CWuUBrPNIaoWHqqsmesh.",
     "to": "B"
+  },
+  "qJ3qwb24OavHPgBSqExk": {
+    "from": "C",
+    "reason": "Marked answer includes statement 5, that the CSD may not be disconnected in flight, which contradicts the bank's own abbF4wdYLT90WUjbiGQX, c3dR8BrpC7WTLjrKpbjl and csgQ6GOMzU9r24uZR2tx - all of which state that the drive is disconnected in flight and can only be RELATCHED on the ground. The correct combination is 1, 3 and 6: disconnected from the engine drive, hydromechanical, and disconnectable in flight.",
+    "to": "A"
   },
   "qMKBuhGPy7QSRherHmSS": {
     "from": "B",
@@ -2329,6 +2904,11 @@
     "reason": "Marked answer NS (nimbostratus) is the archetypal precipitation cloud - deep, water-rich, and the source of continuous rain or snow. The cloud LEAST likely to produce precipitation is CI (cirrus): a thin, high ice cloud with a very low water content, whose fallstreaks sublime away long before reaching the ground. Option A.",
     "to": "A"
   },
+  "qZRZZw1d5iAz4u4xGcZy": {
+    "from": "A",
+    "reason": "A running unsupercharged engine can never show manifold pressure equal to ambient, because the charge has to be drawn past the throttle. A gauge stuck at atmospheric is not connected to the manifold at all, which points to a leak or a break in the gauge line; the float level affects mixture, not manifold pressure.",
+    "to": "B"
+  },
   "qcAMj7VzA3GtPiqIGGaG": {
     "from": "D",
     "reason": "Marked 'yellow for miscellaneous'. Yellow = blankets/clothing, black = miscellaneous. Red for medical is the correct statement. Option B.",
@@ -2344,6 +2924,21 @@
     "reason": "Marked 150 m (500 ft). Independent parallel approaches require 300 m (1000 ft) vertical separation. Option B is correct.",
     "to": "B"
   },
+  "qpBhDPyz62qwinWmK4M7": {
+    "from": "C",
+    "reason": "'Maintain and improve fuel heating power' is not a function - it is not even a coherent one. The heater is placed upstream of the main filter precisely to melt the ice crystals that form from water dissolved in the fuel at cruise temperatures, which would otherwise block that filter.",
+    "to": "A"
+  },
+  "qzbjJLEhAMuiD03USPHw": {
+    "from": "B",
+    "reason": "TCAS resolution advisories are vertical only - climb or descend - because the system knows the intruder's altitude but not its precise bearing. The bank's own WuAwd6X5EPeEQy3w7aMR is keyed to 'Climb or Descent' and qpjRrYswXl7mBJ5i2s0W states explicitly that resolutions are given only in the vertical plane.",
+    "to": "C"
+  },
+  "r1e6zfLBqzeF7v7RYR7B": {
+    "from": "B",
+    "reason": "The gauge is tapped into the induction manifold downstream of the throttle, near the inlet valve - measuring at the carburettor inlet would simply give ambient pressure and say nothing about the power being developed. The near-duplicate hnLE3j5Ny3n6DYutiI1o has the same options and is keyed to 'absolute pressure in intake system near the inlet valve'.",
+    "to": "D"
+  },
   "r4pSrlDgqZ5VXqtb52Qe": {
     "from": "B",
     "reason": "Marked answer was 135 NM. Maximum unambiguous range = 81 000 / PRF = 81 000 / 1200 = about 68 NM. The near-duplicate sibling b5DMIinkZp6ckkRhANmi, with the same 1200 pps, keys 67 NM.",
@@ -2357,6 +2952,11 @@
   "rHXVNa9YaF9QNuufHuNd": {
     "from": "B",
     "reason": "Marked answer allowed the commander to REFUSE to present the aeroplane's documents. The documents are carried so that they can be inspected: they must be produced to an authorised representative of an Authority within a reasonable time. Confirmed by siblings 0B7ryPmxklYysrPH4dyr, 27M4QfHz4LlhisIs6H7q and ezjgTxbeu67qyJ9t6BWD.",
+    "to": "D"
+  },
+  "rHqw2ek2Dh7qogQ831Xn": {
+    "from": "B",
+    "reason": "VFE is defined for the flap position actually selected, not for the take-off setting alone - each position has its own limiting speed. The near-duplicate qXlNSZx7kGaqjWmBDSOH has the identical stem and is keyed to 'with the flaps extended in a given position'.",
     "to": "D"
   },
   "rIqrbRNtyt9Vh74nWa28": {
@@ -2392,6 +2992,16 @@
   "rYzyvYKjs2vj4zzzq7Q4": {
     "from": "C",
     "reason": "Marked answer accepts only statement 1 and rejects statement 4, but motor programmes - procedural skills such as flying an approach - are stored in long-term memory, which is exactly why a skill survives months without practice. Statements 2 and 3 are false because working memory and the seven-item limit both belong to short-term memory, so the correct pair is 1 and 4.",
+    "to": "D"
+  },
+  "rcJMop3q4PhYWH1VHQHm": {
+    "from": "A",
+    "reason": "The speed of sound is 39 times the square root of the absolute temperature in knots: 39 x sqrt(233) = 595 kt, which is option B here. The near-duplicate oVS1QwbE24xsfUfPeB8z asks the identical question and is keyed to 595 kt; 247 kt corresponds to no recognisable calculation.",
+    "to": "B"
+  },
+  "rdLqu1x2OJR2F9JzOjFu": {
+    "from": "A",
+    "reason": "In a constant CAS climb the Mach number always increases - the TAS rises as the density falls while the speed of sound falls or holds - so the answer cannot be conditional on the temperature. The bank's own omCIo5fccoLeFd2jBON8 and qQTkTBw6aP4A8gFhOO8z both key a constant CAS climb to increasing Mach, and KQw9BP9KrYp1cNun6VR4 keys the mirror-image descent to decreasing Mach.",
     "to": "D"
   },
   "reu3mk2BDD0FWulzpFjK": {
@@ -2459,6 +3069,11 @@
     "reason": "Marked answer 'little or no change' is the opposite of what an inversion does. An inversion is very stable and DECOUPLES the layers: the air below stays light or calm under surface friction while the air just above retains the full gradient wind, so both speed and direction can change markedly - often by 30 kt or more - across a few hundred feet (option C). Cross-check: question mcTbNbZYOi3stztsxsoD in this section correctly identifies the top of a marked surface inversion as the place of greatest low-level shear.",
     "to": "C"
   },
+  "sBAprncxKurtY3E0LRDM": {
+    "from": "D",
+    "reason": "Cabin pressure is regulated by the outflow valve, which controls how much air leaves - the inlet flow is held constant to guarantee ventilation. The bank's own sFtYbNvAwnJlHQd0pVAv and iocui93X43CMWwCwNVh7 both key this to the airflow LEAVING the cabin.",
+    "to": "C"
+  },
   "sEXi9MIWDsVKqW50t1EQ": {
     "from": "C",
     "reason": "Marked 1 year. ICAO Annex 15: area ID reuse period is 3 months after cancellation. Option D is correct.",
@@ -2474,10 +3089,20 @@
     "reason": "Marked answer simply repeats the indicated reading. With 1013 set but an actual QNH of 993, the subscale is 20 hPa too HIGH, so the altimeter over-reads by 20 x 27 = 540 ft. The elevation is therefore 1200 - 540 = 660 ft (option D). Cross-check: question 0KdNKNzLkK3BJFugU9mg in this section uses the identical figures in reverse - elevation 540 ft, QNH 993, 1013 set, reading 1080 ft - and is correctly keyed.",
     "to": "D"
   },
+  "sWFUW8TQwCCzWsbd8jxv": {
+    "from": "A",
+    "reason": "Low range radio altimeters operate in the 4200 to 4400 MHz band, as the bank's own c0Lx0sehK2ZNQXyjsBpJ, T6jENchfFZZ6gf6RjyXW and WXCzCg8v8CPYz4n6UhU6 all state. 5 GHz is not the allocated band.",
+    "to": "D"
+  },
   "sbsgdXVDgFwJ6un0EVAJ": {
     "from": "D",
     "reason": "Marked answer places the risk below 18,000 ft, but decompression sickness requires the ambient pressure to fall far enough for dissolved nitrogen to come out of solution, which in practice means cabin altitudes ABOVE about 18,000 ft. The near-duplicate HrKUy3wHtxL0KSVAuWa4 carries the same four options and is keyed to 'cabin pressure loss when flying at higher altitudes (above 18,000 ft)'.",
     "to": "B"
+  },
+  "sjpwa3uDvUZqDOTj59yo": {
+    "from": "C",
+    "reason": "The requirement for one pilot to wear and use an oxygen mask continuously applies above FL 410, where the time of useful consciousness after a decompression is only a few seconds. FL 490 is above the certificated ceiling of every aeroplane the rule is written for.",
+    "to": "D"
   },
   "soPqk3cLK3Ufw35O9OtF": {
     "from": "C",
@@ -2514,6 +3139,16 @@
     "reason": "Marked answer places VMCA between VR and VLOF, but VMCA normally lies BELOW VR. The valid ordering is VS < VMCA < V2min (option B): VMCA must exceed the stalling speed, and V2 must be at least 1.1 VMCA to guarantee a control margin during the second segment climb.",
     "to": "B"
   },
+  "t6vtVvK8S7WB0XujabKT": {
+    "from": "C",
+    "reason": "TCAS issues no horizontal resolution advisories at all, in any circumstances, as the bank's own qpjRrYswXl7mBJ5i2s0W states. Without altitude reporting the system cannot compute a vertical escape either, so all it can give is a traffic advisory - which is exactly how the near-duplicate X1cQklgFIqSvVT8xL8Ak is keyed.",
+    "to": "D"
+  },
+  "tBEEWvniGacudLNNM2JN": {
+    "from": "B",
+    "reason": "The near-duplicate cQbOKdswEL9LxKlrjtWg has the identical stem and the same options shuffled and is keyed to 'set several engines to the same speed'. A synchroscope compares two engines' speeds and shows which is faster; the reduction in beat vibration is a consequence of matching them, not what the instrument does.",
+    "to": "A"
+  },
   "tDQgkZ6LTrnZXzjklQPk": {
     "from": "B",
     "reason": "Marked 15 m. Code D taxiway width = 18 m per ICAO Annex 14. Option D is correct.",
@@ -2524,10 +3159,20 @@
     "reason": "Marked 3 NM. Missed approach instruction if no landing clearance by 2 NM from touchdown. Option B is correct.",
     "to": "B"
   },
+  "tNqOKZFEYQXU7EJnx96m": {
+    "from": "C",
+    "reason": "Apparent wander is 15°/h times the sine of the latitude, so at 45° it is 10.6°/h, not the full 15°/h - that figure applies only at the pole. The near-duplicate kS9R3jVwMhykpMzuCip0 has the identical stem and is keyed to 10.5°/hour to the right.",
+    "to": "A"
+  },
   "tS07j5D2v2jg21ROz9m5": {
     "from": "B",
     "reason": "Marked answer was 1.5 degrees or more. A VOR CDI is calibrated at 2 degrees per dot across five dots, so full-scale deflection corresponds to 10 degrees or more off the selected radial. 1.5 degrees would not move the needle a single full dot.",
     "to": "D"
+  },
+  "tVRZKrNC4tc8wZKQXymL": {
+    "from": "A",
+    "reason": "A float follows the fuel surface, so attitude and acceleration move the reading as surely as temperature does. Two near-duplicates confirm it: Ex8PWlSiEmzeVZAu2HnC has the identical stem and options and is keyed to '1, 2, 4', and j4xWQ4oybbZA5LGOqYpq is keyed to attitude, accelerations and fuel temperature together.",
+    "to": "C"
   },
   "taWCELZALvhy3JRAaQlJ": {
     "from": "A",
@@ -2537,6 +3182,11 @@
   "tdNKKbIwaqGTD5ccSxHU": {
     "from": "A",
     "reason": "Marked answer 'more than 10 km' ignores both TEMPO groups, which are live at 2055Z: TEMPO 1822 forecasts 5000 m and PROB30 TEMPO 1821 forecasts 1500 m in a thunderstorm with hail. A TEMPO describes a temporary deterioration from, not a replacement of, the prevailing 9999, so the visibility could be as low as 1.5 km or as high as in excess of 10 km - option B.",
+    "to": "B"
+  },
+  "tle55uQrUWrNxtKFzMGr": {
+    "from": "D",
+    "reason": "This is an exhaust gas temperature indicator; vibration is displayed on an entirely separate instrument, so the marked answer cannot be right for any pointer on this gauge. A red pointer sitting on the red line is a limit bug, showing the maximum temperature not to be exceeded.",
     "to": "B"
   },
   "tm4ASSSEphCALeQ4qN4B": {
@@ -2569,6 +3219,16 @@
     "reason": "Marked answer says the airspace would be temporarily closed, which is not a meteorological function at all. Severe turbulence, including severe CAT, is a mandatory SIGMET phenomenon, so pilot reports of it lead the responsible meteorological watch office to issue a SIGMET (option A). A SPECI is a special aerodrome observation and has nothing to do with en-route hazards.",
     "to": "A"
   },
+  "u6Uc0e9A3XwagAfQqti4": {
+    "from": "A",
+    "reason": "A moment is force times arm: 49 000 N x 7 m = 343 000 Nm. The marked 7 000 Nm is 49 000 divided by 7, which is not a moment at all.",
+    "to": "B"
+  },
+  "uGD62oowr75CX65x3TV7": {
+    "from": "D",
+    "reason": "The altitude select or alerting system warns the crew visually and aurally as the aeroplane approaches the selected altitude, and again on deviation from it. It has no connection with the autopilot's automatic trim, which relieves the elevator servo load and is engaged or disengaged with the autopilot itself.",
+    "to": "B"
+  },
   "uGKekGZ7Pgwxk9P1t05a": {
     "from": "B",
     "reason": "Marked answer claims the human-factor share has more than tripled since 1980. It has not: the proportion has been broadly stable at around 70-80% for decades, while the absolute accident rate fell as engineering causes were removed. The near-duplicate FOA04VCxqCVtegoEXyad carries the identical four options and is keyed to 'approximately 70-80% of aviation accidents'.",
@@ -2589,6 +3249,11 @@
     "reason": "Marked answer 'solid direct to liquid' is MELTING. Sublimation is the change of state directly between solid and vapour without passing through the liquid phase - option A. It is the process that builds cirrus and hoar frost and that drives the Bergeron ice-crystal process.",
     "to": "A"
   },
+  "uNaJyv19em4D9elWUUD6": {
+    "from": "D",
+    "reason": "The needle shows the direction of turn, so both indications on the right means a RIGHT turn - the marked answer has the aeroplane turning the wrong way. With the ball on the inside of the turn it is slipping, which is the 'too much bank' case, and the near-duplicate IWVPj1PMbUXz3WaF9qY5 with the identical stem is keyed to 'turning right with too much bank'.",
+    "to": "B"
+  },
   "uQ20T9euyZN6BRrgVWPq": {
     "from": "C",
     "reason": "Marked answer was every 5 degrees. North of 70N the NAT position reporting interval is every 20 degrees of longitude; south of 70N it is 10 degrees. Confirmed by sibling CoYTyECxsynf3k1BkYjL.",
@@ -2597,6 +3262,16 @@
   "uSDCLv4HEmoehYz8BzFF": {
     "from": "D",
     "reason": "Marked answer overlooks that the aeroplane is ALREADY at best glide speed, which by definition gives the maximum distance. Any departure from it - faster or slower - reduces the distance, so raising the pitch attitude and slowing below best glide makes the glide distance DECREASE (option B), as the aeroplane moves onto the back of the drag curve.",
+    "to": "B"
+  },
+  "ug7N1AYiuesqjRMFfoX4": {
+    "from": "B",
+    "reason": "Trip free means precisely the opposite of the marked answer: the breaker trips even if the button is held in, so the contacts CANNOT be held closed on a faulted circuit. The near-duplicate oXOupaAGJQT3dDw8VEeB has the identical stem and options and is keyed to 'will not allow the contacts to be held closed while a current fault exists'.",
+    "to": "C"
+  },
+  "ukL5odKHOxRgXDab1E3r": {
+    "from": "C",
+    "reason": "A single spool engine has one shaft joining the compressor and turbine, so their speeds are necessarily identical - independence is what a MULTI-spool engine provides. The near-duplicate hphVEgThWySyFHj6lFJl has the identical stem and is keyed to 'the same as turbine rpm'.",
     "to": "B"
   },
   "uo4iTgvC8vaHFik10dyv": {
@@ -2629,6 +3304,11 @@
     "reason": "Marked answer is backwards: trailing-edge flap LOWERS the angle of attack for maximum lift, it does not raise it (raising the stalling angle is what SLATS do). Flap adds much more drag than lift, so (L/D)max falls and the best glide angle is WORSENED - option C. Cross-check: questions PEbp3gUeKZMc8XrVaoto and w17FSBytisDto3yPkVXu in this section both confirm flap decreases the critical angle of attack.",
     "to": "C"
   },
+  "v6AfgkLRDdl6QxSG0k5C": {
+    "from": "A",
+    "reason": "The bank's own aRC8xquRerM0P8dvhIy2 and nmNWbDxxC2mEzXEJmyJw state that a single loop system WITHOUT fault protection gives a false fire alarm when the line is grounded. The purpose of the fault protection circuit is therefore to recognise that condition and inhibit the detector instead of ringing the bell; a warning horn in the gear bay is an APU installation feature, not fault protection.",
+    "to": "D"
+  },
   "v7QTWxyzEHhbArvAxOTi": {
     "from": "D",
     "reason": "Marked answer 1.30 VS is VREF, the landing approach speed - far above where a stall warning would be useful. The stick shaker fires just above the stall, typically 5-10% above VS, and the exact multiple is type-specific, so the correct general statement is simply that it triggers at a speed GREATER than VS (option A).",
@@ -2647,6 +3327,11 @@
   "vB5j1wHJYzyOluKT43vJ": {
     "from": "A",
     "reason": "Marked answer of 1230 km is about 664 NM, far beyond VHF line of sight. The formula gives 1.23 x root(10 000) = 123 NAUTICAL MILES; the option set repeats the figure 123 in the wrong unit, which is the point being tested.",
+    "to": "D"
+  },
+  "vBrNziXvVnYnssfMkEl5": {
+    "from": "C",
+    "reason": "A capacitance gauge measures the change in the tank unit's capacitance as its dielectric changes from air to fuel - which is exactly what the bank's own ifT3TwHHOGZ3YlT56LE3, mdrkenO6xqiQzbesiJ3H and agwx6RjBaOSNQcvGtJDE all state. A Wheatstone bridge current variation describes a resistance-type sensor, which is a different system.",
     "to": "D"
   },
   "vDydqZSxM7GVZ1G7ZtHt": {
@@ -2669,9 +3354,24 @@
     "reason": "Marked 'positive control'. Radar contact = identity established. Option A is correct.",
     "to": "A"
   },
+  "vO3gJ8bK7NO66U8gcvjj": {
+    "from": "B",
+    "reason": "The resolution advisory symbol is a filled red SQUARE, not a circle - the filled circle, in amber, marks a traffic advisory one level below. The near-duplicate iEtJkE2X6SFXKbGFfkhq asks the identical question and is keyed to 'a red full square'.",
+    "to": "D"
+  },
+  "vP4HScRXjtXYBaeDpqqn": {
+    "from": "A",
+    "reason": "Heating a continuous loop element lowers the resistance of its eutectic core, which is what allows the leakage current to rise and the warning to be given. The near-duplicate YLIRCMjwusNoRusxrS3m has the identical stem and options and is keyed to '1, 3' - resistance decreases and leakage current increases.",
+    "to": "C"
+  },
   "vS0niZ7Mb8fFfyy2blYZ": {
     "from": "C",
     "reason": "Marked 'operator licence'. Warsaw Convention = carrier liability for passengers/cargo. Option B is correct.",
+    "to": "B"
+  },
+  "vV3YQKLqsc7E0bAW3TAZ": {
+    "from": "D",
+    "reason": "Spoilers rise on the DOWN-going wing, on the inside of the turn, to spoil its lift - so in a left turn the left spoiler extends and the right one stays stowed. The marked answer gets the ailerons right and the spoilers exactly backwards.",
     "to": "B"
   },
   "vXvN6Zev2bJtfV8LgFiD": {
@@ -2719,6 +3419,11 @@
     "reason": "Marked answer claimed the improvement is independent of the receiver's position relative to the reference station. Differential corrections describe the error measured AT that station, and they decorrelate with distance because the aircraft sees a different ionospheric path and satellite geometry, so accuracy degrades as the baseline lengthens.",
     "to": "B"
   },
+  "vqkCNOYYI5V98SS6LMOt": {
+    "from": "A",
+    "reason": "Weight acts vertically downwards through the centre of gravity - that is the definition of the centre of gravity. The datum is an arbitrary measuring reference chosen by the manufacturer and has no physical relationship to where the weight acts.",
+    "to": "C"
+  },
   "vzvlp8FzU9gsQGshRdo2": {
     "from": "C",
     "reason": "Marked 'only when directed'. Mode C should be continuously operated unless otherwise directed by ATC. Option A is correct.",
@@ -2739,9 +3444,19 @@
     "reason": "Marked answer was that the handle goes out once the extinguisher has been fired. The fire warning and the illuminated shut-off handle are driven by the fire detection loops, so the handle extinguishes when fire is no longer DETECTED - discharging a bottle into a fire that is still burning does not clear the warning. Confirmed by sibling yUyFwCc3m5mBxUHJkiKg.",
     "to": "B"
   },
+  "wDsmFuAoh48QuyxcA5Cs": {
+    "from": "B",
+    "reason": "The near-duplicate wjDbIZhkMBUOZals8oI0 has the identical stem and the same four options and is keyed to 'necessity of providing a power supply source'. An electronic tachometer measures a frequency, so temperature and line resistance do NOT affect it - that immunity is its whole advantage; needing a supply for its electronics is the one thing it gives up.",
+    "to": "D"
+  },
   "wI3uDuhoQflkH5NxXoM1": {
     "from": "C",
     "reason": "Marked answer described secondary radar principles, which have nothing to do with LORAN. LORAN-C is a hyperbolic system in which a master and its secondaries transmit pulses in a fixed sequence and the receiver measures the difference in arrival times, i.e. differential range by pulse technique. Range measurement by phase comparison describes Decca, not LORAN.",
+    "to": "D"
+  },
+  "wI4Zto9PlpRjfVY7zTtK": {
+    "from": "B",
+    "reason": "Exhaust gas temperature peaks at the chemically correct mixture of about 15:1 by mass, and falls away both richer and weaker than that - which is the basis of every leaning technique. A mixture close to idle cut-out is extremely weak and produces a low EGT, not the maximum.",
     "to": "D"
   },
   "wJEQCn2AY9SPUQ5bJjzr": {
@@ -2764,6 +3479,11 @@
     "reason": "Marked answer was black, which is the colour for NO significant return. Rainfall intensity runs black, green, amber/yellow, red; turbulence is deliberately shown in a colour outside that sequence, magenta or white, so it cannot be read as a rainfall rate.",
     "to": "A"
   },
+  "wX7PWTrEsH6mpSL7wQ2q": {
+    "from": "D",
+    "reason": "Marked answer gives the ADVISORY definition - the bank's own GevaIlZruo4eOl3qAWx1 keys 'crew awareness required and subsequent crew action may be required' to an advisory message. A caution requires IMMEDIATE crew awareness and subsequent action, which is option A here.",
+    "to": "A"
+  },
   "wYGRBbCq6SHZNpITtZU1": {
     "from": "D",
     "reason": "Marked answer was an increase in ROLL RATE. Contamination degrades the flow over the wing: maximum lift coefficient falls, so the stalling SPEED increases while the stalling angle of attack, roll response and climb performance all decrease. An increase in roll rate is the opposite of what ice does. Safety-relevant.",
@@ -2783,6 +3503,16 @@
     "from": "A",
     "reason": "Marked answer pairs stratocumulus with CIRROSTRATUS, which forms above about 20,000 ft at temperatures near -40 C and consists of ice crystals - it produces no icing at all, so the pair cannot be right. The question specifies supercooled cloud droplets and light-to-moderate severity, which points to the medium-level water clouds altocumulus and altostratus (option B). Cirrocumulus is likewise ice, and cumulonimbus gives SEVERE icing rather than light to moderate.",
     "to": "B"
+  },
+  "wkR2wJxctNp2iTxsN5qR": {
+    "from": "D",
+    "reason": "Intake pressure is an absolute pressure and is sensed by an evacuated aneroid capsule; a differential capsule measures the difference between two pressures and has nothing to compare it with here. The near-duplicate VFtZrn9uSWqd968haMkt has the identical stem and options and is keyed to the aneroid capsule.",
+    "to": "A"
+  },
+  "wn6z7goS2JN0Lttp4hE9": {
+    "from": "B",
+    "reason": "Acceleration errors are at their maximum on easterly and westerly headings, not zero - it is on north and south that they vanish, as the bank's own VipvGja25pkRA0K9esO9 and mdaC35HC5YNiaDHsN2ux show. In the southern hemisphere the sense reverses, so decelerating on a westerly heading gives an apparent turn towards the north.",
+    "to": "D"
   },
   "wo6xGm7ucNRp2MKLJ7Y4": {
     "from": "A",
@@ -2814,10 +3544,25 @@
     "reason": "Marked answer was a preceding aircraft briefly applying take-off thrust before departure - that is jet blast, not wake turbulence, which needs lift to be produced. The worst wake case offered is a heavy aeroplane having just taken off from a closely spaced parallel runway with a light crosswind, because a light crosswind holds the vortex over the adjacent runway instead of clearing it. Confirmed by sibling 9QAk0dmdVyYRdYAM92rX.",
     "to": "B"
   },
+  "x0N3zoIuy1V9liSq1Fxw": {
+    "from": "B",
+    "reason": "The primary flight display carries attitude, speed, altitude, heading and the flight mode annunciations - everything needed to fly the aeroplane. System synoptics and engine parameters are on the separate system and engine displays, as the bank's own T8NIMO5QZrhxtMbgjrHE and bUXNekFpaotZGxpMMAso also reflect.",
+    "to": "C"
+  },
   "x3q76damVbKDAy1g0oZA": {
     "from": "D",
     "reason": "Marked answer accepts only statement 4 and rejects statement 1, but a limited vocabulary is the defining feature of a professional language - it is what allows each term to carry exactly one meaning. Statements 1 and 4 are both correct. The near-duplicate QETnXijPa80TxON4J4x6 carries the identical four statements and is keyed to '1 and 4 are correct'.",
     "to": "A"
+  },
+  "x3sqzFA7YarhUrOLiTEn": {
+    "from": "B",
+    "reason": "Excessive cylinder pressures come from HIGH manifold pressure with LOW RPM - high boost with the engine turning slowly, which is why the rule is to reduce manifold pressure before RPM. Low manifold pressure with low RPM produces low cylinder pressures and is harmless, and the bank's own cyxcOJPJ2686sc1vpR5d and vJjQfUpP45B16VpTQdg8 both key this combination as high MAP with low RPM.",
+    "to": "C"
+  },
+  "x4lWbSQ0QXOo1MZTIFAA": {
+    "from": "C",
+    "reason": "Frequency is pole pairs times revolutions per second, so 400 Hz at 100 rev/s needs four pole PAIRS - eight poles. The bank's own WiGAcnflPv5LG06FJT0o uses the same relation the other way round, giving 12 000 rpm for a four-pole machine at 400 Hz, which confirms that 'poles' here means individual poles.",
+    "to": "D"
   },
   "x5Xeq0fKjM7sJJUrKg7X": {
     "from": "C",
@@ -2849,6 +3594,11 @@
     "reason": "Marked answer was 'supercooled water'. A microburst is a concentrated downdraught producing severe vertical and horizontal wind shear; supercooled water is an icing phenomenon and unrelated. Confirmed by sibling 5WjNpVUKCcriqieLG55h, which keys windshears.",
     "to": "A"
   },
+  "xE6Co9PmSksEZqMWVaY7": {
+    "from": "C",
+    "reason": "Life jackets must never be inflated inside the aeroplane - an inflated jacket cannot be got through a door, and in a flooding cabin it pins the wearer against the ceiling. They are inflated on leaving the aircraft, which is why the passenger briefing stresses the point.",
+    "to": "A"
+  },
   "xEo7HFJ85m9TXpTUJ84t": {
     "from": "A",
     "reason": "Marked answer has the density effect backwards. Mass flow = density x area x velocity; raising the temperature at constant pressure makes the air LESS DENSE, so with area and velocity unchanged the mass flow DECREASES (option C). This is the same density loss that reduces engine thrust on a hot day.",
@@ -2874,10 +3624,20 @@
     "reason": "Marked answer 3259 kg/h is LOWER than the lighter aeroplane's 3100 kg/h figure, which cannot be right for a heavier aeroplane. At holding speed the thrust required is proportional to weight, so with constant SFC the fuel flow scales the same way: 3100 x (105,000/95,000) = 3426 kg/h (option A). Cross-check: question n6MZ9CfqkDoBcm7m0IDT in this section uses the identical method and is correctly keyed.",
     "to": "A"
   },
+  "xVpdxcDooN96Mj5AJU73": {
+    "from": "D",
+    "reason": "A flight director consists of a computer and the command bars it drives - it is a display for hand flying and works with the autopilot disengaged, which is precisely when it is most useful. An autopilot is a separate system, not an essential component of the director.",
+    "to": "A"
+  },
   "xX9zQs3dWvzOyEbmMKHL": {
     "from": "A",
     "reason": "Marked answer restricts static pressure to one direction. Static pressure arises from the random thermal motion of the air molecules, so it acts equally in ALL directions (option D) - which is precisely why a flush static port aligned parallel to the flow senses it correctly. It is DYNAMIC pressure that is directional.",
     "to": "D"
+  },
+  "xXlLQoSUCqw6lWmkcSea": {
+    "from": "D",
+    "reason": "Opening only the tie breaker would leave the faulty generator connected to its own busbar, still overexciting it. The fault is on one machine, so that machine is removed: exciter breaker to collapse the field and generator breaker to take it off the bus - exactly as the bank keys the equivalent overvoltage cases in Yf6XkqwKZ9ku5xi4n6TV and cGyfAFx1ClMExu7Y4c31.",
+    "to": "A"
   },
   "xZ3pxA2KQrSZ4myUoM9V": {
     "from": "B",
@@ -2934,6 +3694,11 @@
     "reason": "Marked 'Radar service terminated'. Resume own navigation does NOT terminate radar service. Option B is correct.",
     "to": "B"
   },
+  "yGxlqjqBPY61t67LurP0": {
+    "from": "B",
+    "reason": "Zero fuel mass excludes fuel by definition, so it cannot be the empty mass PLUS the fuel loaded - the marked answer contradicts the term it is defining. Zero fuel mass is the dry operating mass plus the traffic load, which is also how the bank's own qgOlB8LrcFAQXhFOfQk6 defines traffic load as ZFM minus DOM.",
+    "to": "A"
+  },
   "yJMwTy8pOiVeLOICn1BH": {
     "from": "B",
     "reason": "Marked answer 'headwind' is geometrically impossible: the question states the jet is crossed at RIGHT ANGLES, so the wind must be a crosswind. Below the core the cold air lies on the polar side, so a falling OAT means tracking northward; with the jet blowing west to east, the wind arrives from the aircraft's LEFT (option C). Cross-check: question bDE93pqh9UVaaUABBSej poses the mirror case (temperature increasing, hence southbound) and is correctly keyed to 'from the right'.",
@@ -2948,6 +3713,11 @@
     "from": "D",
     "reason": "Marked answer was 056 and 137 kt. CAS 120 at FL55 gives a TAS of about 130 kt, and with the required course 060(T) the wind from 190 gives about 19 kt of TAILWIND, so the groundspeed must EXCEED the TAS: about 147 kt, on a heading of about 055(M). The near-duplicate sibling sfceuAE0948qUAqLqFmi keys 055 and 147 kt.",
     "to": "B"
+  },
+  "yNB3rNugtcEGT8lFH89m": {
+    "from": "C",
+    "reason": "A radio altimeter measures the distance to the ground directly beneath the aircraft, which is a HEIGHT; altitude is measured from mean sea level and is the barometric altimeter's business. The bank's own crx8HTMnl9dKkp8d84Rp keys the radio altimeter indication to the height of the lowest wheels above the ground.",
+    "to": "A"
   },
   "yNxiBN0Hh54Ev6gQqzoU": {
     "from": "B",
@@ -3009,6 +3779,16 @@
     "reason": "Marked answer has the bias running the wrong way. Once a mental model is formed, information that CONFIRMS it is given undue weight while contradictory information is discounted - that is confirmation bias, and it is why a wrong diagnosis survives contrary evidence. The near-duplicate r3TTObOmsZ8oLyRGScXH carries the identical four options and is keyed to 'undue weight to information that confirms the model'.",
     "to": "A"
   },
+  "yrjdwiZDtUlL2Z8aMDFn": {
+    "from": "B",
+    "reason": "The certification requirement is a cabin pressure altitude not exceeding 8 000 ft at the maximum operating altitude under normal conditions. 6 000 ft appears nowhere in the rule, and 8 000 ft is the figure every transport aircraft is designed to, which is also why the cabin altitude warning is set at 10 000 ft.",
+    "to": "D"
+  },
+  "z0Sh1ddK10sc4CQ8CDO9": {
+    "from": "B",
+    "reason": "The flight data recorder requirement is 25 hours, as the bank's own gSL7OID8LpKvcKo2wIFa and oamNKHUz3vOlFAQheBSl both state, and the classic cockpit voice recorder requirement is 30 minutes. The marked '24 hours and 60 minutes' matches neither figure.",
+    "to": "A"
+  },
   "zENscEKrpT97VxvukRj4": {
     "from": "D",
     "reason": "Marked answer was straight lines, which is how parallels appear on a MERCATOR. On a Lambert the graticule is projected onto a cone, so the parallels are arcs of concentric circles centred on the cone's apex. The near-duplicate sibling yVxtELVVEBWfdL7qrNuA keys arcs of concentric circles.",
@@ -3039,6 +3819,21 @@
     "reason": "Marked 'ATC service, clearance required'. VFR in Class E: traffic info as practical, no clearance required. Option A is correct.",
     "to": "A"
   },
+  "zVZhZLpQNQwbDsx2edhu": {
+    "from": "B",
+    "reason": "The schedule adds one extinguisher per further hundred seats above the three required for 61 to 200: four to 300, five to 400, six to 500 and SEVEN for 501 to 600. The bank's own tgk0oGxEzetETHtrPkGp keys more than 600 seats to eight, which only follows if 501 to 600 requires seven.",
+    "to": "A"
+  },
+  "zcrJufhabNYZ1cMmrHZ8": {
+    "from": "B",
+    "reason": "A leak simply lets the trapped total pressure fall towards cabin pressure, so the sensed difference is always too small and the indication always under-reads - the error does not reverse sign between climb and descent. The near-duplicate MtArMjmZf8IUlNeruIcP asks the same question and is keyed to 'under-read'.",
+    "to": "A"
+  },
+  "zdP53fxY02M7PRJCakoP": {
+    "from": "A",
+    "reason": "An impulse stage takes the whole pressure drop in the nozzle guide vanes and none across the rotor - the marked answer has it exactly backwards and even has the pressure RISING across the rotor, which no turbine does. The near-duplicate npXdlF0N4qsN0EJR0BkJ has the identical stem and is keyed to 'drops across the NGVs, stays the same across the rotor blades'.",
+    "to": "B"
+  },
   "zdp1JEpmPxptPX2XfZRa": {
     "from": "B",
     "reason": "Marked answer included passenger meals, which are not dangerous goods, and omitted fire extinguishers, which are. The items carried for operating reasons and classified as dangerous goods are extinguishers, portable oxygen and first-aid kits. Confirmed by sibling 6XzpFxF7a4BesubbfLb9.",
@@ -3054,6 +3849,16 @@
     "reason": "Marked answer of 359 comes from applying the drift the wrong way. Left drift means the true heading is 348 + 17 = 005; adding 32W variation gives 037 magnetic, and subtracting the 4E deviation gives a compass heading of 033. The near-duplicate sibling vYaJEZ9DWWbcdOlUXX5J, with identical data, keys 033.",
     "to": "D"
   },
+  "zmZ3ESnJfvJ3v3n4W35j": {
+    "from": "D",
+    "reason": "Inlet pressurisation keeps the fluid above its vapour pressure so that bubbles cannot form and collapse in the pump - that is cavitation, and it is what the pressure prevents. The bank's own dEvmwq3Y4LTPiFIsh3KW, aah6Jgr0dIfGhu5Rpliy and Tj12ypSmgw6oQIxMvxLq all key this to preventing cavitation.",
+    "to": "A"
+  },
+  "zmmqWZpYGnioruguk4BL": {
+    "from": "B",
+    "reason": "The moving part of any electrical machine is the rotor; an oscillator is an electronic circuit and has nothing to do with a generator's construction. The near-duplicate tZuaqOridHjnNMJ5mKQD has the identical stem and the same options shuffled and is keyed to 'rotor'.",
+    "to": "C"
+  },
   "zotS7BdnOq4tp7S3ZYRI": {
     "from": "A",
     "reason": "Marked answer credits glass-cockpit technology with improving man-machine communication 'as a result of flight sensations', which is incoherent - such aircraft provide fewer physical sensations, not more. The documented effect on crew communication is the opposite of an improvement: work moves head-down onto keyboards and small displays, the large visible control movements that told the other pilot what was being done have gone, and the non-verbal channel between the crew is correspondingly reduced.",
@@ -3062,6 +3867,11 @@
   "zq62N344zs7WI6o76mMd": {
     "from": "D",
     "reason": "Marked answer attributes the TAS change to PRESSURE, which plays no part in it. TAS = Mach number x local speed of sound, and the speed of sound depends only on TEMPERATURE - which rises during a descent, so at constant Mach the TAS INCREASES (option C). Cross-check: question 59ZWC8bdaFbGkzKF3BwH in this section states the converse for a constant-Mach climb and is correctly keyed to TAS decreasing.",
+    "to": "C"
+  },
+  "zxTW9qJvHE9gOQ0UgEuZ": {
+    "from": "D",
+    "reason": "In a descent the static pressure rises while the blocked pitot holds its trapped total pressure, so the sensed difference shrinks and the indication falls steadily. The near-duplicate y2catcGm4udLCeQttTsD has the identical stem and options and is keyed to 'decreases steadily'.",
     "to": "C"
   }
 }
