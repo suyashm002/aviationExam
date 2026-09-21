@@ -2,7 +2,7 @@
 
 Copy-paste ready. Replace the current listing text field by field.
 
-**The pilot logbook is hidden in 1.2.0 (`FeatureFlags.logbookEnabled = false`).**
+**The pilot logbook is hidden in 1.2.1 (`FeatureFlags.logbookEnabled = false`).**
 Nothing in the public copy below mentions it; re-add the logbook lines only
 when the flag is turned on.
 
@@ -110,9 +110,14 @@ Put a one-line caption on each image; don't ship bare screen captures.
 Aircraft cockpit or horizon background, app name, and the single line
 "7,900+ KCAA Exam Questions — Free & Offline".
 
-## Release notes — v1.2.0 (versionCode 9)
+## Release notes — v1.2.1 (versionCode 10)
 
-**Release name (Play Console, internal only):** `9 (1.2.0) — explanations for every question`
+Version code 9 (1.2.0) is already consumed on Play by the stale bundle uploaded
+on 24 Aug 2026 — Play rejects a second upload with the same code — so the
+shippable build is **10 (1.2.1)**. Same code, same question bank; only the
+version changed.
+
+**Release name (Play Console, internal only):** `10 (1.2.1) — explanations for every question`
 
 Play's "What's new" allows 500 characters. Final copy, 427 chars, verified
 2026-09-21. The logbook is hidden (`FeatureFlags.logbookEnabled = false`), so it

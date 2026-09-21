@@ -12,8 +12,9 @@ corrected. There is no section left to audit.
 
 What remains before this can be shipped (2026-09-21 status):
 
-1. **DONE** — release bundle rebuilt from the final TSV
+1. **DONE** — release bundle rebuilt from the final TSV as **10 (1.2.1)**
    (`app/build/outputs/bundle/release/app-release.aab`, 21 Sep 2026, 9.6 MB).
+   Version code 9 was already used on Play by the stale August upload.
    Unit tests pass. The signed release APK was installed on the Pixel_4_API_Tiramisu
    emulator and logcat showed `TSV asset version changed (stored=0, current=7) —
    reloading` followed by `Successfully loaded 7948 questions across 7 sections`.
@@ -860,7 +861,11 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-23.jdk/Contents/Home
 `java` on PATH are both 25). Temurin 23 is what `.idea/gradle.xml` uses;
 Corretto 21 and JBR 17 under `~/Library/Java/JavaVirtualMachines` also work.
 
-versionCode 9 / 1.2.0, targetSdk 36, Play Billing 9.1.0 — both confirmed in
+**versionCode 10 / 1.2.1** (bumped 2026-09-21: Play already holds a version
+code 9 from the stale 24 Aug upload and refused the new bundle as a duplicate;
+the user saw "You cannot remove all production APKs and Android App Bundles"
+after deleting the old one from an empty release). targetSdk 36, Play
+Billing 9.1.0 — both confirmed in
 the packaged release manifest and the resolved dependency cache, not just the
 source. Clears both 31 Aug 2026 Play deadlines (billing >= 8.0.0, targetSdk 36).
 
@@ -977,7 +982,7 @@ question id that proves the correction.
 
 ---
 
-## Known defects (not blocking 1.2.0)
+## Known defects (not blocking 1.2.1)
 
 - Logbook is built but hidden behind `FeatureFlags.logbookEnabled = false`.
   Two defects block re-enabling:
