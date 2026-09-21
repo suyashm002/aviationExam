@@ -22,8 +22,7 @@ What remains before this can be shipped (2026-09-21 status):
    this release by decision (2026-09-21).
 3. **DONE** — upgrade path v4 → v6 verified on an emulator with real logbook
    data; see "Upgrade path — VERIFIED" near the bottom.
-4. **Push the branch** — everything is committed, but the push needs the
-   `suyashm002` GitHub credential; see "Git on this machine".
+4. **DONE** — branch committed and pushed to origin (2026-09-21).
 5. Spot-check explanations in the exam UI after signing in (needs a Firebase
    account; not done from the emulator).
 6. Work through "Open questions" below — those keys were deliberately left
@@ -888,19 +887,16 @@ and the `~/Downloads/Xcode.app` copy that earlier sessions used has been deleted
 **`/opt/homebrew/bin/git` (2.55.0) was installed on 2026-09-21 and works.** Put
 `/opt/homebrew/bin` ahead of `/usr/bin` on PATH, or call it by full path.
 
-**Pushing needs the repo owner's credential.** The remote is
-`https://suyashm002@github.com/suyashm002/aviationExam.git`. The keychain has no
-credential for that account, and `gh` is logged in as `suyash-frozo`, which has
-pull-only permission on the repo, so `gh auth git-credential` cannot push it.
-Either log `gh` in as `suyashm002` (`gh auth login`, then `gh auth setup-git`),
-or push interactively once with a personal access token:
+**Pushing:** `gh` now holds two accounts; `suyashm002` (the repo owner) is the
+active one and is what pushes work. Push with the CLI's credential helper so
+the keychain's missing entry does not matter:
 
 ```bash
-/opt/homebrew/bin/git push -u origin release/1.2.0-play-compliance
+/opt/homebrew/bin/git -c credential.helper='!gh auth git-credential' push
 ```
 
-Until that happens the release branch (7 commits ahead of `main`, the whole
-audit plus this session's release work) exists only on this machine.
+`release/1.2.0-play-compliance` was pushed on 2026-09-21 and tracks
+`origin/release/1.2.0-play-compliance`. Nothing is local-only any more.
 
 ## Upgrade path — VERIFIED 2026-09-21 on an emulator
 
