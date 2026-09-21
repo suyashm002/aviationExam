@@ -13,7 +13,7 @@ import java.io.InputStreamReader
 import java.util.concurrent.ConcurrentHashMap
 
 /**
- * Manages MCQ questions locally. All 9,076 questions are bundled with the app
+ * Manages MCQ questions locally. All 7,948 questions are bundled with the app
  * as a TSV asset file, so no Firebase calls are needed for question data.
  *
  * Flow:
@@ -33,8 +33,16 @@ class QuestionCacheManager(
     companion object {
         private const val TAG = "QuestionCacheManager"
         private const val PREFS_NAME = "question_cache"
-        private const val PREF_TSV_LOADED = "tsv_data_loaded_v1"
+        private const val PREF_TSV_VERSION = "tsv_data_version"
         private const val TSV_ASSET_FILE = "all_questions.tsv"
+
+        /**
+         * Bump this whenever the bundled TSV changes (new explanations,
+         * answer corrections, added questions). Existing users will
+         * re-parse the TSV on next launch when the stored version
+         * doesn't match.
+         */
+        const val TSV_ASSET_VERSION = 7
 
         // Available sections matching the bundled TSV data
         private val AVAILABLE_SECTIONS = setOf(
@@ -67,11 +75,13 @@ class QuestionCacheManager(
             return
         }
 
-        // Check if TSV data has already been loaded
-        if (prefs.getBoolean(PREF_TSV_LOADED, false)) {
-            Log.d(TAG, "TSV data already loaded, skipping")
+        // Check if bundled TSV version matches what was previously loaded
+        if (prefs.getInt(PREF_TSV_VERSION, 0) >= TSV_ASSET_VERSION) {
+            Log.d(TAG, "TSV asset version $TSV_ASSET_VERSION already loaded, skipping")
             return
         }
+
+        Log.d(TAG, "TSV asset version changed (stored=${prefs.getInt(PREF_TSV_VERSION, 0)}, current=$TSV_ASSET_VERSION) — reloading")
 
         Log.d(TAG, "Loading bundled questions from TSV asset...")
 
@@ -92,8 +102,8 @@ class QuestionCacheManager(
                 Log.d(TAG, "Loaded ${entities.size} questions for section '$sectionId'")
             }
 
-            // Mark as loaded so we don't re-parse on next launch
-            prefs.edit().putBoolean(PREF_TSV_LOADED, true).apply()
+            // Store the version so we don't re-parse until the next asset update
+            prefs.edit().putInt(PREF_TSV_VERSION, TSV_ASSET_VERSION).apply()
 
             Log.d(TAG, "Successfully loaded ${questions.size} questions across ${bySection.size} sections")
         } catch (e: Exception) {
@@ -103,7 +113,7 @@ class QuestionCacheManager(
 
     /**
      * Parse the bundled TSV asset file into Question objects.
-     * TSV format: id, questionText, optionA, optionB, optionC, optionD, correctAnswer, sectionId, updatedAt
+     * TSV format: id, questionText, optionA, optionB, optionC, optionD, correctAnswer, sectionId, updatedAt, explanation
      */
     private fun parseTsvAsset(): List<Question> {
         val questions = mutableListOf<Question>()
@@ -128,7 +138,10 @@ class QuestionCacheManager(
                                     optionD = if (parts.size > 5 && parts[5].isNotBlank()) parts[5] else null,
                                     correctAnswer = parts[6],
                                     sectionId = parts[7],
-                                    explanation = null,
+                                    // Column 9 (index 9) holds the answer
+                                    // explanation. Absent in older assets, so
+                                    // treat a missing or blank value as none.
+                                    explanation = parts.getOrNull(9)?.takeIf { it.isNotBlank() },
                                     difficulty = "medium",
                                     source = "bundled"
                                 )
@@ -203,9 +216,9 @@ class QuestionCacheManager(
     fun clearAllCache() {
         try {
             memoryCache.clear()
-            // Reset the loaded flag so TSV will be re-parsed on next access
+            // Reset the version so TSV will be re-parsed on next access
             prefs.edit()
-                .putBoolean(PREF_TSV_LOADED, false)
+                .putInt(PREF_TSV_VERSION, 0)
                 .apply()
             Log.d(TAG, "All cache cleared — TSV will reload on next access")
         } catch (e: Exception) {

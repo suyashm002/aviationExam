@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Exported logbook PDFs are written to the app's external files dir and
+         shared with instructors/examiners through a content:// URI. -->
+    <external-files-path name="exports" path="." />
+    <files-path name="internal" path="." />
+    <cache-path name="cache" path="." />
+    <external-cache-path name="external_cache" path="." />
+</paths>

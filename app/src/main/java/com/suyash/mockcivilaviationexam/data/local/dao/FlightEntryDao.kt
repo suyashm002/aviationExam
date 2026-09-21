@@ -39,6 +39,13 @@ interface FlightEntryDao {
     @Query("DELETE FROM flight_entries WHERE id = :id")
     suspend fun deleteFlightById(id: Long)
 
+    /**
+     * Re-homes entries written by builds that stored every flight under a
+     * single literal id, so upgrading users keep their logbook.
+     */
+    @Query("UPDATE flight_entries SET userId = :newUserId WHERE userId = :legacyUserId")
+    suspend fun reassignUserId(legacyUserId: String, newUserId: String): Int
+
     @Query("SELECT COUNT(*) FROM flight_entries WHERE userId = :userId")
     suspend fun getFlightCount(userId: String): Int
 
@@ -69,6 +76,10 @@ interface FlightEntryDao {
     @Query("""
         SELECT 
             COALESCE(SUM(totalFlightTime), 0.0) as totalTime,
+            COALESCE(SUM(blockTime), 0.0) as blockTime,
+            COALESCE(SUM(airTime), 0.0) as airTime,
+            COALESCE(SUM(dayLandings), 0) as dayLandings,
+            COALESCE(SUM(nightLandings), 0) as nightLandings,
             COALESCE(SUM(picTime), 0.0) as picTime,
             COALESCE(SUM(dualTime), 0.0) as dualTime,
             COALESCE(SUM(coPilotTime), 0.0) as coPilotTime,
@@ -82,6 +93,20 @@ interface FlightEntryDao {
         WHERE userId = :userId
     """)
     suspend fun getLogbookSummary(userId: String): LogbookSummaryQuery
+
+    @Query("""
+        SELECT COALESCE(SUM(dayLandings + nightLandings), 0)
+        FROM flight_entries
+        WHERE userId = :userId AND isSimulator = 0 AND date >= :sinceDate
+    """)
+    suspend fun getLandingsSince(userId: String, sinceDate: String): Int
+
+    @Query("""
+        SELECT COALESCE(SUM(nightLandings), 0)
+        FROM flight_entries
+        WHERE userId = :userId AND isSimulator = 0 AND date >= :sinceDate
+    """)
+    suspend fun getNightLandingsSince(userId: String, sinceDate: String): Int
 
     @Query("SELECT DISTINCT aircraftRegistration FROM flight_entries WHERE userId = :userId ORDER BY aircraftRegistration")
     suspend fun getDistinctAircraftRegistrations(userId: String): List<String>
@@ -109,6 +134,10 @@ interface FlightEntryDao {
 
 data class LogbookSummaryQuery(
     val totalTime: Double,
+    val blockTime: Double,
+    val airTime: Double,
+    val dayLandings: Int,
+    val nightLandings: Int,
     val picTime: Double,
     val dualTime: Double,
     val coPilotTime: Double,

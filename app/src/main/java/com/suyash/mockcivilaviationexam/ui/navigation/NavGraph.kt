@@ -47,14 +47,14 @@ fun AppNavGraph(
     ) {
         composable(Screen.Home.route) {
             HomeScreen(
-                onNavigateToExam = { sectionId ->
+                onNavigateToExam = { sectionId, questionCount ->
                     if (!app.featureFlags.subscriptionEnabled) {
-                        navController.navigate("exam/$sectionId")
+                        navController.navigate(Screen.Exam.createRoute(sectionId, questionCount))
                     } else {
                         val canTake = subscriptionViewModel.canTakeFreeExam(sectionId)
                         if (canTake) {
                             subscriptionViewModel.recordExamTaken(sectionId)
-                            navController.navigate("exam/$sectionId")
+                            navController.navigate(Screen.Exam.createRoute(sectionId, questionCount))
                         } else {
                             navController.navigate(Screen.Subscription.createRoute(sectionId))
                         }
@@ -65,18 +65,23 @@ fun AppNavGraph(
                 },
                 onNavigateToHistory = {
                     navController.navigate("history")
+                },
+                onNavigateToLogbook = {
+                    navController.navigate(Screen.Logbook.route)
                 }
             )
         }
         
-        composable("exam/{sectionId}") { backStackEntry ->
+        composable(Screen.Exam.route) { backStackEntry ->
             val sectionId = backStackEntry.arguments?.getString("sectionId") ?: ""
+            val questionCount = backStackEntry.arguments?.getString("questionCount")?.toIntOrNull() ?: 16
             ExamScreen(
                 sectionId = sectionId,
+                questionCount = questionCount,
                 onNavigateBack = { navController.popBackStack() },
                 onExamComplete = { examSessionId ->
                     navController.navigate("results/$examSessionId") {
-                        popUpTo("exam/$sectionId") { inclusive = true }
+                        popUpTo(Screen.Exam.createRoute(sectionId, questionCount)) { inclusive = true }
                     }
                 }
             )
@@ -158,6 +163,9 @@ fun AppNavGraph(
                 onNavigateToFlightDetail = { flightId ->
                     navController.navigate(Screen.FlightEntry.createRoute(flightId))
                 },
+                onNavigateToExport = {
+                    navController.navigate("export")
+                },
                 viewModel = viewModel
             )
         }
@@ -167,8 +175,25 @@ fun AppNavGraph(
             val viewModel: FlightEntryViewModel = viewModel {
                 FlightEntryViewModel(app.flightOperationsUseCase)
             }
-            
+
             FlightEntryScreen(
+                onNavigateBack = { navController.popBackStack() },
+                viewModel = viewModel
+            )
+        }
+
+        // Editing an existing flight. Without this destination, tapping a
+        // logbook entry navigates to a route that is not in the graph and the
+        // app crashes.
+        composable(Screen.FlightEntry.editRoute) { backStackEntry ->
+            val app = LocalContext.current.applicationContext as CivilAviationApp
+            val flightId = backStackEntry.arguments?.getString("flightId")?.toLongOrNull()
+            val viewModel: FlightEntryViewModel = viewModel {
+                FlightEntryViewModel(app.flightOperationsUseCase)
+            }
+
+            FlightEntryScreen(
+                flightId = flightId,
                 onNavigateBack = { navController.popBackStack() },
                 viewModel = viewModel
             )

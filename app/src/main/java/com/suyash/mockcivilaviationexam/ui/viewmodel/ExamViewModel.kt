@@ -28,7 +28,7 @@ class ExamViewModel(
     private var timerJob: Job? = null
     private var questionStartTime: Long = 0
 
-    fun startExam(sectionId: String) {
+    fun startExam(sectionId: String, questionCount: Int = QUESTIONS_PER_EXAM) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
                 isLoading = true,
@@ -36,12 +36,12 @@ class ExamViewModel(
             )
 
             try {
-                Log.d(TAG, "Starting exam for section: $sectionId")
+                Log.d(TAG, "Starting exam for section: $sectionId with $questionCount questions")
 
                 val sectionName = examRepository.getSectionName(sectionId)
 
                 // Get questions from local storage (no Firebase call)
-                val questions = examRepository.getQuestionsForSection(sectionId, QUESTIONS_PER_EXAM)
+                val questions = examRepository.getQuestionsForSection(sectionId, questionCount)
                 Log.d(TAG, "Got ${questions.size} questions for section $sectionId")
 
                 if (questions.isEmpty()) {

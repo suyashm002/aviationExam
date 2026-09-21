@@ -18,10 +18,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.suyash.mockcivilaviationexam.ui.theme.*
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.suyash.mockcivilaviationexam.CivilAviationApp
+import com.suyash.mockcivilaviationexam.domain.growth.AppShare
+import com.suyash.mockcivilaviationexam.domain.growth.ReviewPrompter
 import com.suyash.mockcivilaviationexam.domain.model.QuestionResult
 import com.suyash.mockcivilaviationexam.ui.viewmodel.ResultsViewModel
 
@@ -142,6 +147,18 @@ private fun ResultsContent(
     onNavigateBack: () -> Unit,
     onNavigateToHome: () -> Unit
 ) {
+    val context = LocalContext.current
+
+    // Ask for a Play rating at a high point: a passed exam, once the user has
+    // done enough of them to have a view. Play caps how often this can show.
+    LaunchedEffect(results.sessionId) {
+        val prompter = ReviewPrompter(context)
+        prompter.recordExamCompleted()
+        if (prompter.shouldPrompt(passed = results.isPassed)) {
+            context.findActivity()?.let { prompter.requestReview(it) }
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -184,7 +201,21 @@ private fun ResultsContent(
             items(results.questionResults.withIndex().toList()) { (index, questionResult) ->
                 QuestionResultCard(questionNumber = index + 1, questionResult = questionResult)
             }
-            item { ActionButtons(onNavigateToHome = onNavigateToHome, onTakeAnotherExam = onNavigateToHome) }
+            item {
+                ActionButtons(
+                    onNavigateToHome = onNavigateToHome,
+                    onTakeAnotherExam = onNavigateToHome,
+                    onShareResult = {
+                        AppShare.shareExamResult(
+                            context = context,
+                            sectionName = results.sectionName,
+                            score = results.score,
+                            correctAnswers = results.correctAnswers,
+                            totalQuestions = results.totalQuestions
+                        )
+                    }
+                )
+            }
         }
     }
 }
@@ -455,7 +486,8 @@ private fun QuestionResultCard(
 @Composable
 private fun ActionButtons(
     onNavigateToHome: () -> Unit,
-    onTakeAnotherExam: () -> Unit
+    onTakeAnotherExam: () -> Unit,
+    onShareResult: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -485,6 +517,19 @@ private fun ActionButtons(
         }
 
         OutlinedButton(
+            onClick = onShareResult,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(46.dp),
+            shape = RoundedCornerShape(10.dp),
+            border = androidx.compose.foundation.BorderStroke(1.dp, AvionicsBlue)
+        ) {
+            Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(18.dp))
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("Share Result", style = MaterialTheme.typography.labelLarge)
+        }
+
+        OutlinedButton(
             onClick = onNavigateToHome,
             modifier = Modifier
                 .fillMaxWidth()
@@ -500,4 +545,15 @@ private fun ActionButtons(
             Text("Back to Home", style = MaterialTheme.typography.labelLarge)
         }
     }
+}
+
+
+/** Walks the context wrapper chain to reach the hosting Activity. */
+private fun Context.findActivity(): Activity? {
+    var ctx: Context? = this
+    while (ctx is ContextWrapper) {
+        if (ctx is Activity) return ctx
+        ctx = ctx.baseContext
+    }
+    return null
 }

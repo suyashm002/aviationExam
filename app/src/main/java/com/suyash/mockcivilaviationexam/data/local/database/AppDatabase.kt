@@ -21,9 +21,10 @@ import com.suyash.mockcivilaviationexam.data.local.entities.*
         ExamSectionEntity::class,
         CacheMetadata::class,
         ExamSessionEntity::class,
-        ExamQuestionResultEntity::class
+        ExamQuestionResultEntity::class,
+        QuestionFeedbackEntity::class
     ],
-    version = 4,
+    version = 6,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -37,10 +38,53 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun examSectionDao(): ExamSectionDao
     abstract fun cacheMetadataDao(): CacheMetadataDao
     abstract fun examSessionDao(): ExamSessionDao
+    abstract fun questionFeedbackDao(): QuestionFeedbackDao
 
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
+
+        /**
+         * Adds block/air clock times, landings and approach counts to the
+         * logbook. Every column is added with a default so existing entries
+         * stay valid — they simply have no clock times recorded.
+         */
+        val MIGRATION_5_6 = object : Migration(5, 6) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN offBlockTime TEXT")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN takeoffTime TEXT")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN landingTime TEXT")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN onBlockTime TEXT")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN blockTime REAL NOT NULL DEFAULT 0.0")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN airTime REAL NOT NULL DEFAULT 0.0")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN dayLandings INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN nightLandings INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN instrumentApproaches INTEGER NOT NULL DEFAULT 0")
+
+                // Existing rows have a logged total but no block figure. Flight
+                // time as logged IS block time, so seed it rather than leaving
+                // historic hours out of block-time totals.
+                db.execSQL("UPDATE flight_entries SET blockTime = totalFlightTime WHERE blockTime = 0.0")
+            }
+        }
+
+        val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """CREATE TABLE IF NOT EXISTS `question_feedback` (
+                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        `questionId` TEXT NOT NULL,
+                        `sectionId` TEXT NOT NULL,
+                        `questionText` TEXT NOT NULL,
+                        `feedbackType` TEXT NOT NULL,
+                        `comment` TEXT NOT NULL DEFAULT '',
+                        `userEmail` TEXT NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        `synced` INTEGER NOT NULL DEFAULT 0
+                    )"""
+                )
+            }
+        }
 
         val MIGRATION_3_4 = object : Migration(3, 4) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -121,8 +165,8 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "kcaa_pilot_logbook_database"
                 )
-                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
-                    .fallbackToDestructiveMigration()
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+                    .fallbackToDestructiveMigration(dropAllTables = true)
                     .build()
                 INSTANCE = instance
                 instance

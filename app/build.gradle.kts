@@ -8,14 +8,14 @@ plugins {
 
 android {
     namespace = "com.suyash.mockcivilaviationexam"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.suyash.mockcivilaviationexam"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        targetSdk = 36
+        versionCode = 9
+        versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -102,6 +102,12 @@ dependencies {
     
     // Google Play Billing
     implementation(libs.billing)
+
+    // Google Play In-App Review
+    implementation(libs.play.review)
+
+    // WorkManager (weekly feedback sync)
+    implementation(libs.androidx.work.runtime)
 
     // Image Loading
     implementation(libs.coil.compose)

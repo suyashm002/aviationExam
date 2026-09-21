@@ -36,6 +36,7 @@ class BillingManager(
         billingClient = BillingClient.newBuilder(context)
             .setListener(this)
             .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
+            .enableAutoServiceReconnection()
             .build()
 
         billingClient?.startConnection(object : BillingClientStateListener {
@@ -71,9 +72,9 @@ class BillingManager(
             .setProductList(productList)
             .build()
 
-        billingClient?.queryProductDetailsAsync(params) { billingResult, productDetailsList ->
+        billingClient?.queryProductDetailsAsync(params) { billingResult, queryProductDetailsResult ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                val details = productDetailsList.firstOrNull()
+                val details = queryProductDetailsResult.productDetailsList.firstOrNull()
                 _productDetails.value = details
                 if (details != null) {
                     Log.d(TAG, "Product details loaded: ${details.name}")

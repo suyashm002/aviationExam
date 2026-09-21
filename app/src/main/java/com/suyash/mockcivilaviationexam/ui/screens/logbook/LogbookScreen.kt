@@ -27,6 +27,7 @@ import java.time.format.DateTimeFormatter
 fun LogbookScreen(
     onNavigateToFlightEntry: () -> Unit,
     onNavigateToFlightDetail: (Long) -> Unit,
+    onNavigateToExport: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: LogbookViewModel? = null
 ) {
@@ -60,14 +61,24 @@ fun LogbookScreen(
                 fontWeight = FontWeight.Bold
             )
             
-            FloatingActionButton(
-                onClick = onNavigateToFlightEntry,
-                modifier = Modifier.size(56.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add Flight"
-                )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onNavigateToExport) {
+                    Icon(
+                        imageVector = Icons.Default.PictureAsPdf,
+                        contentDescription = "Export logbook as PDF",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                FloatingActionButton(
+                    onClick = onNavigateToFlightEntry,
+                    modifier = Modifier.size(56.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add Flight"
+                    )
+                }
             }
         }
         
@@ -209,7 +220,7 @@ private fun EmptyLogbookPlaceholder(
         Spacer(modifier = Modifier.height(16.dp))
         
         Text(
-            text = "KCAA Pilot Logbook",
+            text = "Pilot Logbook",
             style = MaterialTheme.typography.headlineSmall
         )
         

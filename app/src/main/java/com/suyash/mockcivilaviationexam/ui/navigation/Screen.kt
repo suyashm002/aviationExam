@@ -7,8 +7,8 @@ sealed class Screen(val route: String) {
     object Login : Screen("login")
     object Register : Screen("register")
     
-    object Exam : Screen("exam/{sectionId}") {
-        fun createRoute(sectionId: String) = "exam/$sectionId"
+    object Exam : Screen("exam/{sectionId}/{questionCount}") {
+        fun createRoute(sectionId: String, questionCount: Int = 16) = "exam/$sectionId/$questionCount"
     }
     
     object Results : Screen("results/{examId}") {
@@ -21,6 +21,8 @@ sealed class Screen(val route: String) {
     object Logbook : Screen("logbook")
     
     object FlightEntry : Screen("flight_entry") {
+        /** Route for editing an existing entry; must match [createRoute]. */
+        const val editRoute = "flight_entry/{flightId}"
         fun createRoute(flightId: Long) = "flight_entry/$flightId"
     }
     
