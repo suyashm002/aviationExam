@@ -22,8 +22,8 @@ What remains before this can be shipped (2026-09-21 status):
    this release by decision (2026-09-21).
 3. **DONE** — upgrade path v4 → v6 verified on an emulator with real logbook
    data; see "Upgrade path — VERIFIED" near the bottom.
-4. **Push the branch** — `release/1.2.0-play-compliance` has never been pushed;
-   origin only has `main`. See "Git on this machine".
+4. **Push the branch** — everything is committed, but the push needs the
+   `suyashm002` GitHub credential; see "Git on this machine".
 5. Spot-check explanations in the exam UI after signing in (needs a Firebase
    account; not done from the emulator).
 6. Work through "Open questions" below — those keys were deliberately left
@@ -881,27 +881,26 @@ the TSV on next launch when the stored version differs.
 
 ---
 
-## Git on this machine — no working binary at all (2026-09-21)
+## Git on this machine — use Homebrew git (2026-09-21)
 
 `/usr/bin/git` fails because `xcode-select` has no active developer directory,
 and the `~/Downloads/Xcode.app` copy that earlier sessions used has been deleted.
-A Homebrew `git` install was started on 2026-09-21; check `/opt/homebrew/bin/git`.
+**`/opt/homebrew/bin/git` (2.55.0) was installed on 2026-09-21 and works.** Put
+`/opt/homebrew/bin` ahead of `/usr/bin` on PATH, or call it by full path.
 
-Until one works, the repository can still be read directly: `.git/HEAD`,
-`.git/refs/heads/*`, `.git/logs/HEAD`, and the objects are all loose (no
-packfiles), so a few lines of Python with `zlib` can extract any file from any
-commit. That is how the main-branch sources were recovered for the upgrade test.
-
-Fix properly with one of:
+**Pushing needs the repo owner's credential.** The remote is
+`https://suyashm002@github.com/suyashm002/aviationExam.git`. The keychain has no
+credential for that account, and `gh` is logged in as `suyash-frozo`, which has
+pull-only permission on the repo, so `gh auth git-credential` cannot push it.
+Either log `gh` in as `suyashm002` (`gh auth login`, then `gh auth setup-git`),
+or push interactively once with a personal access token:
 
 ```bash
-xcode-select --install                    # reinstall the Command Line Tools
-brew install git                          # standalone, independent of Xcode
+/opt/homebrew/bin/git push -u origin release/1.2.0-play-compliance
 ```
 
-**The release branch is unpushed.** `release/1.2.0-play-compliance` is 5 commits
-ahead of `main` (the whole audit lives there) and `origin` has only `main`. Push
-it before uploading to Play so the shipped code is backed up.
+Until that happens the release branch (7 commits ahead of `main`, the whole
+audit plus this session's release work) exists only on this machine.
 
 ## Upgrade path — VERIFIED 2026-09-21 on an emulator
 
@@ -1045,12 +1044,8 @@ Committed on `release/1.2.0-play-compliance`:
   which finishes the bank at 7,948/7,948 explanations and 775 corrections;
   `TSV_ASSET_VERSION` 6 -> 7, and this file.
 
-Uncommitted as of 2026-09-21 (no git binary on the machine that day — commit
-these first): `docs/STORE_LISTING.md` (logbook lines removed),
-`MainActivity.kt` (comment count 9,076 -> 7,948), and this file.
-
-Still uncommitted and unrelated: `gradle/wrapper/gradle-wrapper.properties`
-(Gradle 8.14.3 -> 8.14.5, bumped by the wrapper itself). Left alone deliberately —
-commit it separately if wanted.
+- 2026-09-21 — release readiness: store listing without the logbook, this
+  file, the MainActivity comment; and, separately, the Gradle wrapper
+  8.14.3 -> 8.14.5 bump (the version the release bundle was built with).
 
 Nothing has been pushed.
