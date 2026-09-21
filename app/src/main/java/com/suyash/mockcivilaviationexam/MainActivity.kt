@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
                 app.sectionRepository,
                 app.studyMaterialRepository
             )
-            // Load all 9,076 bundled MCQ questions into Room DB (from TSV asset)
+            // Load all 7,948 bundled MCQ questions into Room DB (from TSV asset)
             // This is idempotent — skips if already loaded
             app.examRepository.preloadQuestionsForUser()
 

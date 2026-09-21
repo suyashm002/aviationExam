@@ -2,6 +2,10 @@
 
 Copy-paste ready. Replace the current listing text field by field.
 
+**The pilot logbook is hidden in 1.2.0 (`FeatureFlags.logbookEnabled = false`).**
+Nothing in the public copy below mentions it; re-add the logbook lines only
+when the flag is turned on.
+
 ## App title (30 char limit)
 
 ```
@@ -12,12 +16,12 @@ Aviation Exam Pro: KCAA Prep
 
 Alternatives if you want to widen the net later:
 - `Pilot Exam Prep: KCAA & ICAO` (28)
-- `ATPL CPL Exam Prep + Logbook` (28)
+- `ATPL CPL Exam Prep: Offline` (27)
 
 ## Short description (80 char limit)
 
 ```
-7,900+ KCAA & ICAO pilot exam questions with a free digital logbook. Offline.
+7,900+ KCAA & ICAO pilot exam questions with explanations. Free and offline.
 ```
 76 chars. Indexed for search, and it's the first line users read. The current
 one ("Professional aviation exam preparation with offline support and progress
@@ -30,8 +34,8 @@ Pass your KCAA pilot exams with 7,900+ practice questions — free, and fully of
 
 Aviation Exam Pro is built for student pilots and CPL/ATPL candidates preparing
 for Kenya Civil Aviation Authority and ICAO-aligned written exams. Practise on
-real exam-format multiple choice questions, track your weak subjects, and log
-your flight hours — all in one app that works without an internet connection.
+real exam-format multiple choice questions and track your weak subjects — all
+in one app that works without an internet connection.
 
 WHAT YOU GET
 
@@ -39,7 +43,6 @@ WHAT YOU GET
 • Unlimited mock exams — no daily limits, no locked sections
 • Instant results with explanations for every question
 • Full offline access — study on the apron, in the air, anywhere
-• Digital pilot logbook with PDF export for your instructor or examiner
 • Progress tracking across every subject
 • Free to use
 
@@ -52,12 +55,6 @@ SUBJECTS COVERED
 • Human Performance and Limitations
 • Operational Procedures
 • Navigation
-
-BUILT-IN PILOT LOGBOOK
-
-Record flights as you fly them: date, aircraft type and registration, route,
-PIC, dual, night, IFR and cross-country time. Export a clean, regulation-format
-PDF whenever your instructor, school, or examiner asks for it.
 
 STUDY OFFLINE, ANYWHERE
 
@@ -82,7 +79,7 @@ the app — we read everything.
 
 Play indexes the title, short description, and full description. These should
 appear naturally at least once: KCAA, pilot exam, aviation exam, ATPL, CPL, PPL,
-student pilot, air law, meteorology, navigation, principles of flight, logbook,
+student pilot, air law, meteorology, navigation, principles of flight,
 offline, Kenya, ICAO.
 
 ## Screenshots (highest-impact asset — 8 slots)
@@ -93,8 +90,8 @@ Put a one-line caption on each image; don't ship bare screen captures.
 1. Exam question in progress — caption: "7,900+ real exam-format questions"
 2. Results screen with a pass — caption: "Instant scoring and explanations"
 3. Subject grid — caption: "All 7 KCAA subjects covered"
-4. Logbook list — caption: "Digital logbook built in"
-5. PDF export — caption: "Export a regulation-format PDF"
+4. Question with explanation — caption: "Every answer explained"
+5. Report-a-question sheet — caption: "Flag a problem question in one tap"
 6. Offline state — caption: "Works with no internet"
 7. Progress/stats — caption: "See your weak subjects"
 8. Free callout — caption: "Free — no exam limits"

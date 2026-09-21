@@ -1,6 +1,6 @@
 # Handoff — Aviation Exam Pro
 
-State as of 2026-09-09. Read this first in a new session.
+State as of 2026-09-21. Read this first in a new session.
 
 ---
 
@@ -10,16 +10,30 @@ State as of 2026-09-09. Read this first in a new session.
 sections have a written explanation, and 775 wrong answer keys have been
 corrected. There is no section left to audit.
 
-What remains before this can be shipped:
+What remains before this can be shipped (2026-09-21 status):
+
+1. **DONE** — release bundle rebuilt from the final TSV
+   (`app/build/outputs/bundle/release/app-release.aab`, 21 Sep 2026, 9.6 MB).
+   Unit tests pass. The signed release APK was installed on the Pixel_4_API_Tiramisu
+   emulator and logcat showed `TSV asset version changed (stored=0, current=7) —
+   reloading` followed by `Successfully loaded 7948 questions across 7 sections`.
+2. **DONE** — `docs/STORE_LISTING.md` no longer advertises the logbook, which is
+   hidden by `FeatureFlags.logbookEnabled = false`. The logbook stays hidden for
+   this release by decision (2026-09-21).
+3. **DONE** — upgrade path v4 → v6 verified on an emulator with real logbook
+   data; see "Upgrade path — VERIFIED" near the bottom.
+4. **Push the branch** — `release/1.2.0-play-compliance` has never been pushed;
+   origin only has `main`. See "Git on this machine".
+5. Spot-check explanations in the exam UI after signing in (needs a Firebase
+   account; not done from the emulator).
+6. Work through "Open questions" below — those keys were deliberately left
+   alone and want a subject-matter decision, not another audit pass.
+
+Build with the right JDK or Gradle fails instantly with the bare message `25.0.2`:
 
 ```bash
-# 1. Build and install, then confirm the re-parse actually happens
-./gradlew assembleDebug           # see "Build state" below
-adb logcat -s QuestionCacheManager  # expect "TSV asset version changed ... reloading"
-
-# 2. Spot-check explanations in the app UI on a few questions from each section
-# 3. Work through "Open questions" below — those keys were deliberately left
-#    alone and want a subject-matter decision, not another audit pass
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-23.jdk/Contents/Home
+./gradlew :app:bundleRelease
 ```
 
 If you are picking up a *new* audit task (a new question source, say), read
@@ -832,21 +846,27 @@ Single items left as keyed, with the doubt recorded:
 
 ---
 
-## Build state — REBUILD NEEDED before uploading
+## Build state — REBUILT 2026-09-21
 
-The AAB from an earlier session is stale: the TSV has changed six times since
-(meteorology, principles of flight, operational procedures, navigation, human
-performance, aircraft general) and `QuestionCacheManager.kt` has changed again.
-This build is the first that would ship a complete set of explanations.
+`app/build/outputs/bundle/release/app-release.aab` was rebuilt on 2026-09-21 from
+the final TSV (all seven sections audited, `TSV_ASSET_VERSION = 7`). This is the
+build to upload. If the TSV or any source changes again, rebuild:
 
-```
+```bash
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-23.jdk/Contents/Home
 ./gradlew :app:bundleRelease
 ```
 
-versionCode 9 / 1.2.0, targetSdk 36, Play Billing 9.1.0.
-Clears both 31 Aug 2026 Play deadlines (billing >= 8.0.0, targetSdk 36).
+**JDK:** Gradle 8.14.5 refuses JDK 25 (Android Studio's bundled JBR and the
+`java` on PATH are both 25). Temurin 23 is what `.idea/gradle.xml` uses;
+Corretto 21 and JBR 17 under `~/Library/Java/JavaVirtualMachines` also work.
 
-Release notes and store listing copy: `docs/STORE_LISTING.md`.
+versionCode 9 / 1.2.0, targetSdk 36, Play Billing 9.1.0 — both confirmed in
+the packaged release manifest and the resolved dependency cache, not just the
+source. Clears both 31 Aug 2026 Play deadlines (billing >= 8.0.0, targetSdk 36).
+
+Release notes and store listing copy: `docs/STORE_LISTING.md` (logbook lines
+removed 2026-09-21 because the feature is hidden).
 
 ### TSV version stamp
 
@@ -861,43 +881,65 @@ the TSV on next launch when the stored version differs.
 
 ---
 
-## Git on this machine — broken shim, working binary
+## Git on this machine — no working binary at all (2026-09-21)
 
-`/usr/bin/git` still fails before it starts:
+`/usr/bin/git` fails because `xcode-select` has no active developer directory,
+and the `~/Downloads/Xcode.app` copy that earlier sessions used has been deleted.
+A Homebrew `git` install was started on 2026-09-21; check `/opt/homebrew/bin/git`.
 
-```
-git: error: unable to locate xcodebuild, please make sure the path to the Xcode folder is set correctly!
-```
+Until one works, the repository can still be read directly: `.git/HEAD`,
+`.git/refs/heads/*`, `.git/logs/HEAD`, and the objects are all loose (no
+packfiles), so a few lines of Python with `zlib` can extract any file from any
+commit. That is how the main-branch sources were recovered for the upgrade test.
 
-The cause is that `xcode-select -p` points at `/Users/suyashmishra/Downloads/Xcode.app/Contents/Developer`,
-an incomplete Xcode, and `/Library/Developer/CommandLineTools` is present but has
-no `usr/bin/xcrun`, so `DEVELOPER_DIR` cannot be used as a workaround either.
-
-**The real git binary inside that Xcode.app works fine** and was used for this
-session's commits:
+Fix properly with one of:
 
 ```bash
-/Users/suyashmishra/Downloads/Xcode.app/Contents/Developer/usr/bin/git status
+xcode-select --install                    # reinstall the Command Line Tools
+brew install git                          # standalone, independent of Xcode
 ```
 
-Set an alias, or fix it properly with one of:
+**The release branch is unpushed.** `release/1.2.0-play-compliance` is 5 commits
+ahead of `main` (the whole audit lives there) and `origin` has only `main`. Push
+it before uploading to Play so the shipped code is backed up.
 
-```bash
-sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer   # if a full Xcode is installed there
-xcode-select --install                                                  # reinstall the Command Line Tools
-```
+## Upgrade path — VERIFIED 2026-09-21 on an emulator
 
----
+The Room v4 → v5 → v6 migrations were exercised end to end on
+`Pixel_4_API_Tiramisu`:
 
-## NOT yet verified — do this before publishing
+1. `main` (versionCode 1, Room v4 — the oldest schema in the repo) was rebuilt
+   as a debug APK from the git objects and installed. It created the v4 database
+   and parsed all 7,948 questions.
+2. A logbook row was inserted into `flight_entries` (pulled with `run-as`,
+   edited with Python's sqlite3, pushed back) so the migration had real user
+   data to carry.
+3. The current debug build (versionCode 9, Room v6) was installed with
+   `adb install -r` and launched.
 
-The Room v5 → v6 migration and the logbook userId re-homing both run on upgrade
-and both touch existing user data, with
-`fallbackToDestructiveMigration(dropAllTables = true)` still in the builder — a
-faulty migration wipes logbooks silently rather than crashing.
+Result: no crash, `PRAGMA user_version` went 4 → 6, `question_feedback` was
+created, all nine new `flight_entries` columns exist, the test row survived with
+`blockTime` seeded from `totalFlightTime` (1.5 → 1.5) as `MIGRATION_5_6`
+intends, and the questions reloaded (`stored=0, current=7`) with 7,945
+explanations present.
 
-Only fresh installs have been tested. Either test a real upgrade over the live
-Play build, or use a staged rollout of 10–20% and watch the crash dashboard.
+Not exercised: the `claimLegacyEntries` userId re-homing, which only runs when a
+user is signed in (the emulator was not). It is a single `UPDATE ... WHERE
+userId = 'current_user'` and cannot drop rows.
+
+Caveat: the live 1.1.1 Play build's source is not in the repo, so this proves
+the migration chain from the oldest schema *in the repo*, not from the exact
+bytes on users' devices. A staged rollout of 10–20% with the crash dashboard
+open is still cheap insurance. Both debug builds were signed with the debug key;
+signing does not affect Room.
+
+The scratch copy of `main` used for this lives only in the session scratchpad
+and is not part of the repo. To repeat it: extract `main` with Python from
+`.git/objects`, copy `local.properties`, `app/google-services.json` and the TSV
+in, write a `gradle.properties` with `android.useAndroidX=true`, point it at the
+current `libs.versions.toml` and Gradle wrapper (the old AGP/Kotlin/Gradle are
+not cached and the network is slow), set `compileSdk = 36`, and drop in the
+current `BillingManager.kt` (billing 9 changed one callback signature).
 
 ---
 
@@ -908,7 +950,7 @@ columns. (Earlier notes claiming 9,076 were wrong — verified by row count and
 device logs.)
 
 Column 10 is `explanation`, rendered by `ResultsScreen.kt` when non-blank.
-5,386 rows now carry one (3 more are intentionally blank).
+7,945 rows carry one (3 are intentionally blank). Verified 2026-09-21.
 
 **Do NOT use an LLM API for explanations — Claude writes them directly
 in-session.**
@@ -928,6 +970,10 @@ question id that proves the correction.
   "Download options" → Mac (Apple silicon), or `brew install --cask android-studio`.
 - Test device: Samsung SM-A146B (Android 15), connected via adb.
   `adb install -r app/build/outputs/apk/release/app-release.apk`
+- Emulators exist too: `Pixel_4_API_Tiramisu`, `Pixel_Tablet_API_Tiramisu`,
+  `Nexus_7_2013`. Boot headless with
+  `~/Library/Android/sdk/emulator/emulator -avd Pixel_4_API_Tiramisu -no-window -no-audio`.
+  They are production images: no `adb root`, no `run-as` on release builds.
 - `adb shell pm clear com.suyash.mockcivilaviationexam` wipes the login. Only use
   it when a question-bank reload is needed.
 - A GateGuard hook blocks the first Bash command of each context window, and any
@@ -962,8 +1008,8 @@ question id that proves the correction.
 the question bank is not under version control. The audit work is stored in the
 two tracked caches instead:
 
-- `tools/explanations_cache.json` — 3,972 explanations
-- `tools/answer_corrections.json` — 524 corrections, each with a `from`, `to`
+- `tools/explanations_cache.json` — 7,948 explanations
+- `tools/answer_corrections.json` — 775 corrections, each with a `from`, `to`
   and a written reason
 - `tools/merge_batch.py` — the validating merge helper (see the batch workflow
   above); run it on one batch at a time, never two concurrently
@@ -998,6 +1044,10 @@ Committed on `release/1.2.0-play-compliance`:
 - 2026-09-09 — the aircraft-general pass (2,559 explanations, 162 corrections),
   which finishes the bank at 7,948/7,948 explanations and 775 corrections;
   `TSV_ASSET_VERSION` 6 -> 7, and this file.
+
+Uncommitted as of 2026-09-21 (no git binary on the machine that day — commit
+these first): `docs/STORE_LISTING.md` (logbook lines removed),
+`MainActivity.kt` (comment count 9,076 -> 7,948), and this file.
 
 Still uncommitted and unrelated: `gradle/wrapper/gradle-wrapper.properties`
 (Gradle 8.14.3 -> 8.14.5, bumped by the wrapper itself). Left alone deliberately —
