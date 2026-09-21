@@ -9,41 +9,41 @@ when the flag is turned on.
 ## App title (30 char limit)
 
 ```
-Aviation Exam Pro: KCAA Prep
+Aviation Exam Prep: PPL Pilot
 ```
-28 chars. The title is the single strongest ranking signal on Play — "KCAA" and
-"Prep" are the terms candidates actually type. Do not use the bare app name.
+29 chars. Tuned 2026-09-21 for the searches "aviation test", "aviation
+preparation", "pilot training" and "PPL exam": the title is the strongest
+ranking signal on Play, and it now carries *aviation*, *exam*, *prep*, *PPL*
+and *pilot*. "KCAA" moved into the short and full descriptions, which are also
+indexed. Do not use the bare app name.
 
-Alternatives if you want to widen the net later:
-- `Pilot Exam Prep: KCAA & ICAO` (28)
-- `ATPL CPL Exam Prep: Offline` (27)
+Alternatives if the rank for one term matters more than the others:
+- `Pilot Exam Prep: PPL & Aviation` (31 — one too long; drop the "&")
+- `PPL Exam Prep: Pilot Training` (29 — strongest for "pilot training")
+- `Aviation Exam Prep: KCAA Prep` (28 — the previous, Kenya-first title)
 
 ## Short description (80 char limit)
 
 ```
-7,900+ KCAA & ICAO pilot exam questions with explanations. Free and offline.
+Pilot training test prep: 7,900+ PPL, CPL & ATPL aviation exam questions offline
 ```
-76 chars. Indexed for search, and it's the first line users read. The current
-one ("Professional aviation exam preparation with offline support and progress
-tracking") contains none of the words anyone searches for.
+80 chars exactly. Indexed for search and the first line users read. Carries
+*pilot training*, *test prep*, *PPL*, *CPL*, *ATPL*, *aviation exam*, *offline*.
 
 ## Full description (4000 char limit)
 
 ```
-Pass your KCAA pilot exams with 7,900+ practice questions — free, and fully offline.
+Pass your PPL, CPL or ATPL aviation exam with 7,900+ practice questions — free, fully explained, and fully offline.
 
-Aviation Exam Pro is built for student pilots and CPL/ATPL candidates preparing
-for Kenya Civil Aviation Authority and ICAO-aligned written exams. Practise on
-real exam-format multiple choice questions and track your weak subjects — all
-in one app that works without an internet connection.
+Aviation Exam Prep is pilot training test preparation built for student pilots and CPL/ATPL candidates preparing for KCAA and ICAO-aligned written exams. Practise on real exam-format multiple choice questions, read a written explanation for every answer, and track your weak subjects — all in one app that works without an internet connection.
 
 WHAT YOU GET
 
-• 7,900+ exam questions across all 7 subjects
+• 7,900+ aviation exam questions across all 7 pilot theory subjects
+• A written explanation for every single question — learn why, not just what
 • Unlimited mock exams — no daily limits, no locked sections
-• Instant results with explanations for every question
+• Instant results and subject-by-subject progress tracking
 • Full offline access — study on the apron, in the air, anywhere
-• Progress tracking across every subject
 • Free to use
 
 SUBJECTS COVERED
@@ -56,18 +56,19 @@ SUBJECTS COVERED
 • Operational Procedures
 • Navigation
 
+AVIATION TEST PREPARATION THAT EXPLAINS ITSELF
+
+Most pilot exam apps show you the key and move on. Every question here comes with a clear explanation of the underlying rule, formula or procedure, written for the PPL and CPL syllabus, so a wrong answer becomes a lesson instead of a guess.
+
 STUDY OFFLINE, ANYWHERE
 
-Every question is stored on your device. No data, no signal, no problem —
-useful at airfields and training rooms where coverage is unreliable.
+Every question is stored on your device. No data, no signal, no problem — useful at airfields and training rooms where coverage is unreliable.
 
 WHO IT'S FOR
 
-Student pilots, PPL candidates, CPL and ATPL candidates, flight school students,
-and anyone preparing for KCAA or ICAO-aligned aviation theory exams.
+Student pilots, PPL exam candidates, CPL and ATPL candidates, flight school students, and anyone preparing for KCAA or ICAO-aligned aviation theory exams.
 
-Questions, corrections, or a subject you'd like added? Send feedback from inside
-the app — we read everything.
+Questions, corrections, or a subject you'd like added? Report a question from inside the app — we read everything.
 ```
 
 ## Category and tags
@@ -77,10 +78,18 @@ the app — we read everything.
 
 ## Keywords to keep present in the listing text
 
-Play indexes the title, short description, and full description. These should
-appear naturally at least once: KCAA, pilot exam, aviation exam, ATPL, CPL, PPL,
-student pilot, air law, meteorology, navigation, principles of flight,
-offline, Kenya, ICAO.
+Play indexes the title, short description, and full description. Target phrases
+(2026-09-21), each present at least once in the copy above: aviation exam,
+aviation test, aviation test preparation, pilot training, pilot exam, PPL exam,
+PPL, CPL, ATPL, student pilot, test prep, offline, KCAA, ICAO, air law,
+meteorology, navigation, principles of flight.
+
+What the copy cannot do: Play has no keyword field, and rank for a broad term
+like "pilot training" is driven mostly by installs, rating and retention. The
+levers that move that are the in-app review prompt (already on after three
+passed exams), replying to every review, and screenshots that show explanations.
+Keyword repetition in the title or short description is a policy violation and
+gets the listing rejected — one occurrence each is the ceiling.
 
 ## Screenshots (highest-impact asset — 8 slots)
 
@@ -103,55 +112,25 @@ Aircraft cockpit or horizon background, app name, and the single line
 
 ## Release notes — v1.2.0 (versionCode 9)
 
-The pilot logbook is BUILT BUT HIDDEN in this build
-(`FeatureFlags.logbookEnabled = false`), so nothing below mentions it. Do not
-re-add logbook lines until that flag is turned on.
+**Release name (Play Console, internal only):** `9 (1.2.0) — explanations for every question`
 
-Play's "What's new" allows 500 characters. Counts verified.
-
-### Option A — bullets with a lead line (279 chars) — RECOMMENDED
+Play's "What's new" allows 500 characters. Final copy, 427 chars, verified
+2026-09-21. The logbook is hidden (`FeatureFlags.logbookEnabled = false`), so it
+is not mentioned.
 
 ```
-Every subject is now unlocked — unlimited free practice with no exam limits.
+Every question now has a written explanation — 7,900+ of them — so you learn why an answer is right, not just which one.
 
-• Share your exam results with study partners and instructors
-• Report a problem question directly from the exam screen
-• Updated for the latest Android release
-• Performance and stability improvements
+• 775 answer keys corrected after a full review of the question bank
+• Unlimited free practice in every subject, no exam limits
+• Share your results with study partners and instructors
+• Report a problem question straight from the exam screen
+• Updated for Android 16, plus performance and stability fixes
 ```
 
-### Option B — pure bullets (243 chars)
-
-```
-• Unlimited free practice — every subject unlocked, no exam limits
-• Share your exam results with study partners
-• Report a problem question from the exam screen
-• Updated for the latest Android release
-• Stability and performance improvements
-```
-
-### Option C — prose (264 chars)
-
-```
-Unlimited free practice — every subject unlocked, no exam limits.
-
-Share your results with study partners, and report a problem question straight from the exam screen.
-
-Updated for the latest Android release, with stability and performance improvements throughout.
-```
-
-### Before you paste
-
-The repository has a single commit at versionCode 1, so it cannot confirm what
-actually shipped in the live 1.1.1 build. If unlimited free practice or question
-reporting was ALREADY live, delete those lines — re-announcing an existing
-feature as new reads as padding and gives users nothing to come back for. If both
-were already live, use Option D:
-
-```
-• Updated for the latest Android release
-• Stability and performance improvements
-```
+If unlimited practice or question reporting was already in the live 1.1.1
+build, delete that line; the explanations line is new in this release
+regardless, because the audit that produced them finished on 2026-09-09.
 
 Do not translate manually; Play auto-translates listings for enabled locales.
 
