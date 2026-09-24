@@ -163,3 +163,24 @@ Do not translate manually; Play auto-translates listings for enabled locales.
   collector clears it; returning from the entry screen without saving produces no
   emission, so the spinner never stops
 - `ProfileViewModel` is a stub, so the PDF header has no licence number
+
+
+## Ready to re-add when the logbook ships (flag turned on 2026-09-24)
+
+Short description alternative (80 chars):
+
+```
+Pilot training test prep + flight logbook: 7,900+ PPL/CPL/ATPL questions
+```
+
+Full-description bullets to insert under WHAT YOU GET:
+
+```
+• Fly Now: time your lesson from off blocks to on blocks, with GPS takeoff and landing detection
+• Digital pilot logbook — minutes in the air vs on the ground, route, altitude, speed and track
+• Your aircraft remembered (Cessna 172N pre-set for students), PDF export for your instructor
+```
+
+Screenshot slots 4 and 5: the Fly Now screen airborne, and a flight detail page
+with the altitude profile. Release-notes line: "New: Fly Now flight recorder and
+pilot logbook with GPS tracking".

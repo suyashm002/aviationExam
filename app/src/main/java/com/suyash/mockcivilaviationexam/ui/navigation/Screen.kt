@@ -17,14 +17,25 @@ sealed class Screen(val route: String) {
     
     object History : Screen("history")
     
-    // Hidden logbook routes (keep for future use)
+    // Pilot logbook
     object Logbook : Screen("logbook")
+
+    /** Live recorder: off blocks / takeoff / landing / on blocks with GPS. */
+    object FlightRecorder : Screen("flight_recorder")
     
     object FlightEntry : Screen("flight_entry") {
         /** Route for editing an existing entry; must match [createRoute]. */
         const val editRoute = "flight_entry/{flightId}"
         fun createRoute(flightId: Long) = "flight_entry/$flightId"
+        /** New entry pre-filled from the recorder's finished session. */
+        const val recordedRoute = "flight_entry_recorded"
     }
+
+    object FlightDetail : Screen("flight_detail/{flightId}") {
+        fun createRoute(flightId: Long) = "flight_detail/$flightId"
+    }
+
+    object Export : Screen("export")
     
     object Aircraft : Screen("aircraft")
     

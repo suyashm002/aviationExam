@@ -8,6 +8,14 @@
     
     <!-- Optional permissions -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- In-flight recorder: GPS track and automatic takeoff/landing detection.
+         Requested at runtime only when the pilot turns GPS recording on. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     
     <!-- Feature declarations -->
     <uses-feature
@@ -15,6 +23,9 @@
         android:required="false" />
     <uses-feature
         android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
         android:required="false" />
 
     <application
@@ -39,6 +50,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Keeps GPS alive while a flight is being recorded. -->
+        <service
+            android:name=".service.FlightRecorderService"
+            android:exported="false"
+            android:foregroundServiceType="location" />
 
         <!-- Serves exported logbook PDFs to other apps. The authority must
              match the one used in ExportScreen.shareFile(). -->

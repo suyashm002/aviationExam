@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -30,6 +31,15 @@ import com.suyash.mockcivilaviationexam.ui.screens.subscription.SubscriptionScre
 import com.suyash.mockcivilaviationexam.ui.viewmodel.FlightEntryViewModel
 import com.suyash.mockcivilaviationexam.ui.viewmodel.LogbookViewModel
 import com.suyash.mockcivilaviationexam.ui.viewmodel.SubscriptionViewModel
+import com.suyash.mockcivilaviationexam.ui.viewmodel.AircraftViewModel
+import com.suyash.mockcivilaviationexam.ui.viewmodel.FlightDetailViewModel
+import com.suyash.mockcivilaviationexam.ui.viewmodel.FlightRecorderViewModel
+import com.suyash.mockcivilaviationexam.ui.screens.aircraft.AircraftScreen
+import com.suyash.mockcivilaviationexam.ui.screens.logbook.FlightDetailScreen
+import com.suyash.mockcivilaviationexam.ui.screens.recorder.FlightRecorderScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 
 @Composable
 fun AppNavGraph(
@@ -151,33 +161,77 @@ fun AppNavGraph(
         }
         
         composable(Screen.Logbook.route) {
-            val app = LocalContext.current.applicationContext as CivilAviationApp
             val viewModel: LogbookViewModel = viewModel {
                 LogbookViewModel(app.flightOperationsUseCase)
             }
+            val recorderState by app.flightRecorder.state.collectAsStateWithLifecycle()
             
             LogbookScreen(
                 onNavigateToFlightEntry = {
                     navController.navigate(Screen.FlightEntry.route)
                 },
                 onNavigateToFlightDetail = { flightId ->
-                    navController.navigate(Screen.FlightEntry.createRoute(flightId))
+                    navController.navigate(Screen.FlightDetail.createRoute(flightId))
                 },
                 onNavigateToExport = {
-                    navController.navigate("export")
+                    navController.navigate(Screen.Export.route)
                 },
+                onNavigateToRecorder = {
+                    navController.navigate(Screen.FlightRecorder.route)
+                },
+                onNavigateToAircraft = {
+                    navController.navigate(Screen.Aircraft.route)
+                },
+                onNavigateBack = { navController.popBackStack() },
+                recorderState = recorderState,
+                viewModel = viewModel
+            )
+        }
+
+        composable(Screen.FlightRecorder.route) {
+            val viewModel: FlightRecorderViewModel = viewModel {
+                FlightRecorderViewModel(app.flightRecorder, app.aircraftDefaultsUseCase, app.logbookPreferences)
+            }
+            FlightRecorderScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onSaveFlight = {
+                    navController.navigate(Screen.FlightEntry.recordedRoute) {
+                        popUpTo(Screen.FlightRecorder.route) { inclusive = true }
+                    }
+                },
+                onManageAircraft = { navController.navigate(Screen.Aircraft.route) },
                 viewModel = viewModel
             )
         }
         
         composable(Screen.FlightEntry.route) {
-            val app = LocalContext.current.applicationContext as CivilAviationApp
             val viewModel: FlightEntryViewModel = viewModel {
-                FlightEntryViewModel(app.flightOperationsUseCase)
+                FlightEntryViewModel(
+                    app.flightOperationsUseCase, app.aircraftDefaultsUseCase,
+                    app.logbookPreferences, app.flightRecorder
+                )
             }
 
             FlightEntryScreen(
                 onNavigateBack = { navController.popBackStack() },
+                onManageAircraft = { navController.navigate(Screen.Aircraft.route) },
+                viewModel = viewModel
+            )
+        }
+
+        // New entry pre-filled from a finished Fly Now session.
+        composable(Screen.FlightEntry.recordedRoute) {
+            val viewModel: FlightEntryViewModel = viewModel {
+                FlightEntryViewModel(
+                    app.flightOperationsUseCase, app.aircraftDefaultsUseCase,
+                    app.logbookPreferences, app.flightRecorder
+                )
+            }
+
+            FlightEntryScreen(
+                fromRecorder = true,
+                onNavigateBack = { navController.popBackStack() },
+                onManageAircraft = { navController.navigate(Screen.Aircraft.route) },
                 viewModel = viewModel
             )
         }
@@ -185,32 +239,51 @@ fun AppNavGraph(
         // Editing an existing flight. Without this destination, tapping a
         // logbook entry navigates to a route that is not in the graph and the
         // app crashes.
-        composable(Screen.FlightEntry.editRoute) { backStackEntry ->
-            val app = LocalContext.current.applicationContext as CivilAviationApp
-            val flightId = backStackEntry.arguments?.getString("flightId")?.toLongOrNull()
+        composable(
+            Screen.FlightEntry.editRoute,
+            arguments = listOf(navArgument("flightId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val flightId = backStackEntry.arguments?.getLong("flightId")
             val viewModel: FlightEntryViewModel = viewModel {
-                FlightEntryViewModel(app.flightOperationsUseCase)
+                FlightEntryViewModel(
+                    app.flightOperationsUseCase, app.aircraftDefaultsUseCase,
+                    app.logbookPreferences, app.flightRecorder
+                )
             }
 
             FlightEntryScreen(
                 flightId = flightId,
                 onNavigateBack = { navController.popBackStack() },
+                onManageAircraft = { navController.navigate(Screen.Aircraft.route) },
+                viewModel = viewModel
+            )
+        }
+
+        composable(
+            Screen.FlightDetail.route,
+            arguments = listOf(navArgument("flightId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val flightId = backStackEntry.arguments?.getLong("flightId") ?: return@composable
+            val viewModel: FlightDetailViewModel = viewModel {
+                FlightDetailViewModel(app.flightOperationsUseCase, app.flightTrackRepository)
+            }
+            FlightDetailScreen(
+                flightId = flightId,
+                onNavigateBack = { navController.popBackStack() },
+                onEdit = { id -> navController.navigate(Screen.FlightEntry.createRoute(id)) },
+                onDeleted = { navController.popBackStack() },
                 viewModel = viewModel
             )
         }
         
         composable(Screen.Aircraft.route) {
-            // Placeholder screen
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Aircraft Management\n(Coming Soon)",
-                    style = MaterialTheme.typography.headlineMedium,
-                    textAlign = TextAlign.Center
-                )
+            val viewModel: AircraftViewModel = viewModel {
+                AircraftViewModel(app.aircraftDefaultsUseCase)
             }
+            AircraftScreen(
+                onNavigateBack = { navController.popBackStack() },
+                viewModel = viewModel
+            )
         }
         
         composable(Screen.Instructors.route) {
@@ -227,9 +300,7 @@ fun AppNavGraph(
             }
         }
         
-        composable("export") {
-            val app = LocalContext.current.applicationContext as CivilAviationApp
-            
+        composable(Screen.Export.route) {
             ExportScreen(
                 onNavigateBack = { navController.popBackStack() },
                 pdfExportUseCase = app.pdfExportUseCase

@@ -51,7 +51,22 @@ data class FlightEntryEntity(
     val endorsementTimestamp: Long? = null,
     val userId: String,
     val createdAt: Long = System.currentTimeMillis(),
-    val lastModified: Long = System.currentTimeMillis()
+    val lastModified: Long = System.currentTimeMillis(),
+    // ---- Added in schema v7 (route, performance and recorder data) ----
+    /** Aircraft profile this flight was logged against, if chosen from the fleet list. */
+    val aircraftId: Long? = null,
+    /** Intermediate waypoints or the training area, e.g. "Ngong Hills - Athi River". */
+    val routeVia: String? = null,
+    val cruiseAltitudeFt: Int? = null,
+    val cruiseSpeedKt: Int? = null,
+    val maxAltitudeFt: Int? = null,
+    val maxGroundSpeedKt: Int? = null,
+    /** Ground distance actually flown, from the GPS track. */
+    val distanceNm: Double? = null,
+    val hobbsStart: Double? = null,
+    val hobbsEnd: Double? = null,
+    /** True when rows exist in flight_track_points for this flight. */
+    val hasTrack: Boolean = false
 )
 
 fun FlightEntryEntity.toDomainModel(): FlightEntry {
@@ -94,7 +109,17 @@ fun FlightEntryEntity.toDomainModel(): FlightEntry {
         endorsementTimestamp = endorsementTimestamp,
         userId = userId,
         createdAt = createdAt,
-        lastModified = lastModified
+        lastModified = lastModified,
+        aircraftId = aircraftId,
+        routeVia = routeVia,
+        cruiseAltitudeFt = cruiseAltitudeFt,
+        cruiseSpeedKt = cruiseSpeedKt,
+        maxAltitudeFt = maxAltitudeFt,
+        maxGroundSpeedKt = maxGroundSpeedKt,
+        distanceNm = distanceNm,
+        hobbsStart = hobbsStart,
+        hobbsEnd = hobbsEnd,
+        hasTrack = hasTrack
     )
 }
 
@@ -138,7 +163,17 @@ fun FlightEntry.toEntity(): FlightEntryEntity {
         endorsementTimestamp = endorsementTimestamp,
         userId = userId,
         createdAt = createdAt,
-        lastModified = lastModified
+        lastModified = lastModified,
+        aircraftId = aircraftId,
+        routeVia = routeVia,
+        cruiseAltitudeFt = cruiseAltitudeFt,
+        cruiseSpeedKt = cruiseSpeedKt,
+        maxAltitudeFt = maxAltitudeFt,
+        maxGroundSpeedKt = maxGroundSpeedKt,
+        distanceNm = distanceNm,
+        hobbsStart = hobbsStart,
+        hobbsEnd = hobbsEnd,
+        hasTrack = hasTrack
     )
 }
 

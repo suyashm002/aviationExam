@@ -20,7 +20,9 @@ data class AircraftEntity(
     val isHighPerformance: Boolean = false,
     val isTailwheel: Boolean = false,
     val userId: String,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    val cruiseSpeedKt: Int? = null,
+    val cruiseAltitudeFt: Int? = null
 )
 
 fun AircraftEntity.toDomainModel(): Aircraft {
@@ -36,7 +38,9 @@ fun AircraftEntity.toDomainModel(): Aircraft {
         isHighPerformance = isHighPerformance,
         isTailwheel = isTailwheel,
         userId = userId,
-        createdAt = createdAt
+        createdAt = createdAt,
+        cruiseSpeedKt = cruiseSpeedKt,
+        cruiseAltitudeFt = cruiseAltitudeFt
     )
 }
 
@@ -53,7 +57,9 @@ fun Aircraft.toEntity(): AircraftEntity {
         isHighPerformance = isHighPerformance,
         isTailwheel = isTailwheel,
         userId = userId,
-        createdAt = createdAt
+        createdAt = createdAt,
+        cruiseSpeedKt = cruiseSpeedKt,
+        cruiseAltitudeFt = cruiseAltitudeFt
     )
 }
 

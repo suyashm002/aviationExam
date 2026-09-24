@@ -46,7 +46,21 @@ data class FlightEntry(
     val endorsementTimestamp: Long? = null,
     val userId: String,
     val createdAt: Long = System.currentTimeMillis(),
-    val lastModified: Long = System.currentTimeMillis()
+    val lastModified: Long = System.currentTimeMillis(),
+    /** Aircraft profile this flight was logged against, if chosen from the fleet list. */
+    val aircraftId: Long? = null,
+    /** Intermediate waypoints or the training area, e.g. "Ngong Hills - Athi River". */
+    val routeVia: String? = null,
+    val cruiseAltitudeFt: Int? = null,
+    val cruiseSpeedKt: Int? = null,
+    val maxAltitudeFt: Int? = null,
+    val maxGroundSpeedKt: Int? = null,
+    /** Ground distance actually flown, from the GPS track. */
+    val distanceNm: Double? = null,
+    val hobbsStart: Double? = null,
+    val hobbsEnd: Double? = null,
+    /** True when a GPS track was recorded for this flight. */
+    val hasTrack: Boolean = false
 ) {
     /** Time on the ground under own power: block time not spent airborne. */
     val groundTime: Double
@@ -54,6 +68,30 @@ data class FlightEntry(
 
     val totalLandings: Int
         get() = dayLandings + nightLandings
+
+    /** Takeoff to landing, in whole minutes — what a student asks: "how long was I flying?". */
+    val flightMinutes: Int
+        get() = toMinutes(airTime)
+
+    /** Taxi, run-up and holding: block time that was not airborne, in whole minutes. */
+    val groundMinutes: Int
+        get() = toMinutes(groundTime)
+
+    /** Hobbs meter difference when both readings were entered. */
+    val hobbsTime: Double?
+        get() = if (hobbsStart != null && hobbsEnd != null && hobbsEnd >= hobbsStart)
+            Math.round((hobbsEnd - hobbsStart) * 10.0) / 10.0 else null
+
+    /** "HKNW - Ngong Hills - HKNW" style route line for lists and the PDF. */
+    val routeSummary: String
+        get() = listOfNotNull(
+            departureAerodrome.ifBlank { null },
+            routeVia?.ifBlank { null },
+            arrivalAerodrome.ifBlank { null }
+        ).joinToString(" - ")
+
+    private fun toMinutes(decimalHours: Double): Int =
+        if (decimalHours <= 0.0) 0 else Math.round(decimalHours * 60).toInt()
 }
 
 data class Aircraft(
@@ -68,8 +106,39 @@ data class Aircraft(
     val isHighPerformance: Boolean = false,
     val isTailwheel: Boolean = false,
     val userId: String,
-    val createdAt: Long = System.currentTimeMillis()
-)
+    val createdAt: Long = System.currentTimeMillis(),
+    /** Typical cruise speed, used to pre-fill the entry form. */
+    val cruiseSpeedKt: Int? = null,
+    /** Typical training-area altitude, used to pre-fill the entry form. */
+    val cruiseAltitudeFt: Int? = null
+) {
+    /** "Cessna 172N · 5Y-ABC" — one line for chips and dropdowns. */
+    val displayName: String
+        get() {
+            val name = listOfNotNull(manufacturer?.ifBlank { null }, model.ifBlank { null })
+                .joinToString(" ")
+                .ifBlank { type }
+            return if (registration.isBlank()) name else "$name · $registration"
+        }
+
+    companion object {
+        /**
+         * The trainer most PPL students fly. Seeded as the default profile so a
+         * new pilot's first entry needs only a registration.
+         */
+        fun cessna172N(userId: String, registration: String = ""): Aircraft = Aircraft(
+            type = "C172",
+            model = "172N",
+            registration = registration,
+            manufacturer = "Cessna",
+            category = AircraftCategory.AIRPLANE_SINGLE_ENGINE_LAND,
+            engineType = EngineType.PISTON,
+            userId = userId,
+            cruiseSpeedKt = 105,
+            cruiseAltitudeFt = 3500
+        )
+    }
+}
 
 data class Instructor(
     val id: Long = 0,

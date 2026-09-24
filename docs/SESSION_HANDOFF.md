@@ -1,10 +1,12 @@
 # Handoff — Aviation Exam Pro
 
-State as of 2026-09-21. Read this first in a new session.
+State as of 2026-09-24. Read this first in a new session.
 
 ---
 
 ## START HERE — next action
+
+**Read "2026-09-24 — PPL flight tracker" below first: the logbook is now live and has a recorder.**
 
 **The question-bank audit is finished.** All 7,948 questions in all seven
 sections have a written explanation, and 775 wrong answer keys have been
@@ -40,6 +42,90 @@ If you are picking up a *new* audit task (a new question source, say), read
 **"How to audit a section"** below — the sibling cross-check technique
 described there found 63 of the 133 navigation corrections, roughly half of the
 89 in human performance, and about 110 of the 162 in aircraft_general.
+
+---
+
+## 2026-09-24 — PPL flight tracker built, logbook flag turned ON
+
+The user asked for a way to log flight hours during PPL training: minutes in
+the air vs minutes on the ground, the route with altitude and speed, modelled
+on ForeFlight / MyFlightbook / Garmin Pilot auto-logging, with a Cessna 172N
+as the remembered default aircraft. Everything below is committed on
+`release/1.2.0-play-compliance` and is NOT in the 10 (1.2.1) bundle that is
+rolling out; it ships with the next release.
+
+**What was built**
+
+- **Fly Now recorder** (`ui/screens/recorder/FlightRecorderScreen.kt`,
+  `ui/viewmodel/FlightRecorderViewModel.kt`, `domain/logbook/FlightRecorder.kt`).
+  Four buttons — Off blocks, Takeoff, Landing, On blocks — drive a phase machine
+  with live block / air / ground clocks in minutes. State is a process-wide
+  singleton (`CivilAviationApp.flightRecorder`) persisted to
+  `LogbookPreferences.activeSessionJson` on every phase change, so a two-hour
+  lesson survives process death. "Takeoff again" handles circuits; landings
+  have a +/− counter for touch-and-goes.
+- **GPS auto-detect** (`service/FlightRecorderService.kt`, foreground service
+  type `location`, `LocationManager` GPS at 1 Hz, no Play-services dependency).
+  `domain/logbook/FlightPhaseDetector.kt` calls takeoff at ≥40 kt held 3 s and
+  landing at ≤30 kt held 20 s — ForeFlight's rule; thresholds live in
+  `LogbookPreferences`. Track points batch into `flight_track_points` under a
+  session id and are re-homed to the flight row on save
+  (`FlightTrackRepository.attachToFlight`). Touch-and-goes are deliberately not
+  auto-detected (they never slow below 30 kt); the UI says so.
+- **Room v7** (`MIGRATION_6_7`): `flight_entries` gains aircraftId, routeVia,
+  cruiseAltitudeFt, cruiseSpeedKt, maxAltitudeFt, maxGroundSpeedKt, distanceNm,
+  hobbsStart, hobbsEnd, hasTrack; `aircraft` gains cruiseSpeedKt,
+  cruiseAltitudeFt; new table `flight_track_points` with two indexes. Verified
+  on the emulator over the v6 database with a real row: no crash,
+  `user_version` 7, row intact.
+- **Default aircraft** (`domain/usecase/AircraftDefaultsUseCase.kt`,
+  `LogbookPreferences.defaultAircraftId`). First use seeds
+  `Aircraft.cessna172N()` (type C172, model 172N, 105 kt / 3,500 ft defaults)
+  and remembers it; the entry form and recorder pre-select it; picking another
+  in either place changes the default. A registration typed once into the form
+  is written back to the profile.
+- **My Aircraft screen** (`ui/screens/aircraft/AircraftScreen.kt`) replaces the
+  "Coming Soon" placeholder: add/edit/delete, star = default.
+- **Flight detail screen** (`ui/screens/logbook/FlightDetailScreen.kt`) with
+  hero numbers "In the air / On the ground / Block", OOOI times, performance,
+  and Canvas-drawn altitude profile, speed profile and track outline
+  (`components/TrackCharts.kt`, no charting library). Tapping a logbook card now
+  opens this instead of the edit form; Edit and Delete live here.
+- **Entry form**: aircraft dropdown, "Via / training area", performance section
+  (cruise/max altitude and speed, distance, Hobbs start/end), "In the air X min ·
+  on the ground Y min" line, "Review Flight" mode pre-filled from the recorder.
+- **Fixes**: the stuck spinner in `LogbookViewModel` (the reason the logbook
+  was hidden) and the stacked Room collectors; `flightId` nav args are typed
+  `LongType`; the Logbook has a back arrow and a Fly Now card; Home has a
+  Pilot Logbook card. `FeatureFlags.logbookEnabled` now defaults to **true**.
+
+**Tests.** 24 JVM unit tests pass (`FlightPhaseDetectorTest`, `TrackStatsTest`,
+`FlightRecorderStateTest`, `FlightEntryTest`, plus the existing calculator
+tests). `androidTest/.../logbook/FlyNowFlowTest.kt` drives the real screens
+through a whole flight (start → off blocks → takeoff → landing → +1
+touch-and-go → on blocks → review form → save) and checks the Room row, the
+remembered default aircraft and the registration write-back. **Passes on the
+Pixel_4_API_Tiramisu emulator (2026-09-24, 5.6 s).** Run it with
+`ANDROID_SERIAL=emulator-5554 ./gradlew :app:connectedDebugAndroidTest` online
+(the UTP plugin is not in the offline cache), or offline by building
+`assembleDebugAndroidTest`, installing both APKs and running
+`adb shell am instrument -w -r -e class ...FlyNowFlowTest
+com.suyash.mockcivilaviationexam.test/androidx.test.runner.AndroidJUnitRunner`.
+Two earlier runs died because an attached Android Studio deploy agent
+force-stopped the app; close Studio's run tab if that recurs.
+
+**Not done / decisions for the next session**
+
+- Store listing: the public copy was stripped of logbook lines for 1.2.1 while
+  the feature was hidden. With the flag on, re-add them for the next release —
+  a ready block is at the bottom of `docs/STORE_LISTING.md`.
+- The PDF export does not yet print routeVia, Hobbs, or the new performance
+  columns.
+- Night detection (sunset-based, as MyFlightbook does) is not implemented;
+  night landings are entered by hand.
+- No aerodrome database: departure/arrival are free text remembered from the
+  last flight.
+- `ProfileViewModel` is still a stub (PDF header has no licence number).
 
 ---
 

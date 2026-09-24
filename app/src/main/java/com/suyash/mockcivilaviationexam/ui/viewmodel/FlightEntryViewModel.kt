@@ -3,7 +3,11 @@ package com.suyash.mockcivilaviationexam.ui.viewmodel
 import com.suyash.mockcivilaviationexam.domain.logbook.LogbookUser
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.suyash.mockcivilaviationexam.data.cache.LogbookPreferences
+import com.suyash.mockcivilaviationexam.domain.logbook.FlightRecorder
+import com.suyash.mockcivilaviationexam.domain.model.Aircraft
 import com.suyash.mockcivilaviationexam.domain.model.FlightEntry
+import com.suyash.mockcivilaviationexam.domain.usecase.AircraftDefaultsUseCase
 import com.suyash.mockcivilaviationexam.domain.usecase.FlightOperationsUseCase
 import com.suyash.mockcivilaviationexam.domain.usecase.ValidationError
 import kotlinx.coroutines.flow.*
@@ -12,7 +16,10 @@ import com.suyash.mockcivilaviationexam.domain.logbook.FlightTimeCalculator
 import java.time.LocalDate
 
 class FlightEntryViewModel(
-    private val flightOperationsUseCase: FlightOperationsUseCase
+    private val flightOperationsUseCase: FlightOperationsUseCase,
+    private val aircraftDefaults: AircraftDefaultsUseCase,
+    private val prefs: LogbookPreferences,
+    private val recorder: FlightRecorder
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(FlightEntryUiState())
@@ -20,13 +27,154 @@ class FlightEntryViewModel(
 
     private val userId: String get() = LogbookUser.id()
     private var currentFlightId: Long? = null
+    private var initialised = false
+
+    init {
+        viewModelScope.launch {
+            aircraftDefaults.fleet(userId).collect { fleet ->
+                _uiState.update { it.copy(fleet = fleet) }
+            }
+        }
+    }
+
+    /**
+     * A brand-new entry: pre-fill the remembered aircraft, the last aerodromes
+     * and the last instructor, because a student's next lesson looks like the
+     * previous one.
+     */
+    fun initNewEntry() {
+        if (initialised) return
+        initialised = true
+        viewModelScope.launch {
+            val aircraft = aircraftDefaults.resolveDefault(userId)
+            _uiState.update {
+                it.copy(
+                    aircraftId = aircraft.id,
+                    aircraftType = aircraft.type,
+                    aircraftModel = aircraft.model,
+                    aircraftRegistration = aircraft.registration,
+                    cruiseAltitudeFt = it.cruiseAltitudeFt ?: aircraft.cruiseAltitudeFt,
+                    cruiseSpeedKt = it.cruiseSpeedKt ?: aircraft.cruiseSpeedKt,
+                    departureAerodrome = it.departureAerodrome.ifBlank { prefs.lastDeparture },
+                    arrivalAerodrome = it.arrivalAerodrome.ifBlank { prefs.lastArrival.ifBlank { prefs.lastDeparture } },
+                    instructorName = it.instructorName ?: prefs.lastInstructorName.ifBlank { null },
+                    instructorLicenseNumber = it.instructorLicenseNumber ?: prefs.lastInstructorLicense.ifBlank { null }
+                )
+            }
+            validateForm()
+        }
+    }
+
+    /** An entry created from the Fly Now recorder: everything it measured goes in first. */
+    fun initFromRecorder() {
+        if (initialised) return
+        initialised = true
+        val recorded = recorder.summary()
+        viewModelScope.launch {
+            val fleet = aircraftDefaults.fleet(userId).first()
+            val aircraft = recorded.aircraft?.id?.let { id -> fleet.firstOrNull { it.id == id } }
+                ?: aircraftDefaults.resolveDefault(userId)
+            _uiState.update {
+                it.copy(
+                    fromRecorder = true,
+                    recorderSessionId = recorded.sessionId,
+                    date = recorded.date,
+                    departureAerodrome = recorded.departure.ifBlank { prefs.lastDeparture },
+                    arrivalAerodrome = recorded.arrival.ifBlank { recorded.departure },
+                    aircraftId = aircraft.id,
+                    aircraftType = recorded.aircraft?.type ?: aircraft.type,
+                    aircraftModel = recorded.aircraft?.model ?: aircraft.model,
+                    aircraftRegistration = (recorded.aircraft?.registration ?: "").ifBlank { aircraft.registration },
+                    offBlockText = FlightTimeCalculator.format(recorded.offBlock),
+                    takeoffText = FlightTimeCalculator.format(recorded.takeoff),
+                    landingText = FlightTimeCalculator.format(recorded.landing),
+                    onBlockText = FlightTimeCalculator.format(recorded.onBlock),
+                    blockTime = recorded.blockHours,
+                    airTime = recorded.airHours,
+                    totalFlightTime = if (recorded.blockHours > 0.0) recorded.blockHours else recorded.airHours,
+                    dayLandings = recorded.landings,
+                    maxAltitudeFt = recorded.maxAltitudeFt,
+                    maxGroundSpeedKt = recorded.maxGroundSpeedKt,
+                    distanceNm = recorded.distanceNm,
+                    hasTrack = recorded.hasTrack,
+                    cruiseAltitudeFt = aircraft.cruiseAltitudeFt,
+                    cruiseSpeedKt = aircraft.cruiseSpeedKt,
+                    instructorName = prefs.lastInstructorName.ifBlank { null },
+                    instructorLicenseNumber = prefs.lastInstructorLicense.ifBlank { null }
+                )
+            }
+            // Circuits: several airborne segments. The clock-time fields only
+            // describe first takeoff to last landing, so keep the measured air
+            // time rather than letting recalculateClockTimes() overwrite it.
+            autoCalculateTimes()
+            validateForm()
+        }
+    }
+
+    fun selectAircraft(aircraft: Aircraft) {
+        _uiState.update {
+            it.copy(
+                aircraftId = aircraft.id,
+                aircraftType = aircraft.type,
+                aircraftModel = aircraft.model,
+                aircraftRegistration = aircraft.registration.ifBlank { it.aircraftRegistration },
+                cruiseAltitudeFt = it.cruiseAltitudeFt ?: aircraft.cruiseAltitudeFt,
+                cruiseSpeedKt = it.cruiseSpeedKt ?: aircraft.cruiseSpeedKt
+            )
+        }
+        aircraftDefaults.setDefault(aircraft.id)
+        validateForm()
+    }
+
+    fun updateRouteVia(text: String) {
+        _uiState.update { it.copy(routeVia = text) }
+    }
+
+    fun updateCruiseAltitude(value: Int?) {
+        _uiState.update { it.copy(cruiseAltitudeFt = value) }
+    }
+
+    fun updateCruiseSpeed(value: Int?) {
+        _uiState.update { it.copy(cruiseSpeedKt = value) }
+    }
+
+    fun updateMaxAltitude(value: Int?) {
+        _uiState.update { it.copy(maxAltitudeFt = value) }
+    }
+
+    fun updateMaxGroundSpeed(value: Int?) {
+        _uiState.update { it.copy(maxGroundSpeedKt = value) }
+    }
+
+    fun updateDistance(value: Double?) {
+        _uiState.update { it.copy(distanceNm = value) }
+    }
+
+    fun updateHobbsStart(value: Double?) {
+        _uiState.update { it.copy(hobbsStart = value) }
+    }
+
+    fun updateHobbsEnd(value: Double?) {
+        _uiState.update { it.copy(hobbsEnd = value) }
+    }
 
     fun loadFlight(flightId: Long) {
         currentFlightId = flightId
+        initialised = true
         viewModelScope.launch {
             val flight = flightOperationsUseCase.getFlightById(flightId) ?: return@launch
             _uiState.update {
                 it.copy(
+                    aircraftId = flight.aircraftId,
+                    routeVia = flight.routeVia ?: "",
+                    cruiseAltitudeFt = flight.cruiseAltitudeFt,
+                    cruiseSpeedKt = flight.cruiseSpeedKt,
+                    maxAltitudeFt = flight.maxAltitudeFt,
+                    maxGroundSpeedKt = flight.maxGroundSpeedKt,
+                    distanceNm = flight.distanceNm,
+                    hobbsStart = flight.hobbsStart,
+                    hobbsEnd = flight.hobbsEnd,
+                    hasTrack = flight.hasTrack,
                     date = flight.date,
                     departureAerodrome = flight.departureAerodrome,
                     arrivalAerodrome = flight.arrivalAerodrome,
@@ -153,7 +301,10 @@ class FlightEntryViewModel(
         _uiState.update {
             it.copy(
                 blockTime = block,
-                airTime = air,
+                // A recorded flight with circuits has more air time than
+                // first-takeoff-to-last-landing; keep the measured figure when
+                // it is the larger of the two.
+                airTime = if (it.fromRecorder && it.airTime > air) it.airTime else air,
                 totalFlightTime = if (block > 0.0) block else it.totalFlightTime
             )
         }
@@ -313,13 +464,17 @@ class FlightEntryViewModel(
             
             try {
                 val flight = createFlightFromState(state)
-                
-                if (currentFlightId != null) {
+
+                val savedId = if (currentFlightId != null) {
                     flightOperationsUseCase.updateFlight(flight.copy(id = currentFlightId!!))
+                    currentFlightId!!
                 } else {
                     flightOperationsUseCase.addFlight(flight)
                 }
-                
+
+                rememberDefaults(state)
+                if (state.fromRecorder) recorder.consume(savedId)
+
                 _uiState.update { 
                     it.copy(
                         isSaving = false,
@@ -371,8 +526,37 @@ class FlightEntryViewModel(
             remarks = state.remarks,
             instructorName = state.instructorName,
             instructorLicenseNumber = state.instructorLicenseNumber,
-            userId = userId
+            userId = userId,
+            aircraftId = state.aircraftId,
+            routeVia = state.routeVia.trim().ifBlank { null },
+            cruiseAltitudeFt = state.cruiseAltitudeFt,
+            cruiseSpeedKt = state.cruiseSpeedKt,
+            maxAltitudeFt = state.maxAltitudeFt,
+            maxGroundSpeedKt = state.maxGroundSpeedKt,
+            distanceNm = state.distanceNm,
+            hobbsStart = state.hobbsStart,
+            hobbsEnd = state.hobbsEnd,
+            hasTrack = state.hasTrack
         )
+    }
+
+    /**
+     * Next lesson will look like this one: remember the aerodromes and the
+     * instructor, and if the chosen aircraft profile had no registration yet,
+     * adopt the one just typed so it never has to be typed again.
+     */
+    private suspend fun rememberDefaults(state: FlightEntryUiState) {
+        prefs.lastDeparture = state.departureAerodrome
+        prefs.lastArrival = state.arrivalAerodrome
+        prefs.lastInstructorName = state.instructorName ?: ""
+        prefs.lastInstructorLicense = state.instructorLicenseNumber ?: ""
+
+        val chosen = state.fleet.firstOrNull { it.id == state.aircraftId } ?: return
+        aircraftDefaults.setDefault(chosen.id)
+        val typed = state.aircraftRegistration.trim().uppercase()
+        if (chosen.registration.isBlank() && typed.isNotBlank()) {
+            aircraftDefaults.save(chosen.copy(registration = typed))
+        }
     }
 
     fun clearError() {
@@ -415,6 +599,20 @@ data class FlightEntryUiState(
     val remarks: String = "",
     val instructorName: String? = null,
     val instructorLicenseNumber: String? = null,
+    // ---- Route, performance and recorder data ----
+    val fleet: List<Aircraft> = emptyList(),
+    val aircraftId: Long? = null,
+    val routeVia: String = "",
+    val cruiseAltitudeFt: Int? = null,
+    val cruiseSpeedKt: Int? = null,
+    val maxAltitudeFt: Int? = null,
+    val maxGroundSpeedKt: Int? = null,
+    val distanceNm: Double? = null,
+    val hobbsStart: Double? = null,
+    val hobbsEnd: Double? = null,
+    val hasTrack: Boolean = false,
+    val fromRecorder: Boolean = false,
+    val recorderSessionId: String? = null,
     val validationErrors: List<String> = emptyList(),
     val isValid: Boolean = false,
     val isSaving: Boolean = false,

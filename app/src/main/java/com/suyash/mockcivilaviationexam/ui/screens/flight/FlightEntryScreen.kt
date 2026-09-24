@@ -19,7 +19,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import com.suyash.mockcivilaviationexam.domain.logbook.FlightTimeCalculator
+import com.suyash.mockcivilaviationexam.domain.model.Aircraft
 import com.suyash.mockcivilaviationexam.ui.viewmodel.FlightEntryViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -29,6 +31,8 @@ import java.time.format.DateTimeFormatter
 fun FlightEntryScreen(
     onNavigateBack: () -> Unit,
     flightId: Long? = null,
+    fromRecorder: Boolean = false,
+    onManageAircraft: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: FlightEntryViewModel? = null
 ) {
@@ -41,9 +45,11 @@ fun FlightEntryScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
 
-    LaunchedEffect(flightId) {
-        if (flightId != null) {
-            viewModel.loadFlight(flightId)
+    LaunchedEffect(flightId, fromRecorder) {
+        when {
+            flightId != null -> viewModel.loadFlight(flightId)
+            fromRecorder -> viewModel.initFromRecorder()
+            else -> viewModel.initNewEntry()
         }
     }
 
@@ -72,7 +78,11 @@ fun FlightEntryScreen(
             }
             
             Text(
-                text = if (flightId == null) "Add Flight" else "Edit Flight",
+                text = when {
+                    flightId != null -> "Edit Flight"
+                    fromRecorder -> "Review Flight"
+                    else -> "Add Flight"
+                },
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -93,6 +103,11 @@ fun FlightEntryScreen(
         }
         
         Spacer(modifier = Modifier.height(16.dp))
+
+        if (uiState.fromRecorder) {
+            RecorderBanner(hasTrack = uiState.hasTrack)
+            Spacer(modifier = Modifier.height(16.dp))
+        }
         
         FlightBasicInfo(
             date = uiState.date,
@@ -100,12 +115,18 @@ fun FlightEntryScreen(
             departure = uiState.departureAerodrome,
             onDepartureChange = viewModel::updateDeparture,
             arrival = uiState.arrivalAerodrome,
-            onArrivalChange = viewModel::updateArrival
+            onArrivalChange = viewModel::updateArrival,
+            routeVia = uiState.routeVia,
+            onRouteViaChange = viewModel::updateRouteVia
         )
         
         Spacer(modifier = Modifier.height(16.dp))
         
         AircraftSection(
+            fleet = uiState.fleet,
+            selectedId = uiState.aircraftId,
+            onSelect = viewModel::selectAircraft,
+            onManageAircraft = onManageAircraft,
             registration = uiState.aircraftRegistration,
             onRegistrationChange = viewModel::updateAircraftRegistration,
             type = uiState.aircraftType,
@@ -138,6 +159,26 @@ fun FlightEntryScreen(
             onNightLandingsChange = viewModel::updateNightLandings,
             instrumentApproaches = uiState.instrumentApproaches,
             onInstrumentApproachesChange = viewModel::updateInstrumentApproaches
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        PerformanceSection(
+            cruiseAltitudeFt = uiState.cruiseAltitudeFt,
+            onCruiseAltitudeChange = viewModel::updateCruiseAltitude,
+            cruiseSpeedKt = uiState.cruiseSpeedKt,
+            onCruiseSpeedChange = viewModel::updateCruiseSpeed,
+            maxAltitudeFt = uiState.maxAltitudeFt,
+            onMaxAltitudeChange = viewModel::updateMaxAltitude,
+            maxGroundSpeedKt = uiState.maxGroundSpeedKt,
+            onMaxGroundSpeedChange = viewModel::updateMaxGroundSpeed,
+            distanceNm = uiState.distanceNm,
+            onDistanceChange = viewModel::updateDistance,
+            hobbsStart = uiState.hobbsStart,
+            onHobbsStartChange = viewModel::updateHobbsStart,
+            hobbsEnd = uiState.hobbsEnd,
+            onHobbsEndChange = viewModel::updateHobbsEnd,
+            measured = uiState.hasTrack
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -214,13 +255,40 @@ fun FlightEntryScreen(
 }
 
 @Composable
+private fun RecorderBanner(hasTrack: Boolean) {
+    Surface(
+        color = MaterialTheme.colorScheme.primaryContainer,
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(Icons.Default.Timer, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimaryContainer)
+            Spacer(Modifier.width(10.dp))
+            Text(
+                text = if (hasTrack)
+                    "Times, landings, altitude and distance were filled from your recorded flight. The GPS track will be saved with it."
+                else
+                    "Times and landings were filled from your recorded flight. Check them, add the details, and save.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+        }
+    }
+}
+
+@Composable
 private fun FlightBasicInfo(
     date: LocalDate,
     onDateChange: (LocalDate) -> Unit,
     departure: String,
     onDepartureChange: (String) -> Unit,
     arrival: String,
-    onArrivalChange: (String) -> Unit
+    onArrivalChange: (String) -> Unit,
+    routeVia: String,
+    onRouteViaChange: (String) -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -281,12 +349,28 @@ private fun FlightBasicInfo(
                     modifier = Modifier.weight(1f)
                 )
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            OutlinedTextField(
+                value = routeVia,
+                onValueChange = onRouteViaChange,
+                label = { Text("Via / training area") },
+                placeholder = { Text("e.g. Ngong Hills - Athi River, or Circuits RWY 07") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AircraftSection(
+    fleet: List<Aircraft>,
+    selectedId: Long?,
+    onSelect: (Aircraft) -> Unit,
+    onManageAircraft: () -> Unit,
     registration: String,
     onRegistrationChange: (String) -> Unit,
     type: String,
@@ -294,6 +378,9 @@ private fun AircraftSection(
     model: String,
     onModelChange: (String) -> Unit
 ) {
+    var expanded by remember { mutableStateOf(false) }
+    val selected = fleet.firstOrNull { it.id == selectedId }
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
@@ -301,20 +388,58 @@ private fun AircraftSection(
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            Text(
-                text = "Aircraft",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.primary
-            )
-            
-            Spacer(modifier = Modifier.height(12.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "Aircraft",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(Modifier.weight(1f))
+                TextButton(onClick = onManageAircraft) { Text("Manage") }
+            }
+
+            if (fleet.isNotEmpty()) {
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = { expanded = it }
+                ) {
+                    OutlinedTextField(
+                        value = selected?.displayName ?: "Choose from my aircraft",
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text("My aircraft") },
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                        modifier = Modifier.fillMaxWidth().menuAnchor()
+                    )
+                    ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                        fleet.forEach { aircraft ->
+                            DropdownMenuItem(
+                                text = { Text(aircraft.displayName) },
+                                onClick = { onSelect(aircraft); expanded = false }
+                            )
+                        }
+                    }
+                }
+                Text(
+                    text = "Your choice is remembered for the next flight.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            } else {
+                Spacer(modifier = Modifier.height(12.dp))
+            }
             
             OutlinedTextField(
                 value = registration,
                 onValueChange = onRegistrationChange,
                 label = { Text("Registration") },
                 placeholder = { Text("e.g., 5Y-ABC") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
+                supportingText = if (selected != null && selected.registration.isBlank())
+                    ({ Text("Saved to the ${selected.displayName} profile when you save this flight") }) else null,
                 modifier = Modifier.fillMaxWidth()
             )
             
@@ -336,7 +461,7 @@ private fun AircraftSection(
                     value = model,
                     onValueChange = onModelChange,
                     label = { Text("Model") },
-                    placeholder = { Text("e.g., Skyhawk") },
+                    placeholder = { Text("e.g., 172N") },
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -447,8 +572,116 @@ private fun BlockAndAirTimeSection(
                     )
                 }
             }
+
+            if (blockTime > 0.0 || airTime > 0.0) {
+                Spacer(modifier = Modifier.height(8.dp))
+                val flying = Math.round(airTime * 60)
+                val ground = Math.round(FlightTimeCalculator.groundTime(blockTime, airTime) * 60)
+                Text(
+                    text = "In the air $flying min · on the ground (taxi, run-up, holding) $ground min",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
+}
+
+@Composable
+private fun PerformanceSection(
+    cruiseAltitudeFt: Int?,
+    onCruiseAltitudeChange: (Int?) -> Unit,
+    cruiseSpeedKt: Int?,
+    onCruiseSpeedChange: (Int?) -> Unit,
+    maxAltitudeFt: Int?,
+    onMaxAltitudeChange: (Int?) -> Unit,
+    maxGroundSpeedKt: Int?,
+    onMaxGroundSpeedChange: (Int?) -> Unit,
+    distanceNm: Double?,
+    onDistanceChange: (Double?) -> Unit,
+    hobbsStart: Double?,
+    onHobbsStartChange: (Double?) -> Unit,
+    hobbsEnd: Double?,
+    onHobbsEndChange: (Double?) -> Unit,
+    measured: Boolean
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Altitude, speed & distance",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = if (measured) "Maximums and distance came from the GPS track"
+                       else "Optional — what you flew, for your own record",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                IntField("Cruise alt (ft)", cruiseAltitudeFt, onCruiseAltitudeChange, Modifier.weight(1f))
+                IntField("Cruise speed (kt)", cruiseSpeedKt, onCruiseSpeedChange, Modifier.weight(1f))
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                IntField("Max alt (ft)", maxAltitudeFt, onMaxAltitudeChange, Modifier.weight(1f))
+                IntField("Max GS (kt)", maxGroundSpeedKt, onMaxGroundSpeedChange, Modifier.weight(1f))
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                DecimalField("Distance (NM)", distanceNm, onDistanceChange, Modifier.weight(1f))
+                DecimalField("Hobbs start", hobbsStart, onHobbsStartChange, Modifier.weight(1f))
+                DecimalField("Hobbs end", hobbsEnd, onHobbsEndChange, Modifier.weight(1f))
+            }
+            if (hobbsStart != null && hobbsEnd != null && hobbsEnd >= hobbsStart) {
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(
+                    text = "Hobbs %.1f h".format(hobbsEnd - hobbsStart),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun IntField(label: String, value: Int?, onChange: (Int?) -> Unit, modifier: Modifier = Modifier) {
+    var text by remember(value) { mutableStateOf(value?.toString() ?: "") }
+    OutlinedTextField(
+        value = text,
+        onValueChange = { new ->
+            text = new.filter { it.isDigit() }.take(6)
+            onChange(text.toIntOrNull())
+        },
+        label = { Text(label) },
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun DecimalField(label: String, value: Double?, onChange: (Double?) -> Unit, modifier: Modifier = Modifier) {
+    var text by remember(value) { mutableStateOf(value?.let { if (it % 1.0 == 0.0) "%.0f".format(it) else it.toString() } ?: "") }
+    OutlinedTextField(
+        value = text,
+        onValueChange = { new ->
+            text = new.filter { it.isDigit() || it == '.' }.take(8)
+            onChange(text.toDoubleOrNull())
+        },
+        label = { Text(label) },
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+        modifier = modifier
+    )
 }
 
 @Composable

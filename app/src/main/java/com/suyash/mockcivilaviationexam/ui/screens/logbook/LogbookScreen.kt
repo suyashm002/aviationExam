@@ -16,7 +16,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.suyash.mockcivilaviationexam.R
+import com.suyash.mockcivilaviationexam.domain.logbook.FlightPhase
+import com.suyash.mockcivilaviationexam.domain.logbook.RecorderState
 import com.suyash.mockcivilaviationexam.domain.model.FlightEntry
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import com.suyash.mockcivilaviationexam.ui.viewmodel.LogbookViewModel
 import com.suyash.mockcivilaviationexam.ui.screens.logbook.components.FlightEntryCard
 import com.suyash.mockcivilaviationexam.ui.screens.logbook.components.LogbookSummaryCard
@@ -28,6 +33,10 @@ fun LogbookScreen(
     onNavigateToFlightEntry: () -> Unit,
     onNavigateToFlightDetail: (Long) -> Unit,
     onNavigateToExport: () -> Unit = {},
+    onNavigateToRecorder: () -> Unit = {},
+    onNavigateToAircraft: () -> Unit = {},
+    onNavigateBack: (() -> Unit)? = null,
+    recorderState: RecorderState? = null,
     modifier: Modifier = Modifier,
     viewModel: LogbookViewModel? = null
 ) {
@@ -55,13 +64,27 @@ fun LogbookScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = "Flight Logbook",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (onNavigateBack != null) {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                    }
+                }
+                Text(
+                    text = "Flight Logbook",
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold
+                )
+            }
             
             Row(verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onNavigateToAircraft) {
+                    Icon(
+                        imageVector = Icons.Default.AirplanemodeActive,
+                        contentDescription = "My aircraft",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
                 IconButton(onClick = onNavigateToExport) {
                     Icon(
                         imageVector = Icons.Default.PictureAsPdf,
@@ -69,20 +92,24 @@ fun LogbookScreen(
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-
-                FloatingActionButton(
-                    onClick = onNavigateToFlightEntry,
-                    modifier = Modifier.size(56.dp)
-                ) {
+                IconButton(onClick = onNavigateToFlightEntry) {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "Add Flight"
+                        contentDescription = "Add flight by hand",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
         }
         
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
+
+        FlyNowCard(
+            recorderState = recorderState,
+            onClick = onNavigateToRecorder
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
         
         LogbookSummaryCard(
             summary = uiState.summary,
@@ -129,6 +156,71 @@ fun LogbookScreen(
                     }
                 }
             }
+        }
+    }
+}
+
+/**
+ * The primary action on the logbook: start recording a flight, or return to
+ * the one in progress. Shown above the summary so a student walking to the
+ * aircraft finds it in one tap.
+ */
+@Composable
+private fun FlyNowCard(
+    recorderState: RecorderState?,
+    onClick: () -> Unit
+) {
+    val inProgress = recorderState != null && recorderState.sessionId.isNotEmpty()
+    val phaseText = when (recorderState?.phase) {
+        FlightPhase.PREFLIGHT -> "Flight started — waiting for off blocks"
+        FlightPhase.TAXI_OUT -> "Taxiing out"
+        FlightPhase.AIRBORNE -> "Airborne now"
+        FlightPhase.TAXI_IN -> "Taxiing in"
+        FlightPhase.COMPLETE -> "On blocks — tap to save this flight"
+        null -> ""
+    }
+    Card(
+        onClick = onClick,
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = if (inProgress) MaterialTheme.colorScheme.tertiaryContainer
+                             else MaterialTheme.colorScheme.primary
+        ),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = if (inProgress) Icons.Default.Timer else Icons.Default.FlightTakeoff,
+                contentDescription = null,
+                tint = if (inProgress) MaterialTheme.colorScheme.onTertiaryContainer
+                       else MaterialTheme.colorScheme.onPrimary
+            )
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(
+                    text = if (inProgress) "Flight in progress" else "Fly now",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = if (inProgress) MaterialTheme.colorScheme.onTertiaryContainer
+                            else MaterialTheme.colorScheme.onPrimary
+                )
+                Text(
+                    text = if (inProgress) phaseText
+                           else "Time your flight from off blocks to on blocks, with GPS takeoff and landing detection",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = if (inProgress) MaterialTheme.colorScheme.onTertiaryContainer
+                            else MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f)
+                )
+            }
+            Icon(
+                imageVector = Icons.Default.ChevronRight,
+                contentDescription = null,
+                tint = if (inProgress) MaterialTheme.colorScheme.onTertiaryContainer
+                       else MaterialTheme.colorScheme.onPrimary
+            )
         }
     }
 }

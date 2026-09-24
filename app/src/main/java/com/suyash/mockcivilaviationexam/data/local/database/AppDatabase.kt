@@ -22,9 +22,10 @@ import com.suyash.mockcivilaviationexam.data.local.entities.*
         CacheMetadata::class,
         ExamSessionEntity::class,
         ExamQuestionResultEntity::class,
-        QuestionFeedbackEntity::class
+        QuestionFeedbackEntity::class,
+        FlightTrackPointEntity::class
     ],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -39,10 +40,50 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun cacheMetadataDao(): CacheMetadataDao
     abstract fun examSessionDao(): ExamSessionDao
     abstract fun questionFeedbackDao(): QuestionFeedbackDao
+    abstract fun flightTrackPointDao(): FlightTrackPointDao
 
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
+
+        /**
+         * Route, performance and recorder data for the PPL flight tracker, plus
+         * the GPS track table. Every new column is nullable or defaulted so
+         * existing entries stay valid.
+         */
+        val MIGRATION_6_7 = object : Migration(6, 7) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN aircraftId INTEGER")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN routeVia TEXT")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN cruiseAltitudeFt INTEGER")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN cruiseSpeedKt INTEGER")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN maxAltitudeFt INTEGER")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN maxGroundSpeedKt INTEGER")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN distanceNm REAL")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN hobbsStart REAL")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN hobbsEnd REAL")
+                db.execSQL("ALTER TABLE flight_entries ADD COLUMN hasTrack INTEGER NOT NULL DEFAULT 0")
+
+                db.execSQL("ALTER TABLE aircraft ADD COLUMN cruiseSpeedKt INTEGER")
+                db.execSQL("ALTER TABLE aircraft ADD COLUMN cruiseAltitudeFt INTEGER")
+
+                db.execSQL(
+                    """CREATE TABLE IF NOT EXISTS `flight_track_points` (
+                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        `sessionId` TEXT NOT NULL,
+                        `flightId` INTEGER,
+                        `timestamp` INTEGER NOT NULL,
+                        `latitude` REAL NOT NULL,
+                        `longitude` REAL NOT NULL,
+                        `altitudeFt` REAL NOT NULL,
+                        `groundSpeedKt` REAL NOT NULL,
+                        `bearingDeg` REAL
+                    )"""
+                )
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_flight_track_points_flightId` ON `flight_track_points` (`flightId`)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_flight_track_points_sessionId` ON `flight_track_points` (`sessionId`)")
+            }
+        }
 
         /**
          * Adds block/air clock times, landings and approach counts to the
@@ -165,7 +206,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "kcaa_pilot_logbook_database"
                 )
-                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
                     .fallbackToDestructiveMigration(dropAllTables = true)
                     .build()
                 INSTANCE = instance

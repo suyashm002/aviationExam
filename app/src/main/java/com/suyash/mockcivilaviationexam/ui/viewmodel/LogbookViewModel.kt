@@ -7,6 +7,7 @@ import com.suyash.mockcivilaviationexam.domain.model.FlightEntry
 import com.suyash.mockcivilaviationexam.domain.model.LogbookSummary
 import com.suyash.mockcivilaviationexam.domain.usecase.FlightOperationsUseCase
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class LogbookViewModel(
@@ -18,6 +19,7 @@ class LogbookViewModel(
 
     private val _searchQuery = MutableStateFlow("")
     private val userId: String get() = LogbookUser.id()
+    private var flightsJob: Job? = null
 
     init {
         observeFlights()
@@ -26,19 +28,15 @@ class LogbookViewModel(
         }
     }
 
+    /**
+     * Called every time the screen is shown. Only the summary needs refreshing
+     * (the list is a live Room flow); it must not leave the spinner on, which
+     * is what happened when nothing in the table had changed and the flow
+     * therefore never re-emitted.
+     */
     fun loadFlights() {
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true) }
-            try {
-                loadSummary()
-            } catch (e: Exception) {
-                _uiState.update { 
-                    it.copy(
-                        isLoading = false,
-                        error = e.message
-                    )
-                }
-            }
+            loadSummary()
         }
     }
 
@@ -52,8 +50,9 @@ class LogbookViewModel(
             observeFlights()
             return
         }
+        flightsJob?.cancel()
 
-        viewModelScope.launch {
+        flightsJob = viewModelScope.launch {
             try {
                 val searchResults = flightOperationsUseCase.searchFlights(userId, query)
                 _uiState.update { 
@@ -75,23 +74,19 @@ class LogbookViewModel(
     }
 
     private fun observeFlights() {
-        viewModelScope.launch {
+        flightsJob?.cancel()
+        flightsJob = viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = it.flights.isEmpty()) }
             flightOperationsUseCase.getAllFlights(userId)
-                .combine(_searchQuery) { flights, query ->
-                    if (query.isBlank()) {
-                        flights
-                    } else {
-                        // Filter will be handled by searchFlights
-                        flights
-                    }
-                }
                 .collect { flights ->
                     _uiState.update { 
                         it.copy(
                             flights = flights,
+                            searchQuery = "",
                             isLoading = false
                         )
                     }
+                    loadSummary()
                 }
         }
     }

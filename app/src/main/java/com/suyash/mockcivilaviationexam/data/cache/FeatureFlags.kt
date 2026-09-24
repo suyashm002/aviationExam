@@ -16,12 +16,12 @@ class FeatureFlags(context: Context) {
         set(value) = prefs.edit().putBoolean(KEY_SUBSCRIPTION_ENABLED, value).apply()
 
     /**
-     * Hides the pilot logbook. The feature is built but has open defects (the
-     * summary spinner never clears when returning from the entry screen), so it
-     * stays off until those are fixed. Flip to true to expose it again.
+     * Shows the pilot logbook (Fly Now recorder, fleet, PDF export). Turned on
+     * 2026-09-24 once the spinner defect was fixed and the recorder shipped;
+     * set to false to hide the whole feature again without a rebuild.
      */
     var logbookEnabled: Boolean
-        get() = prefs.getBoolean(KEY_LOGBOOK_ENABLED, false)
+        get() = prefs.getBoolean(KEY_LOGBOOK_ENABLED, true)
         set(value) = prefs.edit().putBoolean(KEY_LOGBOOK_ENABLED, value).apply()
 
     companion object {

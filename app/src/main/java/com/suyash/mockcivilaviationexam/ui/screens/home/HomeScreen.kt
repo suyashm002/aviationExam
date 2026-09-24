@@ -177,6 +177,48 @@ fun HomeScreen(
                 }
             }
 
+            if (logbookVisible) {
+                Spacer(modifier = Modifier.height(12.dp))
+                Surface(
+                    onClick = onNavigateToLogbook,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(14.dp),
+                    color = AvionicsBlueDark,
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 18.dp, vertical = 14.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.MenuBook,
+                            contentDescription = null,
+                            modifier = Modifier.size(26.dp),
+                            tint = androidx.compose.ui.graphics.Color.White
+                        )
+                        Spacer(modifier = Modifier.width(14.dp))
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Pilot Logbook",
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                color = androidx.compose.ui.graphics.Color.White
+                            )
+                            Text(
+                                text = "Fly now: time your flight, record the track, log the hours",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.85f)
+                            )
+                        }
+                        Icon(
+                            imageVector = Icons.Default.ChevronRight,
+                            contentDescription = null,
+                            tint = androidx.compose.ui.graphics.Color.White
+                        )
+                    }
+                }
+            }
+
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(

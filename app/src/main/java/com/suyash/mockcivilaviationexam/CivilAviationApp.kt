@@ -4,11 +4,14 @@ import android.app.Application
 import com.suyash.mockcivilaviationexam.data.billing.BillingManager
 import com.suyash.mockcivilaviationexam.data.billing.SubscriptionRepository
 import com.suyash.mockcivilaviationexam.data.cache.FeatureFlags
+import com.suyash.mockcivilaviationexam.data.cache.LogbookPreferences
+import com.suyash.mockcivilaviationexam.domain.logbook.FlightRecorder
 import com.suyash.mockcivilaviationexam.data.cache.QuestionCacheManager
 import com.suyash.mockcivilaviationexam.data.local.database.AppDatabase
 import com.suyash.mockcivilaviationexam.data.local.repository.*
 import com.suyash.mockcivilaviationexam.data.remote.repository.ExamRepository
 import com.suyash.mockcivilaviationexam.data.remote.service.AuthService
+import com.suyash.mockcivilaviationexam.domain.usecase.AircraftDefaultsUseCase
 import com.suyash.mockcivilaviationexam.domain.usecase.FlightOperationsUseCase
 import com.suyash.mockcivilaviationexam.domain.usecase.PdfExportUseCase
 
@@ -45,6 +48,21 @@ class CivilAviationApp : Application() {
         UserProfileRepository(database.userProfileDao())
     }
 
+    val flightTrackRepository by lazy {
+        FlightTrackRepository(database.flightTrackPointDao())
+    }
+
+    /** Remembered aircraft, aerodromes and recorder thresholds. */
+    val logbookPreferences by lazy { LogbookPreferences(this) }
+
+    /**
+     * Process-wide in-flight recorder. Lives here, not in a ViewModel, because
+     * the foreground service feeds it GPS fixes while no screen is showing.
+     */
+    val flightRecorder by lazy {
+        FlightRecorder(logbookPreferences, flightTrackRepository)
+    }
+
     // Keep existing repositories for backward compatibility
     val sectionRepository by lazy {
         SectionRepository(database.sectionDao())
@@ -57,6 +75,10 @@ class CivilAviationApp : Application() {
     // Pilot Logbook Use Cases
     val flightOperationsUseCase by lazy {
         FlightOperationsUseCase(flightEntryRepository, userProfileRepository)
+    }
+
+    val aircraftDefaultsUseCase by lazy {
+        AircraftDefaultsUseCase(aircraftRepository, logbookPreferences)
     }
 
     val pdfExportUseCase by lazy {
