@@ -7,8 +7,8 @@ import com.suyash.mockcivilaviationexam.domain.model.FlightEntry
 import com.suyash.mockcivilaviationexam.domain.model.LogbookSummary
 import com.suyash.mockcivilaviationexam.domain.usecase.FlightOperationsUseCase
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.time.format.DateTimeFormatter
 
 class LogbookViewModel(
     private val flightOperationsUseCase: FlightOperationsUseCase
@@ -19,13 +19,10 @@ class LogbookViewModel(
 
     private val _searchQuery = MutableStateFlow("")
     private val userId: String get() = LogbookUser.id()
-    private var flightsJob: Job? = null
 
     init {
         observeFlights()
-        viewModelScope.launch {
-            loadSummary()
-        }
+        viewModelScope.launch { loadSummary() }
     }
 
     /**
@@ -35,72 +32,56 @@ class LogbookViewModel(
      * therefore never re-emitted.
      */
     fun loadFlights() {
-        viewModelScope.launch {
-            loadSummary()
-        }
+        viewModelScope.launch { loadSummary() }
     }
 
+    /**
+     * The text field is driven from [LogbookUiState.searchQuery], so it must be
+     * updated synchronously here. Updating it only when the results arrived
+     * made the field lag one keystroke behind: the cursor jumped to the start
+     * and the query that reached the database was garbled.
+     */
     fun updateSearchQuery(query: String) {
+        _uiState.update { it.copy(searchQuery = query) }
         _searchQuery.value = query
-        searchFlights(query)
     }
 
-    private fun searchFlights(query: String) {
-        if (query.isBlank()) {
-            observeFlights()
-            return
-        }
-        flightsJob?.cancel()
-
-        flightsJob = viewModelScope.launch {
-            try {
-                val searchResults = flightOperationsUseCase.searchFlights(userId, query)
-                _uiState.update { 
-                    it.copy(
-                        flights = searchResults,
-                        searchQuery = query,
-                        isLoading = false
-                    )
-                }
-            } catch (e: Exception) {
-                _uiState.update { 
-                    it.copy(
-                        error = e.message,
-                        isLoading = false
-                    )
-                }
+    /**
+     * One collector for the life of the ViewModel: the Room flow combined with
+     * the query, filtered in memory. A logbook is a few hundred rows at most,
+     * so this is instant and cannot race the way per-keystroke DB queries did.
+     */
+    private fun observeFlights() {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
+            combine(
+                flightOperationsUseCase.getAllFlights(userId),
+                _searchQuery.map { it.trim() }.distinctUntilChanged()
+            ) { flights, query ->
+                if (query.isBlank()) flights else flights.filter { it.matches(query) }
+            }.collect { flights ->
+                _uiState.update { it.copy(flights = flights, isLoading = false) }
+                loadSummary()
             }
         }
     }
 
-    private fun observeFlights() {
-        flightsJob?.cancel()
-        flightsJob = viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = it.flights.isEmpty()) }
-            flightOperationsUseCase.getAllFlights(userId)
-                .collect { flights ->
-                    _uiState.update { 
-                        it.copy(
-                            flights = flights,
-                            searchQuery = "",
-                            isLoading = false
-                        )
-                    }
-                    loadSummary()
-                }
-        }
+    private fun FlightEntry.matches(query: String): Boolean {
+        val q = query.lowercase()
+        return listOfNotNull(
+            departureAerodrome, arrivalAerodrome, routeVia,
+            aircraftRegistration, aircraftType, aircraftModel,
+            remarks, instructorName, exerciseNumber, lessonNumber,
+            date.format(DATE_FORMAT), date.toString()
+        ).any { it.lowercase().contains(q) }
     }
 
     private suspend fun loadSummary() {
         try {
             val summary = flightOperationsUseCase.getLogbookSummary(userId)
-            _uiState.update { 
-                it.copy(summary = summary)
-            }
+            _uiState.update { it.copy(summary = summary) }
         } catch (e: Exception) {
-            _uiState.update { 
-                it.copy(error = e.message)
-            }
+            _uiState.update { it.copy(error = e.message) }
         }
     }
 
@@ -108,17 +89,19 @@ class LogbookViewModel(
         viewModelScope.launch {
             try {
                 flightOperationsUseCase.deleteFlight(flight)
-                loadSummary() // Refresh summary after deletion
+                loadSummary()
             } catch (e: Exception) {
-                _uiState.update { 
-                    it.copy(error = e.message)
-                }
+                _uiState.update { it.copy(error = e.message) }
             }
         }
     }
 
     fun clearError() {
         _uiState.update { it.copy(error = null) }
+    }
+
+    private companion object {
+        val DATE_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
     }
 }
 
