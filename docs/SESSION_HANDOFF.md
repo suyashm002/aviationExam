@@ -114,6 +114,22 @@ com.suyash.mockcivilaviationexam.test/androidx.test.runner.AndroidJUnitRunner`.
 Two earlier runs died because an attached Android Studio deploy agent
 force-stopped the app; close Studio's run tab if that recurs.
 
+**PPL simplification (2026-09-24, later the same day).** The user flies local
+training only, VFR only. Decisions: departure/arrival columns are KEPT (the
+KCAA/ICAO logbook format and the PDF need both) but the form shows one
+"Aerodrome" field with a "Local flight" switch on by default; the arrival
+column is filled with the same aerodrome automatically. "Training area / what
+you flew" (`routeVia`) is the main description of a local flight; lists show
+"Local · HKNW · Ngong Hills area" (`FlightEntry.routeSummary`, `isLocal`).
+Role is a Dual / Solo / Other segmented choice (`FlightRole`,
+`FlightEntry.role`); Dual and Solo fill dual/PIC time from the total.
+IFR time, VFR time and instrument approaches are hidden behind a "Show IFR"
+toggle (`LogbookPreferences.showIfrFields`, off by default); VFR time is
+derived as total minus IFR, day time as total minus night
+(`FlightEntryViewModel.deriveTimes()`). Cross-country time only appears when
+the local switch is off. The recorder has the same aerodrome / local /
+training-area fields. `FlyNowFlowTest` re-run and passing after this change.
+
 **Not done / decisions for the next session**
 
 - Store listing: the public copy was stripped of logbook lines for 1.2.1 while

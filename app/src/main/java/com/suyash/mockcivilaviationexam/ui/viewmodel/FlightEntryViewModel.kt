@@ -7,6 +7,7 @@ import com.suyash.mockcivilaviationexam.data.cache.LogbookPreferences
 import com.suyash.mockcivilaviationexam.domain.logbook.FlightRecorder
 import com.suyash.mockcivilaviationexam.domain.model.Aircraft
 import com.suyash.mockcivilaviationexam.domain.model.FlightEntry
+import com.suyash.mockcivilaviationexam.domain.model.FlightRole
 import com.suyash.mockcivilaviationexam.domain.usecase.AircraftDefaultsUseCase
 import com.suyash.mockcivilaviationexam.domain.usecase.FlightOperationsUseCase
 import com.suyash.mockcivilaviationexam.domain.usecase.ValidationError
@@ -30,6 +31,7 @@ class FlightEntryViewModel(
     private var initialised = false
 
     init {
+        _uiState.update { it.copy(showIfrFields = prefs.showIfrFields) }
         viewModelScope.launch {
             aircraftDefaults.fleet(userId).collect { fleet ->
                 _uiState.update { it.copy(fleet = fleet) }
@@ -57,10 +59,14 @@ class FlightEntryViewModel(
                     cruiseSpeedKt = it.cruiseSpeedKt ?: aircraft.cruiseSpeedKt,
                     departureAerodrome = it.departureAerodrome.ifBlank { prefs.lastDeparture },
                     arrivalAerodrome = it.arrivalAerodrome.ifBlank { prefs.lastArrival.ifBlank { prefs.lastDeparture } },
+                    routeVia = it.routeVia.ifBlank { prefs.lastRouteVia },
+                    flightRole = runCatching { FlightRole.valueOf(prefs.lastRole) }.getOrDefault(FlightRole.DUAL),
                     instructorName = it.instructorName ?: prefs.lastInstructorName.ifBlank { null },
                     instructorLicenseNumber = it.instructorLicenseNumber ?: prefs.lastInstructorLicense.ifBlank { null }
                 )
             }
+            _uiState.update { it.copy(isLocalFlight = it.arrivalAerodrome.isBlank() || it.arrivalAerodrome.equals(it.departureAerodrome, true)) }
+            deriveTimes()
             validateForm()
         }
     }
@@ -81,6 +87,8 @@ class FlightEntryViewModel(
                     date = recorded.date,
                     departureAerodrome = recorded.departure.ifBlank { prefs.lastDeparture },
                     arrivalAerodrome = recorded.arrival.ifBlank { recorded.departure },
+                    routeVia = recorded.routeVia,
+                    flightRole = runCatching { FlightRole.valueOf(prefs.lastRole) }.getOrDefault(FlightRole.DUAL),
                     aircraftId = aircraft.id,
                     aircraftType = recorded.aircraft?.type ?: aircraft.type,
                     aircraftModel = recorded.aircraft?.model ?: aircraft.model,
@@ -103,10 +111,11 @@ class FlightEntryViewModel(
                     instructorLicenseNumber = prefs.lastInstructorLicense.ifBlank { null }
                 )
             }
+            _uiState.update { it.copy(isLocalFlight = it.arrivalAerodrome.isBlank() || it.arrivalAerodrome.equals(it.departureAerodrome, true)) }
             // Circuits: several airborne segments. The clock-time fields only
             // describe first takeoff to last landing, so keep the measured air
             // time rather than letting recalculateClockTimes() overwrite it.
-            autoCalculateTimes()
+            deriveTimes()
             validateForm()
         }
     }
@@ -165,6 +174,8 @@ class FlightEntryViewModel(
             val flight = flightOperationsUseCase.getFlightById(flightId) ?: return@launch
             _uiState.update {
                 it.copy(
+                    isLocalFlight = flight.isLocal,
+                    flightRole = flight.role,
                     aircraftId = flight.aircraftId,
                     routeVia = flight.routeVia ?: "",
                     cruiseAltitudeFt = flight.cruiseAltitudeFt,
@@ -219,12 +230,54 @@ class FlightEntryViewModel(
     }
 
     fun updateDeparture(departure: String) {
-        _uiState.update { it.copy(departureAerodrome = departure) }
+        val text = departure.uppercase()
+        _uiState.update {
+            it.copy(
+                departureAerodrome = text,
+                // A local flight lands where it took off; keep the logbook's
+                // arrival column filled without asking for it twice.
+                arrivalAerodrome = if (it.isLocalFlight) text else it.arrivalAerodrome
+            )
+        }
         validateForm()
     }
 
     fun updateArrival(arrival: String) {
-        _uiState.update { it.copy(arrivalAerodrome = arrival) }
+        _uiState.update { it.copy(arrivalAerodrome = arrival.uppercase()) }
+        validateForm()
+    }
+
+    /** Local (training area, back to the same aerodrome) vs. a cross-country. */
+    fun setLocalFlight(local: Boolean) {
+        _uiState.update {
+            it.copy(
+                isLocalFlight = local,
+                arrivalAerodrome = if (local) it.departureAerodrome else it.arrivalAerodrome,
+                crossCountryTime = if (local) 0.0 else it.crossCountryTime
+            )
+        }
+        validateForm()
+    }
+
+    /** Dual or Solo fills the role columns from the total; Other exposes them. */
+    fun setRole(role: FlightRole) {
+        _uiState.update { it.copy(flightRole = role) }
+        prefs.lastRole = role.name
+        deriveTimes()
+        validateForm()
+    }
+
+    /** PPL training is VFR; IFR fields stay hidden until the pilot asks for them. */
+    fun setShowIfrFields(show: Boolean) {
+        prefs.showIfrFields = show
+        _uiState.update {
+            it.copy(
+                showIfrFields = show,
+                ifrTime = if (show) it.ifrTime else 0.0,
+                instrumentApproaches = if (show) it.instrumentApproaches else 0
+            )
+        }
+        deriveTimes()
         validateForm()
     }
 
@@ -245,7 +298,7 @@ class FlightEntryViewModel(
 
     fun updateTotalFlightTime(time: Double) {
         _uiState.update { it.copy(totalFlightTime = time) }
-        autoCalculateTimes()
+        deriveTimes()
         validateForm()
     }
 
@@ -308,7 +361,7 @@ class FlightEntryViewModel(
                 totalFlightTime = if (block > 0.0) block else it.totalFlightTime
             )
         }
-        if (block > 0.0) autoCalculateTimes()
+        if (block > 0.0) deriveTimes()
         validateForm()
     }
 
@@ -319,6 +372,7 @@ class FlightEntryViewModel(
 
     fun updateNightTime(time: Double) {
         _uiState.update { it.copy(nightTime = time) }
+        deriveTimes()
         validateForm()
     }
 
@@ -344,7 +398,7 @@ class FlightEntryViewModel(
 
     fun updateIfrTime(time: Double) {
         _uiState.update { it.copy(ifrTime = time) }
-        autoCalculateVfrTime()
+        deriveTimes()
         validateForm()
     }
 
@@ -403,27 +457,30 @@ class FlightEntryViewModel(
         validateForm()
     }
 
-    private fun autoCalculateTimes() {
-        val state = _uiState.value
-        val totalTime = state.totalFlightTime
-
-        // Auto-calculate day time if night time is set
-        if (state.nightTime > 0 && state.dayTime == 0.0) {
-            val calculatedDayTime = (totalTime - state.nightTime).coerceAtLeast(0.0)
-            _uiState.update { it.copy(dayTime = calculatedDayTime) }
-        }
-
-        // Auto-set VFR time if no IFR time and no VFR time set
-        if (state.ifrTime == 0.0 && state.vfrTime == 0.0) {
-            _uiState.update { it.copy(vfrTime = totalTime) }
+    /**
+     * Everything a VFR student would otherwise type by hand follows from the
+     * total: VFR time is whatever is not IFR, day time is whatever is not
+     * night, and the role columns are filled from the Dual/Solo choice.
+     * "Other" leaves the role columns to the pilot.
+     */
+    private fun deriveTimes() {
+        _uiState.update { st ->
+            val total = st.totalFlightTime
+            val ifr = st.ifrTime.coerceIn(0.0, total)
+            val night = st.nightTime.coerceIn(0.0, total)
+            val roleTimes = when (st.flightRole) {
+                FlightRole.DUAL -> st.copy(dualTime = total, picTime = 0.0, coPilotTime = 0.0, instructorTime = 0.0)
+                FlightRole.SOLO -> st.copy(picTime = total, dualTime = 0.0, coPilotTime = 0.0, instructorTime = 0.0)
+                FlightRole.OTHER -> st
+            }
+            roleTimes.copy(
+                vfrTime = round2(total - ifr),
+                dayTime = round2(total - night)
+            )
         }
     }
 
-    private fun autoCalculateVfrTime() {
-        val state = _uiState.value
-        val remainingTime = (state.totalFlightTime - state.ifrTime).coerceAtLeast(0.0)
-        _uiState.update { it.copy(vfrTime = remainingTime) }
-    }
+    private fun round2(value: Double): Double = Math.round(value.coerceAtLeast(0.0) * 100) / 100.0
 
     private fun validateForm() {
         val state = _uiState.value
@@ -495,8 +552,8 @@ class FlightEntryViewModel(
     private fun createFlightFromState(state: FlightEntryUiState): FlightEntry {
         return FlightEntry(
             date = state.date,
-            departureAerodrome = state.departureAerodrome,
-            arrivalAerodrome = state.arrivalAerodrome,
+            departureAerodrome = state.departureAerodrome.trim(),
+            arrivalAerodrome = if (state.isLocalFlight) state.departureAerodrome.trim() else state.arrivalAerodrome.trim(),
             aircraftType = state.aircraftType,
             aircraftModel = state.aircraftModel,
             aircraftRegistration = state.aircraftRegistration,
@@ -550,6 +607,8 @@ class FlightEntryViewModel(
         prefs.lastArrival = state.arrivalAerodrome
         prefs.lastInstructorName = state.instructorName ?: ""
         prefs.lastInstructorLicense = state.instructorLicenseNumber ?: ""
+        prefs.lastRole = state.flightRole.name
+        if (state.isLocalFlight) prefs.lastRouteVia = state.routeVia
 
         val chosen = state.fleet.firstOrNull { it.id == state.aircraftId } ?: return
         aircraftDefaults.setDefault(chosen.id)
@@ -601,6 +660,10 @@ data class FlightEntryUiState(
     val instructorLicenseNumber: String? = null,
     // ---- Route, performance and recorder data ----
     val fleet: List<Aircraft> = emptyList(),
+    /** Training flight returning to the same aerodrome (the PPL default). */
+    val isLocalFlight: Boolean = true,
+    val flightRole: FlightRole = FlightRole.DUAL,
+    val showIfrFields: Boolean = false,
     val aircraftId: Long? = null,
     val routeVia: String = "",
     val cruiseAltitudeFt: Int? = null,

@@ -28,10 +28,26 @@ class FlightEntryTest {
     }
 
     @Test
-    fun `route summary includes the via leg only when present`() {
+    fun `a flight back to the same aerodrome is described as local`() {
         val e = entry(1.0, 0.8)
-        assertEquals("HKNW - HKNW", e.routeSummary)
-        assertEquals("HKNW - Ngong Hills - HKNW", e.copy(routeVia = "Ngong Hills").routeSummary)
+        assertEquals(true, e.isLocal)
+        assertEquals("Local · HKNW", e.routeSummary)
+        assertEquals("Local · HKNW · Ngong Hills area", e.copy(routeVia = "Ngong Hills area").routeSummary)
+    }
+
+    @Test
+    fun `a cross-country lists departure, via and arrival`() {
+        val e = entry(1.0, 0.8).copy(arrivalAerodrome = "HKKR")
+        assertEquals(false, e.isLocal)
+        assertEquals("HKNW - HKKR", e.routeSummary)
+        assertEquals("HKNW - Naivasha - HKKR", e.copy(routeVia = "Naivasha").routeSummary)
+    }
+
+    @Test
+    fun `dual or solo is read back from the role columns`() {
+        assertEquals(FlightRole.DUAL, entry(1.0, 0.8).copy(dualTime = 1.0).role)
+        assertEquals(FlightRole.SOLO, entry(1.0, 0.8).copy(picTime = 1.0).role)
+        assertEquals(FlightRole.OTHER, entry(1.0, 0.8).copy(picTime = 0.5, dualTime = 0.5).role)
     }
 
     @Test

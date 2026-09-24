@@ -158,8 +158,12 @@ fun FlightRecorderScreen(
             RouteCard(
                 departure = form.departure,
                 arrival = form.arrival,
+                routeVia = form.routeVia,
+                isLocal = form.isLocal,
                 onDeparture = viewModel::updateDeparture,
-                onArrival = viewModel::updateArrival
+                onArrival = viewModel::updateArrival,
+                onRouteVia = viewModel::updateRouteVia,
+                onLocal = viewModel::setLocal
             )
 
             GpsCard(
@@ -300,27 +304,47 @@ private fun AircraftCard(
 private fun RouteCard(
     departure: String,
     arrival: String,
+    routeVia: String,
+    isLocal: Boolean,
     onDeparture: (String) -> Unit,
-    onArrival: (String) -> Unit
+    onArrival: (String) -> Unit,
+    onRouteVia: (String) -> Unit,
+    onLocal: (Boolean) -> Unit
 ) {
     Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(Modifier.padding(AviationSpacing.lg)) {
-            Text("Route", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.primary)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Where", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.primary)
+                Spacer(Modifier.weight(1f))
+                Text("Local flight", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Spacer(Modifier.width(AviationSpacing.xs))
+                Switch(checked = isLocal, onCheckedChange = onLocal)
+            }
             Spacer(Modifier.height(AviationSpacing.sm))
             Row(horizontalArrangement = Arrangement.spacedBy(AviationSpacing.sm), verticalAlignment = Alignment.CenterVertically) {
                 OutlinedTextField(
-                    value = departure, onValueChange = onDeparture, label = { Text("From") },
+                    value = departure, onValueChange = onDeparture,
+                    label = { Text(if (isLocal) "Aerodrome" else "From") },
                     placeholder = { Text("HKNW") }, singleLine = true, modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters)
                 )
-                Icon(Icons.Default.ArrowForward, contentDescription = "to", tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                OutlinedTextField(
-                    value = arrival, onValueChange = onArrival, label = { Text("To") },
-                    placeholder = { Text("HKNW") }, singleLine = true, modifier = Modifier.weight(1f),
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters)
-                )
+                if (!isLocal) {
+                    Icon(Icons.Default.ArrowForward, contentDescription = "to", tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                    OutlinedTextField(
+                        value = arrival, onValueChange = onArrival, label = { Text("To") },
+                        placeholder = { Text("HKKR") }, singleLine = true, modifier = Modifier.weight(1f),
+                        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters)
+                    )
+                }
             }
+            Spacer(Modifier.height(AviationSpacing.sm))
+            OutlinedTextField(
+                value = routeVia, onValueChange = onRouteVia,
+                label = { Text(if (isLocal) "Training area / exercise" else "Route via") },
+                placeholder = { Text(if (isLocal) "Ngong Hills area, Ex 12" else "Naivasha - Nakuru") },
+                singleLine = true, modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }

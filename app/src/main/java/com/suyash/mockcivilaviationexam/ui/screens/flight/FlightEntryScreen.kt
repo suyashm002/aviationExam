@@ -22,6 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import com.suyash.mockcivilaviationexam.domain.logbook.FlightTimeCalculator
 import com.suyash.mockcivilaviationexam.domain.model.Aircraft
+import com.suyash.mockcivilaviationexam.domain.model.FlightRole
 import com.suyash.mockcivilaviationexam.ui.viewmodel.FlightEntryViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -116,6 +117,8 @@ fun FlightEntryScreen(
             onDepartureChange = viewModel::updateDeparture,
             arrival = uiState.arrivalAerodrome,
             onArrivalChange = viewModel::updateArrival,
+            isLocal = uiState.isLocalFlight,
+            onLocalChange = viewModel::setLocalFlight,
             routeVia = uiState.routeVia,
             onRouteViaChange = viewModel::updateRouteVia
         )
@@ -158,7 +161,8 @@ fun FlightEntryScreen(
             nightLandings = uiState.nightLandings,
             onNightLandingsChange = viewModel::updateNightLandings,
             instrumentApproaches = uiState.instrumentApproaches,
-            onInstrumentApproachesChange = viewModel::updateInstrumentApproaches
+            onInstrumentApproachesChange = viewModel::updateInstrumentApproaches,
+            showIfr = uiState.showIfrFields
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -195,6 +199,9 @@ fun FlightEntryScreen(
         Spacer(modifier = Modifier.height(16.dp))
         
         PilotRoleSection(
+            role = uiState.flightRole,
+            onRoleChange = viewModel::setRole,
+            totalTime = uiState.totalFlightTime,
             picTime = uiState.picTime,
             onPicTimeChange = viewModel::updatePicTime,
             dualTime = uiState.dualTime,
@@ -208,10 +215,12 @@ fun FlightEntryScreen(
         Spacer(modifier = Modifier.height(16.dp))
         
         FlightRulesSection(
+            showIfr = uiState.showIfrFields,
+            onShowIfrChange = viewModel::setShowIfrFields,
+            isLocal = uiState.isLocalFlight,
             ifrTime = uiState.ifrTime,
             onIfrTimeChange = viewModel::updateIfrTime,
             vfrTime = uiState.vfrTime,
-            onVfrTimeChange = viewModel::updateVfrTime,
             crossCountryTime = uiState.crossCountryTime,
             onCrossCountryTimeChange = viewModel::updateCrossCountryTime
         )
@@ -287,6 +296,8 @@ private fun FlightBasicInfo(
     onDepartureChange: (String) -> Unit,
     arrival: String,
     onArrivalChange: (String) -> Unit,
+    isLocal: Boolean,
+    onLocalChange: (Boolean) -> Unit,
     routeVia: String,
     onRouteViaChange: (String) -> Unit
 ) {
@@ -321,6 +332,28 @@ private fun FlightBasicInfo(
             )
             
             Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(Modifier.weight(1f)) {
+                    Text(
+                        text = "Local flight",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Text(
+                        text = if (isLocal) "Training in the local area, back to the same aerodrome"
+                               else "Cross-country: lands somewhere else",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Switch(checked = isLocal, onCheckedChange = onLocalChange)
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
             
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -329,25 +362,32 @@ private fun FlightBasicInfo(
                 OutlinedTextField(
                     value = departure,
                     onValueChange = onDepartureChange,
-                    label = { Text("Departure") },
+                    label = { Text(if (isLocal) "Aerodrome" else "Departure") },
+                    placeholder = { Text("HKNW") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
                     modifier = Modifier.weight(1f)
                 )
                 
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                    contentDescription = "to",
-                    modifier = Modifier
-                        .padding(top = 16.dp)
-                        .size(20.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                
-                OutlinedTextField(
-                    value = arrival,
-                    onValueChange = onArrivalChange,
-                    label = { Text("Arrival") },
-                    modifier = Modifier.weight(1f)
-                )
+                if (!isLocal) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = "to",
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .size(20.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    
+                    OutlinedTextField(
+                        value = arrival,
+                        onValueChange = onArrivalChange,
+                        label = { Text("Arrival") },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
+                        modifier = Modifier.weight(1f)
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -355,8 +395,8 @@ private fun FlightBasicInfo(
             OutlinedTextField(
                 value = routeVia,
                 onValueChange = onRouteViaChange,
-                label = { Text("Via / training area") },
-                placeholder = { Text("e.g. Ngong Hills - Athi River, or Circuits RWY 07") },
+                label = { Text(if (isLocal) "Training area / what you flew" else "Route via") },
+                placeholder = { Text(if (isLocal) "e.g. Ngong Hills area, Ex 12–13, or Circuits RWY 07" else "e.g. Naivasha - Nakuru") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -708,7 +748,8 @@ private fun LandingsSection(
     nightLandings: Int,
     onNightLandingsChange: (Int) -> Unit,
     instrumentApproaches: Int,
-    onInstrumentApproachesChange: (Int) -> Unit
+    onInstrumentApproachesChange: (Int) -> Unit,
+    showIfr: Boolean
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -716,7 +757,7 @@ private fun LandingsSection(
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "Landings & Approaches",
+                text = if (showIfr) "Landings & Approaches" else "Landings",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.primary
@@ -727,8 +768,10 @@ private fun LandingsSection(
             CounterRow("Day landings", dayLandings, onDayLandingsChange)
             Spacer(modifier = Modifier.height(8.dp))
             CounterRow("Night landings", nightLandings, onNightLandingsChange)
-            Spacer(modifier = Modifier.height(8.dp))
-            CounterRow("Instrument approaches", instrumentApproaches, onInstrumentApproachesChange)
+            if (showIfr) {
+                Spacer(modifier = Modifier.height(8.dp))
+                CounterRow("Instrument approaches", instrumentApproaches, onInstrumentApproachesChange)
+            }
         }
     }
 }
@@ -831,8 +874,12 @@ private fun FlightTimeSection(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PilotRoleSection(
+    role: FlightRole,
+    onRoleChange: (FlightRole) -> Unit,
+    totalTime: Double,
     picTime: Double,
     onPicTimeChange: (Double) -> Unit,
     dualTime: Double,
@@ -850,64 +897,83 @@ private fun PilotRoleSection(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
-                text = "Pilot Role",
+                text = "Dual or solo",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.primary
             )
             
             Spacer(modifier = Modifier.height(12.dp))
-            
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                OutlinedTextField(
-                    value = if (picTime == 0.0) "" else picTime.toString(),
-                    onValueChange = { value ->
-                        onPicTimeChange(value.toDoubleOrNull() ?: 0.0)
-                    },
-                    label = { Text("PIC") },
-                    modifier = Modifier.weight(1f),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+
+            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                val options = listOf(
+                    FlightRole.DUAL to "Dual",
+                    FlightRole.SOLO to "Solo",
+                    FlightRole.OTHER to "Other"
                 )
-                
-                OutlinedTextField(
-                    value = if (dualTime == 0.0) "" else dualTime.toString(),
-                    onValueChange = { value ->
-                        onDualTimeChange(value.toDoubleOrNull() ?: 0.0)
-                    },
-                    label = { Text("Dual") },
-                    modifier = Modifier.weight(1f),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
-                )
+                options.forEachIndexed { index, (value, label) ->
+                    SegmentedButton(
+                        selected = role == value,
+                        onClick = { onRoleChange(value) },
+                        shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size)
+                    ) { Text(label) }
+                }
             }
-            
+
             Spacer(modifier = Modifier.height(8.dp))
-            
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                OutlinedTextField(
-                    value = if (coPilotTime == 0.0) "" else coPilotTime.toString(),
-                    onValueChange = { value ->
-                        onCoPilotTimeChange(value.toDoubleOrNull() ?: 0.0)
-                    },
-                    label = { Text("Co-Pilot") },
-                    modifier = Modifier.weight(1f),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+
+            when (role) {
+                FlightRole.DUAL -> Text(
+                    text = "Logged as dual: ${FlightTimeCalculator.formatHoursMinutes(totalTime)} with an instructor.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                
-                OutlinedTextField(
-                    value = if (instructorTime == 0.0) "" else instructorTime.toString(),
-                    onValueChange = { value ->
-                        onInstructorTimeChange(value.toDoubleOrNull() ?: 0.0)
-                    },
-                    label = { Text("Instructor") },
-                    modifier = Modifier.weight(1f),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                FlightRole.SOLO -> Text(
+                    text = "Logged as PIC: ${FlightTimeCalculator.formatHoursMinutes(totalTime)} solo.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+                FlightRole.OTHER -> {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = if (picTime == 0.0) "" else picTime.toString(),
+                            onValueChange = { value -> onPicTimeChange(value.toDoubleOrNull() ?: 0.0) },
+                            label = { Text("PIC") },
+                            modifier = Modifier.weight(1f),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                        )
+                        OutlinedTextField(
+                            value = if (dualTime == 0.0) "" else dualTime.toString(),
+                            onValueChange = { value -> onDualTimeChange(value.toDoubleOrNull() ?: 0.0) },
+                            label = { Text("Dual") },
+                            modifier = Modifier.weight(1f),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = if (coPilotTime == 0.0) "" else coPilotTime.toString(),
+                            onValueChange = { value -> onCoPilotTimeChange(value.toDoubleOrNull() ?: 0.0) },
+                            label = { Text("Co-Pilot") },
+                            modifier = Modifier.weight(1f),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                        )
+                        OutlinedTextField(
+                            value = if (instructorTime == 0.0) "" else instructorTime.toString(),
+                            onValueChange = { value -> onInstructorTimeChange(value.toDoubleOrNull() ?: 0.0) },
+                            label = { Text("Instructor") },
+                            modifier = Modifier.weight(1f),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                        )
+                    }
+                }
             }
         }
     }
@@ -915,10 +981,12 @@ private fun PilotRoleSection(
 
 @Composable
 private fun FlightRulesSection(
+    showIfr: Boolean,
+    onShowIfrChange: (Boolean) -> Unit,
+    isLocal: Boolean,
     ifrTime: Double,
     onIfrTimeChange: (Double) -> Unit,
     vfrTime: Double,
-    onVfrTimeChange: (Double) -> Unit,
     crossCountryTime: Double,
     onCrossCountryTimeChange: (Double) -> Unit
 ) {
@@ -929,51 +997,66 @@ private fun FlightRulesSection(
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            Text(
-                text = "Flight Rules & Cross Country",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.primary
-            )
-            
-            Spacer(modifier = Modifier.height(12.dp))
-            
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                OutlinedTextField(
-                    value = if (ifrTime == 0.0) "" else ifrTime.toString(),
-                    onValueChange = { value ->
-                        onIfrTimeChange(value.toDoubleOrNull() ?: 0.0)
-                    },
-                    label = { Text("IFR Time") },
-                    modifier = Modifier.weight(1f),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = if (showIfr) "Flight rules & cross-country" else "Cross-country",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.primary
                 )
-                
-                OutlinedTextField(
-                    value = if (vfrTime == 0.0) "" else vfrTime.toString(),
-                    onValueChange = { value ->
-                        onVfrTimeChange(value.toDoubleOrNull() ?: 0.0)
-                    },
-                    label = { Text("VFR Time") },
-                    modifier = Modifier.weight(1f),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                Spacer(Modifier.weight(1f))
+                TextButton(onClick = { onShowIfrChange(!showIfr) }) {
+                    Text(if (showIfr) "Hide IFR" else "Show IFR")
+                }
+            }
+
+            if (showIfr) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    OutlinedTextField(
+                        value = if (ifrTime == 0.0) "" else ifrTime.toString(),
+                        onValueChange = { value -> onIfrTimeChange(value.toDoubleOrNull() ?: 0.0) },
+                        label = { Text("IFR Time") },
+                        modifier = Modifier.weight(1f),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                    )
+                    OutlinedTextField(
+                        value = FlightTimeCalculator.formatDecimal(vfrTime),
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text("VFR Time") },
+                        supportingText = { Text("Total minus IFR") },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            } else {
+                Text(
+                    text = "VFR flight — all of the time is logged as VFR.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            
-            Spacer(modifier = Modifier.height(8.dp))
-            
-            OutlinedTextField(
-                value = if (crossCountryTime == 0.0) "" else crossCountryTime.toString(),
-                onValueChange = { value ->
-                    onCrossCountryTimeChange(value.toDoubleOrNull() ?: 0.0)
-                },
-                label = { Text("Cross Country Time") },
-                modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
-            )
+
+            if (!isLocal || crossCountryTime > 0.0) {
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = if (crossCountryTime == 0.0) "" else crossCountryTime.toString(),
+                    onValueChange = { value -> onCrossCountryTimeChange(value.toDoubleOrNull() ?: 0.0) },
+                    label = { Text("Cross-country time (hours)") },
+                    supportingText = { Text("Counts towards the PPL qualifying cross-country") },
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+                )
+            } else {
+                Text(
+                    text = "Local flight — no cross-country time. Turn off \"Local flight\" above for a navigation exercise.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
 }

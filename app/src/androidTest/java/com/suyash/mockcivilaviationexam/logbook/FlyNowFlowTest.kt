@@ -139,7 +139,9 @@ class FlyNowFlowTest {
         val flights = runBlocking { app.flightEntryRepository.getAllFlights(LogbookUser.id()).first() }
         val saved = flights.first { it.aircraftRegistration == "5Y-TST" }
         assertEquals(2, saved.dayLandings)
-        assertEquals("HKNW - HKNW", saved.routeSummary)
+        assertEquals("Local · HKNW", saved.routeSummary)
+        assertEquals("HKNW", saved.arrivalAerodrome)
+        assertEquals(saved.totalFlightTime, saved.dualTime, 0.001)
         assertEquals(saved.aircraftId, app.logbookPreferences.defaultAircraftId)
 
         // The registration typed once is now on the remembered aircraft profile.

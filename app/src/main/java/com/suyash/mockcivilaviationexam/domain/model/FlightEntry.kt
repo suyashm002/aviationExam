@@ -82,13 +82,38 @@ data class FlightEntry(
         get() = if (hobbsStart != null && hobbsEnd != null && hobbsEnd >= hobbsStart)
             Math.round((hobbsEnd - hobbsStart) * 10.0) / 10.0 else null
 
-    /** "HKNW - Ngong Hills - HKNW" style route line for lists and the PDF. */
+    /**
+     * A training flight that departs and returns to the same aerodrome. The
+     * logbook still records both columns (KCAA/ICAO format needs them); this
+     * only changes how the flight is described in the app.
+     */
+    val isLocal: Boolean
+        get() = departureAerodrome.isNotBlank() &&
+            departureAerodrome.trim().equals(arrivalAerodrome.trim(), ignoreCase = true)
+
+    /**
+     * "Local · HKNW · Ngong Hills area" for a training flight, or
+     * "HKNW - Nakuru - HKKR" for a cross-country. Used by lists and the detail page.
+     */
     val routeSummary: String
-        get() = listOfNotNull(
-            departureAerodrome.ifBlank { null },
-            routeVia?.ifBlank { null },
-            arrivalAerodrome.ifBlank { null }
-        ).joinToString(" - ")
+        get() = if (isLocal) {
+            listOfNotNull("Local", departureAerodrome.trim(), routeVia?.trim()?.ifBlank { null })
+                .joinToString(" · ")
+        } else {
+            listOfNotNull(
+                departureAerodrome.ifBlank { null },
+                routeVia?.ifBlank { null },
+                arrivalAerodrome.ifBlank { null }
+            ).joinToString(" - ")
+        }
+
+    /** Dual, Solo, or something else (PPL students only ever log the first two). */
+    val role: FlightRole
+        get() = when {
+            dualTime > 0.0 && picTime <= 0.0 -> FlightRole.DUAL
+            picTime > 0.0 && dualTime <= 0.0 -> FlightRole.SOLO
+            else -> FlightRole.OTHER
+        }
 
     private fun toMinutes(decimalHours: Double): Int =
         if (decimalHours <= 0.0) 0 else Math.round(decimalHours * 60).toInt()
@@ -183,6 +208,9 @@ data class Endorsement(
     val timestamp: Long,
     val remarks: String? = null
 )
+
+/** How the pilot's time is logged. A PPL student is either with an instructor or solo. */
+enum class FlightRole { DUAL, SOLO, OTHER }
 
 enum class AircraftCategory {
     AIRPLANE_SINGLE_ENGINE_LAND,

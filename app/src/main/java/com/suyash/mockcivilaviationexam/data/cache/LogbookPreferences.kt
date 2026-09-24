@@ -33,6 +33,21 @@ class LogbookPreferences(context: Context) {
         get() = prefs.getString(KEY_LAST_INSTRUCTOR_LICENSE, "") ?: ""
         set(value) = prefs.edit().putString(KEY_LAST_INSTRUCTOR_LICENSE, value.trim()).apply()
 
+    /** PPL training is VFR; IFR time and instrument approaches stay hidden until wanted. */
+    var showIfrFields: Boolean
+        get() = prefs.getBoolean(KEY_SHOW_IFR, false)
+        set(value) = prefs.edit().putBoolean(KEY_SHOW_IFR, value).apply()
+
+    /** "DUAL" or "SOLO" — what the last flight was, pre-selected on the next. */
+    var lastRole: String
+        get() = prefs.getString(KEY_LAST_ROLE, "DUAL") ?: "DUAL"
+        set(value) = prefs.edit().putString(KEY_LAST_ROLE, value).apply()
+
+    /** Where the last training area / route line was, pre-filled on the next local flight. */
+    var lastRouteVia: String
+        get() = prefs.getString(KEY_LAST_ROUTE_VIA, "") ?: ""
+        set(value) = prefs.edit().putString(KEY_LAST_ROUTE_VIA, value.trim()).apply()
+
     /** Whether the recorder should use GPS to detect takeoff and landing. */
     var gpsAutoDetect: Boolean
         get() = prefs.getBoolean(KEY_GPS_AUTO_DETECT, true)
@@ -64,6 +79,9 @@ class LogbookPreferences(context: Context) {
         private const val KEY_LAST_ARRIVAL = "last_arrival"
         private const val KEY_LAST_INSTRUCTOR_NAME = "last_instructor_name"
         private const val KEY_LAST_INSTRUCTOR_LICENSE = "last_instructor_license"
+        private const val KEY_SHOW_IFR = "show_ifr_fields"
+        private const val KEY_LAST_ROLE = "last_role"
+        private const val KEY_LAST_ROUTE_VIA = "last_route_via"
         private const val KEY_GPS_AUTO_DETECT = "gps_auto_detect"
         private const val KEY_TAKEOFF_SPEED = "takeoff_speed_kt"
         private const val KEY_LANDING_SPEED = "landing_speed_kt"

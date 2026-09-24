@@ -39,6 +39,8 @@ data class RecorderState(
     val aircraft: RecorderAircraft? = null,
     val departure: String = "",
     val arrival: String = "",
+    /** Training area or route description, e.g. "Ngong Hills area". */
+    val routeVia: String = "",
     val gpsEnabled: Boolean = false,
     val gpsFixAvailable: Boolean = false,
     val offBlockAt: Long? = null,
@@ -84,6 +86,7 @@ data class RecordedFlight(
     val aircraft: RecorderAircraft?,
     val departure: String,
     val arrival: String,
+    val routeVia: String,
     val offBlock: LocalTime?,
     val takeoff: LocalTime?,
     val landing: LocalTime?,
@@ -126,7 +129,7 @@ class FlightRecorder(
 
     // ---- Session lifecycle -------------------------------------------------
 
-    fun start(aircraft: RecorderAircraft?, departure: String, arrival: String, gps: Boolean) {
+    fun start(aircraft: RecorderAircraft?, departure: String, arrival: String, gps: Boolean, routeVia: String = "") {
         if (_state.value.isActive) return
         detector = newDetector()
         pending.clear()
@@ -136,13 +139,14 @@ class FlightRecorder(
             aircraft = aircraft,
             departure = departure.trim(),
             arrival = arrival.trim(),
+            routeVia = routeVia.trim(),
             gpsEnabled = gps
         )
         persist()
     }
 
-    fun setRoute(departure: String, arrival: String) {
-        _state.update { it.copy(departure = departure.trim(), arrival = arrival.trim()) }
+    fun setRoute(departure: String, arrival: String, routeVia: String = _state.value.routeVia) {
+        _state.update { it.copy(departure = departure.trim(), arrival = arrival.trim(), routeVia = routeVia.trim()) }
         persist()
     }
 
@@ -244,6 +248,7 @@ class FlightRecorder(
             aircraft = s.aircraft,
             departure = s.departure,
             arrival = s.arrival,
+            routeVia = s.routeVia,
             offBlock = time(s.offBlockAt),
             takeoff = time(s.takeoffAt),
             landing = time(s.landingAt),

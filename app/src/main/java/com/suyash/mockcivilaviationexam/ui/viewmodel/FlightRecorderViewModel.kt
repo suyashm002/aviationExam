@@ -41,6 +41,7 @@ class FlightRecorderViewModel(
                     selectedAircraft = it.selectedAircraft ?: default,
                     departure = it.departure.ifBlank { prefs.lastDeparture },
                     arrival = it.arrival.ifBlank { prefs.lastArrival.ifBlank { prefs.lastDeparture } },
+                    routeVia = it.routeVia.ifBlank { prefs.lastRouteVia },
                     gpsRequested = prefs.gpsAutoDetect
                 )
             }
@@ -53,7 +54,13 @@ class FlightRecorderViewModel(
         // Resuming an in-progress flight: mirror its route into the form.
         val active = recorder.state.value
         if (active.isActive) {
-            _form.update { it.copy(departure = active.departure, arrival = active.arrival, gpsRequested = active.gpsEnabled) }
+            _form.update {
+                it.copy(
+                    departure = active.departure, arrival = active.arrival, routeVia = active.routeVia,
+                    isLocal = active.arrival.isBlank() || active.arrival.equals(active.departure, true),
+                    gpsRequested = active.gpsEnabled
+                )
+            }
         }
     }
 
@@ -63,13 +70,28 @@ class FlightRecorderViewModel(
     }
 
     fun updateDeparture(text: String) {
-        _form.update { it.copy(departure = text.uppercase()) }
-        if (recorder.state.value.isActive) recorder.setRoute(text, _form.value.arrival)
+        _form.update { it.copy(departure = text.uppercase(), arrival = if (it.isLocal) text.uppercase() else it.arrival) }
+        syncRoute()
     }
 
     fun updateArrival(text: String) {
         _form.update { it.copy(arrival = text.uppercase()) }
-        if (recorder.state.value.isActive) recorder.setRoute(_form.value.departure, text)
+        syncRoute()
+    }
+
+    fun updateRouteVia(text: String) {
+        _form.update { it.copy(routeVia = text) }
+        syncRoute()
+    }
+
+    fun setLocal(local: Boolean) {
+        _form.update { it.copy(isLocal = local, arrival = if (local) it.departure else it.arrival) }
+        syncRoute()
+    }
+
+    private fun syncRoute() {
+        val f = _form.value
+        if (recorder.state.value.isActive) recorder.setRoute(f.departure, f.arrival, f.routeVia)
     }
 
     /** The switch was toggled. The screen handles permissions and the service. */
@@ -90,7 +112,8 @@ class FlightRecorderViewModel(
         }
         prefs.lastDeparture = f.departure
         prefs.lastArrival = f.arrival
-        recorder.start(aircraft, f.departure, f.arrival, gps = f.gpsRequested && !f.permissionDenied)
+        if (f.isLocal) prefs.lastRouteVia = f.routeVia
+        recorder.start(aircraft, f.departure, f.arrival, gps = f.gpsRequested && !f.permissionDenied, routeVia = f.routeVia)
     }
 
     fun offBlocks() = recorder.markOffBlock()
@@ -107,6 +130,10 @@ data class RecorderFormState(
     val selectedAircraft: Aircraft? = null,
     val departure: String = "",
     val arrival: String = "",
+    /** Training area or route line. */
+    val routeVia: String = "",
+    /** Back to the same aerodrome — the PPL default. */
+    val isLocal: Boolean = true,
     val gpsRequested: Boolean = true,
     val permissionDenied: Boolean = false
 )
