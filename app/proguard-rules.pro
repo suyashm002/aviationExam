@@ -37,3 +37,11 @@
 -keepclassmembernames class kotlinx.** {
     volatile <fields>;
 }
+# Flight recorder: the in-progress session is persisted as Gson JSON so a
+# flight survives process death. Gson reads field names by reflection, so they
+# must survive R8 unchanged — otherwise an app update mid-flight would fail to
+# restore the session.
+-keep class com.suyash.mockcivilaviationexam.domain.logbook.RecorderState { *; }
+-keep class com.suyash.mockcivilaviationexam.domain.logbook.RecorderAircraft { *; }
+-keep enum com.suyash.mockcivilaviationexam.domain.logbook.FlightPhase { *; }
+-keepclassmembers class com.suyash.mockcivilaviationexam.domain.logbook.RecorderState { <init>(...); }

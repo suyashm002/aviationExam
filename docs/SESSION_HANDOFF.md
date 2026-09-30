@@ -948,11 +948,11 @@ Single items left as keyed, with the doubt recorded:
 
 ---
 
-## Build state — REBUILT 2026-09-21
+## Build state — REBUILT 2026-09-30 as 11 (1.3.0)
 
-`app/build/outputs/bundle/release/app-release.aab` was rebuilt on 2026-09-21 from
-the final TSV (all seven sections audited, `TSV_ASSET_VERSION = 7`). This is the
-build to upload. If the TSV or any source changes again, rebuild:
+`app/build/outputs/bundle/release/app-release.aab` was rebuilt on 2026-09-30 as
+11 (1.3.0) with the logbook on (`TSV_ASSET_VERSION` still 7; no question-bank
+change). This is the build to upload. If the TSV or any source changes again, rebuild:
 
 ```bash
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-23.jdk/Contents/Home
@@ -963,7 +963,10 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-23.jdk/Contents/Home
 `java` on PATH are both 25). Temurin 23 is what `.idea/gradle.xml` uses;
 Corretto 21 and JBR 17 under `~/Library/Java/JavaVirtualMachines` also work.
 
-**versionCode 10 / 1.2.1** (bumped 2026-09-21: Play already holds a version
+**versionCode 11 / 1.3.0** (2026-09-30: first release with the logbook and Fly
+Now recorder; the Play Console needs a Foreground service permissions
+declaration for FOREGROUND_SERVICE_LOCATION — see `docs/STORE_LISTING.md`).
+Before that, versionCode 10 / 1.2.1 (bumped 2026-09-21: Play already holds a version
 code 9 from the stale 24 Aug upload and refused the new bundle as a duplicate;
 the user saw "You cannot remove all production APKs and Android App Bundles"
 after deleting the old one from an empty release). targetSdk 36, Play
