@@ -68,11 +68,46 @@ data class ExamResults(
 data class QuestionResult(
     val questionId: String = "",
     val questionText: String = "",
+    /** Answer letter, e.g. "B". */
     val selectedAnswer: String = "",
+    /** Answer letter, e.g. "C". */
     val correctAnswer: String = "",
     val isCorrect: Boolean = false,
-    val explanation: String? = null
-)
+    val explanation: String? = null,
+    /** The option text behind [selectedAnswer], when the question is available. */
+    val selectedAnswerText: String? = null,
+    /** The option text behind [correctAnswer], when the question is available. */
+    val correctAnswerText: String? = null
+) {
+    /** "B — 1013.25 hPa", or just the letter when the text is unknown. */
+    val selectedAnswerDisplay: String
+        get() = displayAnswer(selectedAnswer, selectedAnswerText)
+
+    val correctAnswerDisplay: String
+        get() = displayAnswer(correctAnswer, correctAnswerText)
+
+    /** Fills in the option texts from the question this result came from. */
+    fun withOptionTexts(question: Question?): QuestionResult =
+        if (question == null) this
+        else copy(
+            selectedAnswerText = question.optionText(selectedAnswer),
+            correctAnswerText = question.optionText(correctAnswer)
+        )
+
+    private fun displayAnswer(letter: String, text: String?): String {
+        val l = letter.trim().uppercase()
+        return if (text.isNullOrBlank()) l else "$l — $text"
+    }
+}
+
+/** The option text for an answer letter, or null when the letter is not A–D. */
+fun Question.optionText(letter: String): String? = when (letter.trim().uppercase()) {
+    "A" -> optionA
+    "B" -> optionB
+    "C" -> optionC
+    "D" -> optionD
+    else -> null
+}?.takeIf { it.isNotBlank() }
 
 data class UserExamStats(
     val userEmail: String = "",

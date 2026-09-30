@@ -445,7 +445,7 @@ private fun QuestionResultCard(
 
             if (questionResult.selectedAnswer.isNotEmpty()) {
                 Text(
-                    text = "Your answer: ${questionResult.selectedAnswer}",
+                    text = "Your answer: ${questionResult.selectedAnswerDisplay}",
                     style = MaterialTheme.typography.bodySmall,
                     color = if (isCorrect) HUDGreen else AviationError
                 )
@@ -458,8 +458,9 @@ private fun QuestionResultCard(
             }
 
             if (!isCorrect) {
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Correct: ${questionResult.correctAnswer}",
+                    text = "Correct answer: ${questionResult.correctAnswerDisplay}",
                     style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
                     color = HUDGreen
                 )

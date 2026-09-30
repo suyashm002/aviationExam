@@ -212,7 +212,7 @@ class ExamRepository(
                     correctAnswer = question.correctAnswer,
                     isCorrect = isCorrect,
                     explanation = question.explanation
-                )
+                ).withOptionTexts(question)
             }
 
             val totalQuestions = questions.size
@@ -299,6 +299,10 @@ class ExamRepository(
         }
         return try {
             val entities = examSessionDao?.getQuestionResults(sessionId) ?: return emptyList()
+            // Stored results only carry the answer letters; the option text is
+            // looked up from the bundled question bank so the screen can show
+            // "C — 1013.25 hPa" rather than a bare "C".
+            val questions = cacheManager.getQuestionsByIds(entities.map { it.questionId })
             entities.map { e ->
                 QuestionResult(
                     questionId = e.questionId,
@@ -307,7 +311,7 @@ class ExamRepository(
                     correctAnswer = e.correctAnswer,
                     isCorrect = e.isCorrect,
                     explanation = e.explanation?.ifEmpty { null }
-                )
+                ).withOptionTexts(questions[e.questionId])
             }
         } catch (e: Exception) {
             Log.e(TAG, "Failed to fetch stored question results: ${e.message}", e)

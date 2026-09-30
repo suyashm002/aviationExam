@@ -11,6 +11,9 @@ interface ExamQuestionDao {
     @Query("SELECT * FROM exam_questions WHERE sectionId = :sectionId")
     suspend fun getQuestionsBySection(sectionId: String): List<ExamQuestionEntity>
 
+    @Query("SELECT * FROM exam_questions WHERE id IN (:ids)")
+    suspend fun getQuestionsByIds(ids: List<String>): List<ExamQuestionEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuestions(questions: List<ExamQuestionEntity>)
 

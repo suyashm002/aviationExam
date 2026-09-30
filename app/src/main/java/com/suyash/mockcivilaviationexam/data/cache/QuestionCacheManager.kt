@@ -229,6 +229,18 @@ class QuestionCacheManager(
     /**
      * Clears Room DB questions as well (for full reset).
      */
+    /**
+     * Questions by id, for the results screen: a stored result only carries
+     * the answer letters, and the option text lives here.
+     */
+    suspend fun getQuestionsByIds(ids: Collection<String>): Map<String, Question> {
+        val dao = examQuestionDao ?: return emptyMap()
+        if (ids.isEmpty()) return emptyMap()
+        return ids.distinct().chunked(500)
+            .flatMap { chunk -> dao.getQuestionsByIds(chunk) }
+            .associate { it.id to it.toDomain() }
+    }
+
     suspend fun clearAllData() {
         clearAllCache()
         try {
