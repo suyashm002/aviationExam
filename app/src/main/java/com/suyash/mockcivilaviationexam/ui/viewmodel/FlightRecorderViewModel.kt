@@ -23,7 +23,9 @@ import kotlinx.coroutines.launch
 class FlightRecorderViewModel(
     val recorder: FlightRecorder,
     private val aircraftDefaults: AircraftDefaultsUseCase,
-    private val prefs: LogbookPreferences
+    private val prefs: LogbookPreferences,
+    /** False in builds without the location permissions: manual buttons only. */
+    val gpsFeatureEnabled: Boolean = false
 ) : ViewModel() {
 
     private val _form = MutableStateFlow(RecorderFormState())
@@ -42,7 +44,7 @@ class FlightRecorderViewModel(
                     departure = it.departure.ifBlank { prefs.lastDeparture },
                     arrival = it.arrival.ifBlank { prefs.lastArrival.ifBlank { prefs.lastDeparture } },
                     routeVia = it.routeVia.ifBlank { prefs.lastRouteVia },
-                    gpsRequested = prefs.gpsAutoDetect
+                    gpsRequested = gpsFeatureEnabled && prefs.gpsAutoDetect
                 )
             }
         }
@@ -58,7 +60,7 @@ class FlightRecorderViewModel(
                 it.copy(
                     departure = active.departure, arrival = active.arrival, routeVia = active.routeVia,
                     isLocal = active.arrival.isBlank() || active.arrival.equals(active.departure, true),
-                    gpsRequested = active.gpsEnabled
+                    gpsRequested = gpsFeatureEnabled && active.gpsEnabled
                 )
             }
         }
@@ -96,9 +98,10 @@ class FlightRecorderViewModel(
 
     /** The switch was toggled. The screen handles permissions and the service. */
     fun setGpsRequested(enabled: Boolean) {
-        _form.update { it.copy(gpsRequested = enabled) }
-        prefs.gpsAutoDetect = enabled
-        if (recorder.state.value.isActive) recorder.setGpsEnabled(enabled)
+        val on = enabled && gpsFeatureEnabled
+        _form.update { it.copy(gpsRequested = on) }
+        prefs.gpsAutoDetect = on
+        if (recorder.state.value.isActive) recorder.setGpsEnabled(on)
     }
 
     fun setPermissionDenied(denied: Boolean) {
@@ -113,7 +116,7 @@ class FlightRecorderViewModel(
         prefs.lastDeparture = f.departure
         prefs.lastArrival = f.arrival
         if (f.isLocal) prefs.lastRouteVia = f.routeVia
-        recorder.start(aircraft, f.departure, f.arrival, gps = f.gpsRequested && !f.permissionDenied, routeVia = f.routeVia)
+        recorder.start(aircraft, f.departure, f.arrival, gps = gpsFeatureEnabled && f.gpsRequested && !f.permissionDenied, routeVia = f.routeVia)
     }
 
     fun offBlocks() = recorder.markOffBlock()

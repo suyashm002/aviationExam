@@ -190,7 +190,10 @@ fun AppNavGraph(
 
         composable(Screen.FlightRecorder.route) {
             val viewModel: FlightRecorderViewModel = viewModel {
-                FlightRecorderViewModel(app.flightRecorder, app.aircraftDefaultsUseCase, app.logbookPreferences)
+                FlightRecorderViewModel(
+                    app.flightRecorder, app.aircraftDefaultsUseCase, app.logbookPreferences,
+                    gpsFeatureEnabled = app.featureFlags.gpsRecordingEnabled
+                )
             }
             FlightRecorderScreen(
                 onNavigateBack = { navController.popBackStack() },

@@ -205,7 +205,7 @@ fun HomeScreen(
                                 color = androidx.compose.ui.graphics.Color.White
                             )
                             Text(
-                                text = "Fly now: time your flight, record the track, log the hours",
+                                text = "Fly now: time your flight and log the hours",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.85f)
                             )

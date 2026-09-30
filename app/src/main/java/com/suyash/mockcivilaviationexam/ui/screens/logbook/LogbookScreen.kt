@@ -209,7 +209,7 @@ private fun FlyNowCard(
                 )
                 Text(
                     text = if (inProgress) phaseText
-                           else "Time your flight from off blocks to on blocks, with GPS takeoff and landing detection",
+                           else "Time your flight from off blocks to on blocks and log it in one tap",
                     style = MaterialTheme.typography.bodySmall,
                     color = if (inProgress) MaterialTheme.colorScheme.onTertiaryContainer
                             else MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f)

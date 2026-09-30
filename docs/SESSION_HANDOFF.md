@@ -97,7 +97,9 @@ rolling out; it ships with the next release.
 - **Fixes**: the stuck spinner in `LogbookViewModel` (the reason the logbook
   was hidden) and the stacked Room collectors; `flightId` nav args are typed
   `LongType`; the Logbook has a back arrow and a Fly Now card; Home has a
-  Pilot Logbook card. `FeatureFlags.logbookEnabled` now defaults to **true**.
+  Pilot Logbook card. `FeatureFlags.logbookEnabled` was turned on, then turned back **off** for the
+  12 (1.2.2) release the same week; `gpsRecordingEnabled` (new, default false)
+  gates the GPS service separately.
 
 **Tests.** 24 JVM unit tests pass (`FlightPhaseDetectorTest`, `TrackStatsTest`,
 `FlightRecorderStateTest`, `FlightEntryTest`, plus the existing calculator
@@ -948,11 +950,15 @@ Single items left as keyed, with the doubt recorded:
 
 ---
 
-## Build state — REBUILT 2026-09-30 as 11 (1.3.0)
+## Build state — REBUILT 2026-09-30 as 12 (1.2.2), logbook and GPS hidden
 
 `app/build/outputs/bundle/release/app-release.aab` was rebuilt on 2026-09-30 as
-11 (1.3.0) with the logbook on (`TSV_ASSET_VERSION` still 7; no question-bank
-change). This is the build to upload. If the TSV or any source changes again, rebuild:
+**12 (1.2.2)** with `logbookEnabled = false` and `gpsRecordingEnabled = false`
+(user decision that evening: ship the results-screen fix now, hold the logbook).
+The location / foreground-service permissions and the FlightRecorderService
+entry are removed from the manifest so Play needs no new declaration; both are
+preserved in a manifest comment. 11 (1.3.0) was built but never uploaded.
+`TSV_ASSET_VERSION` still 7. This is the build to upload. If the TSV or any source changes again, rebuild:
 
 ```bash
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-23.jdk/Contents/Home
@@ -963,9 +969,8 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-23.jdk/Contents/Home
 `java` on PATH are both 25). Temurin 23 is what `.idea/gradle.xml` uses;
 Corretto 21 and JBR 17 under `~/Library/Java/JavaVirtualMachines` also work.
 
-**versionCode 11 / 1.3.0** (2026-09-30: first release with the logbook and Fly
-Now recorder; the Play Console needs a Foreground service permissions
-declaration for FOREGROUND_SERVICE_LOCATION — see `docs/STORE_LISTING.md`).
+**versionCode 12 / 1.2.2** (2026-09-30; logbook and GPS recording hidden by
+flags — see "Build state").
 Before that, versionCode 10 / 1.2.1 (bumped 2026-09-21: Play already holds a version
 code 9 from the stale 24 Aug upload and refused the new bundle as a duplicate;
 the user saw "You cannot remove all production APKs and Android App Bundles"

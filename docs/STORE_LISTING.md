@@ -2,8 +2,9 @@
 
 Copy-paste ready. Replace the current listing text field by field.
 
-**The pilot logbook ships in 1.3.0** (`FeatureFlags.logbookEnabled = true`);
-the public copy below mentions it.
+**The pilot logbook is hidden in 12 (1.2.2)** (`FeatureFlags.logbookEnabled = false`,
+decided 2026-09-30). Nothing in the public copy below mentions it; the logbook
+lines to re-add are under "When the logbook ships" at the bottom.
 
 ## App title (30 char limit)
 
@@ -24,10 +25,9 @@ Alternatives if the rank for one term matters more than the others:
 ## Short description (80 char limit)
 
 ```
-Pilot exam prep + flight logbook: 7,900+ PPL, CPL & ATPL questions, offline
+Pilot training test prep: 7,900+ PPL, CPL & ATPL aviation exam questions offline
 ```
-76 chars (2026-09-30: logbook added). Previous: "Pilot training test prep: 7,900+
-PPL, CPL & ATPL aviation exam questions offline" (80). Indexed for search and the first line users read. Carries
+80 chars exactly. Indexed for search and the first line users read. Carries
 *pilot training*, *test prep*, *PPL*, *CPL*, *ATPL*, *aviation exam*, *offline*.
 
 ## Full description (4000 char limit)
@@ -43,9 +43,6 @@ WHAT YOU GET
 • A written explanation for every single question — learn why, not just what
 • Unlimited mock exams — no daily limits, no locked sections
 • Instant results and subject-by-subject progress tracking
-• Fly Now: time your lesson from off blocks to on blocks, with GPS takeoff and landing detection
-• Digital pilot logbook — minutes in the air vs on the ground, route, altitude, speed and track
-• Your aircraft remembered (Cessna 172N pre-set for students), PDF export for your instructor
 • Full offline access — study on the apron, in the air, anywhere
 • Free to use
 
@@ -102,10 +99,8 @@ Put a one-line caption on each image; don't ship bare screen captures.
 1. Exam question in progress — caption: "7,900+ real exam-format questions"
 2. Results screen with a pass — caption: "Instant scoring and explanations"
 3. Subject grid — caption: "All 7 KCAA subjects covered"
-4. Fly Now screen airborne — caption: "Time every lesson, GPS-assisted"
-   (`docs/screenshots/fly-now.png`)
-5. Flight detail with altitude profile — caption: "Your logbook, with the track"
-   (`docs/screenshots/flight-detail.png`)
+4. Question with explanation — caption: "Every answer explained"
+5. Report-a-question sheet — caption: "Flag a problem question in one tap"
 6. Offline state — caption: "Works with no internet"
 7. Progress/stats — caption: "See your weak subjects"
 8. Free callout — caption: "Free — no exam limits"
@@ -115,35 +110,22 @@ Put a one-line caption on each image; don't ship bare screen captures.
 Aircraft cockpit or horizon background, app name, and the single line
 "7,900+ KCAA Exam Questions — Free & Offline".
 
-## Release notes — v1.3.0 (versionCode 11)
+## Release notes — v1.2.2 (versionCode 12)
 
-**Release name (Play Console, internal only):** `11 (1.3.0) — Fly Now flight recorder`
+**Release name (Play Console, internal only):** `12 (1.2.2) — answer text on results`
 
-Play's "What's new" allows 500 characters. Final copy, 429 chars, verified
-2026-09-30. The logbook is now visible (`FeatureFlags.logbookEnabled = true`).
+Play's "What's new" allows 500 characters. Final copy, 121 chars, verified
+2026-09-30. The logbook and GPS recording are hidden in this build, so neither
+is mentioned and no new Play Console declarations are needed (the location and
+foreground-service permissions are out of the manifest).
 
 ```
-New: Fly Now flight recorder and pilot logbook.
-
-• Time your lesson from off blocks to on blocks — minutes in the air vs on the ground
-• GPS detects takeoff and landing and records your track, altitude and speed
-• Your aircraft (Cessna 172N pre-set) remembered for every flight
-• Flight detail with altitude and speed profiles, PDF logbook export
-• Exam results now show the full text of the correct answer
-• Fixed logbook search
+• Exam results now show the full text of the correct answer, not just the letter
+• Stability and performance improvements
 ```
 
-**Play Console steps this release needs (first release with location):**
-
-1. App content → *Foreground service permissions*: declare
-   `FOREGROUND_SERVICE_LOCATION`, purpose "records the pilot's GPS track during
-   a flight the user started"; a short screen recording of Fly Now with GPS on
-   is required by Play.
-2. App content → *Data safety*: location is processed on the device only and
-   never transmitted, so it is not "collected" under Play's definition; keep
-   the existing answers unless you add cloud sync for tracks.
-3. App content → *Permissions declaration* is not needed (no background
-   location, no SMS/call log).
+Version code 11 (1.3.0) was built the same day with the logbook on but was not
+uploaded; it is superseded by this build.
 
 Previous release notes (10 / 1.2.1, 21 Sep 2026) — for reference:
 
@@ -183,3 +165,28 @@ Do not translate manually; Play auto-translates listings for enabled locales.
   collector clears it; returning from the entry screen without saving produces no
   emission, so the spinner never stops
 - `ProfileViewModel` is a stub, so the PDF header has no licence number
+
+## When the logbook ships (flag off in 12 / 1.2.2)
+
+Flip `FeatureFlags.logbookEnabled` to true; if GPS recording ships too, flip
+`gpsRecordingEnabled`, restore the manifest permissions and service (see the
+comment in `AndroidManifest.xml`) and complete the Play Console *Foreground
+service permissions* declaration for FOREGROUND_SERVICE_LOCATION (needs a short
+screen recording). Then use:
+
+Short description (76 chars):
+
+```
+Pilot exam prep + flight logbook: 7,900+ PPL, CPL & ATPL questions, offline
+```
+
+Full-description bullets under WHAT YOU GET:
+
+```
+• Fly Now: time your lesson from off blocks to on blocks (GPS takeoff/landing detection when enabled)
+• Digital pilot logbook — minutes in the air vs on the ground, route, altitude and speed
+• Your aircraft remembered (Cessna 172N pre-set for students), PDF export for your instructor
+```
+
+Screenshots: `docs/screenshots/fly-now.png` and `docs/screenshots/flight-detail.png`.
+Release-notes line: "New: Fly Now flight recorder and pilot logbook".

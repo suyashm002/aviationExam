@@ -55,6 +55,7 @@ fun FlightRecorderScreen(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    val gpsFeature = viewModel.gpsFeatureEnabled
     val form by viewModel.form.collectAsStateWithLifecycle()
     val state by viewModel.recorderState.collectAsStateWithLifecycle()
     var showDiscard by remember { mutableStateOf(false) }
@@ -92,7 +93,7 @@ fun FlightRecorderScreen(
     // When a session is active with GPS wanted and permission held, make sure the
     // service is running (covers a restart of the app mid-flight).
     LaunchedEffect(state.isActive, state.gpsEnabled) {
-        if (state.isActive && state.gpsEnabled && hasLocationPermission()) {
+        if (gpsFeature && state.isActive && state.gpsEnabled && hasLocationPermission()) {
             FlightRecorderService.start(context)
         }
     }
@@ -105,7 +106,7 @@ fun FlightRecorderScreen(
             confirmButton = {
                 TextButton(onClick = {
                     showDiscard = false
-                    FlightRecorderService.stop(context)
+                    if (gpsFeature) FlightRecorderService.stop(context)
                     viewModel.discard()
                     onNavigateBack()
                 }) { Text("Discard") }
@@ -166,7 +167,7 @@ fun FlightRecorderScreen(
                 onLocal = viewModel::setLocal
             )
 
-            GpsCard(
+            if (gpsFeature) GpsCard(
                 requested = form.gpsRequested,
                 permissionDenied = form.permissionDenied,
                 fixAvailable = state.gpsFixAvailable,
@@ -191,7 +192,7 @@ fun FlightRecorderScreen(
                 Button(
                     onClick = {
                         viewModel.startFlight()
-                        if (form.gpsRequested && hasLocationPermission()) FlightRecorderService.start(context)
+                        if (gpsFeature && form.gpsRequested && hasLocationPermission()) FlightRecorderService.start(context)
                     },
                     modifier = Modifier.fillMaxWidth().height(56.dp),
                     enabled = form.selectedAircraft != null
@@ -201,8 +202,8 @@ fun FlightRecorderScreen(
                     Text("Start flight", fontWeight = FontWeight.SemiBold)
                 }
                 Text(
-                    "Then tap each event as it happens: off blocks, takeoff, landing, on blocks. " +
-                        "With GPS on, takeoff and landing are detected for you.",
+                    "Then tap each event as it happens: off blocks, takeoff, landing, on blocks." +
+                        if (gpsFeature) " With GPS on, takeoff and landing are detected for you." else "",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -227,7 +228,7 @@ fun FlightRecorderScreen(
                     onLanding = viewModel::landing,
                     onOnBlocks = {
                         viewModel.onBlocks()
-                        FlightRecorderService.stop(context)
+                        if (gpsFeature) FlightRecorderService.stop(context)
                     },
                     onSave = onSaveFlight
                 )
